@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HybridHire AI - Settings</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="settings.css"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary": "#000000",
+                        "surface-container-low": "#eff4ff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#001a42",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-tint": "#565e74",
+                        "on-surface-variant": "#45464d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed": "#e0e3e5",
+                        "primary-fixed": "#dae2fd",
+                        "background": "#f8f9ff",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "on-secondary-container": "#fefcff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-container-high": "#dce9ff",
+                        "primary": "#000000",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-primary-container": "#7c839b",
+                        "secondary-container": "#2170e4",
+                        "outline": "#76777d",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#0058be",
+                        "primary-container": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#818486",
+                        "on-secondary-fixed-variant": "#004395",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#191c1e",
+                        "outline-variant": "#c6c6cd",
+                        "surface-container": "#e5eeff",
+                        "on-background": "#0b1c30",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-surface": "#0b1c30"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "stack-xl": "64px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased flex flex-col md:flex-row min-h-screen">
+    <!-- Top Navigation (Mobile primarily, but structurally present) -->
+    <header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-surface-container-lowest/70 backdrop-blur-xl border-b border-outline-variant/30 dark:border-outline-variant/10 shadow-sm md:hidden flex items-center justify-between px-margin-mobile py-4 w-full">
+        <div class="font-headline-sm text-headline-sm font-bold text-primary dark:text-on-primary-fixed">HybridHire AI</div>
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-secondary dark:text-secondary-fixed">search</span>
+            <img alt="Recruiter Profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, circular avatar portrait of a professional corporate recruiter wearing a dark blue suit in a bright, modern office setting. High quality, clear, photorealistic corporate headshot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJjYBsUbNCTpYjhMKflmk5PWSxwDVj5BVfZRPAfBEBhBFfFA_tuGO6xo8ci-kMWev_VIn8Loccl7OcZc2V9LyrJgwx93LicQGprns9MSlBl1Sx3CB1UKCZ8bniPUf-NoZVkikiEhrJXvZHLTQ0seRUfQBhl1jCUf_ley7tqsEJuNQLfS-FAAlqTL87WuvcvGZM1EE1ZrkdqEPWZ5Xy582wTMrWD3tytvmHeWYIO8nH5vxfQGKJELYW"/>
+        </div>
+    </header>
+    
+    <!-- Side Navigation (Desktop) -->
+    <aside class="hidden md:flex flex-col gap-stack-md h-full p-4 fixed left-0 h-full w-64 pt-8 bg-surface-container-low dark:bg-surface-container shadow-md z-40">
+        <div class="px-4 mb-8">
+            <div class="font-headline-md text-headline-md font-black text-primary">HybridHire AI</div>
+            <div class="text-on-surface-variant text-label-md mt-1">Recruiter Portal</div>
+            <div class="inline-block mt-2 px-2 py-1 bg-secondary-container/20 text-secondary-container rounded-full text-[10px] font-bold uppercase tracking-wider">Enterprise Tier</div>
+        </div>
+        <nav class="flex flex-col gap-2 flex-grow">
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all hover:translate-x-1 duration-200" href="settings.html">
+                <span class="material-symbols-outlined font-label-md text-label-md">person</span>
+                <span class="font-label-md text-label-md">Profile</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all hover:translate-x-1 duration-200" href="#">
+                <span class="material-symbols-outlined font-label-md text-label-md">business</span>
+                <span class="font-label-md text-label-md">Company</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all hover:translate-x-1 duration-200" href="#">
+                <span class="material-symbols-outlined font-label-md text-label-md">group</span>
+                <span class="font-label-md text-label-md">Team</span>
+            </a>
+            <!-- Active (AI Settings maps best to settings context) -->
+            <a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all hover:translate-x-1 duration-200 shadow-sm" href="settings.html">
+                <span class="material-symbols-outlined font-label-md text-label-md" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                <span class="font-label-md text-label-md">AI Settings</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all hover:translate-x-1 duration-200" href="#">
+                <span class="material-symbols-outlined font-label-md text-label-md">payments</span>
+                <span class="font-label-md text-label-md">Billing</span>
+            </a>
+        </nav>
+        <div class="mt-auto border-t border-outline-variant/30 pt-4 flex flex-col gap-2">
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all hover:translate-x-1 duration-200" href="#">
+                <span class="material-symbols-outlined font-label-md text-label-md">help</span>
+                <span class="font-label-md text-label-md">Help Center</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container/20 rounded-lg transition-all hover:translate-x-1 duration-200" href="#" id="signOutBtn">
+                <span class="material-symbols-outlined font-label-md text-label-md">logout</span>
+                <span class="font-label-md text-label-md">Sign Out</span>
+            </a>
+        </div>
+    </aside>
+    
+    <!-- Main Content Canvas -->
+    <main class="flex-1 md:ml-64 pt-20 md:pt-8 px-margin-mobile md:px-margin-desktop pb-24 max-w-container-max mx-auto w-full flex flex-col gap-stack-lg">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="font-display-lg-mobile md:font-display-lg text-primary">System Configuration</h1>
+                <p class="text-on-surface-variant mt-2 font-body-lg text-body-lg">Manage your recruiter preferences, AI rules, and integration settings.</p>
+            </div>
+            <button class="bg-secondary text-on-secondary px-6 py-3 rounded-xl font-label-md text-label-md shadow-md hover:shadow-lg transition-all active:scale-95 flex items-center gap-2" id="saveChangesBtn">
+                <span class="material-symbols-outlined text-[18px]">save</span>
+                Save Changes
+            </button>
+        </div>
+        
+        <!-- Bento Grid Layout for Settings -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Column 1: Profile & Company -->
+            <div class="flex flex-col gap-6 md:col-span-1">
+                <!-- Profile Settings -->
+                <section class="glass-card p-6 flex flex-col gap-4 relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-fixed blur-3xl opacity-50 rounded-full"></div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="font-headline-sm text-headline-sm text-primary">Profile</h2>
+                        <span class="material-symbols-outlined text-outline">person_outline</span>
+                    </div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="relative group cursor-pointer" id="avatarContainer">
+                            <img alt="Current Avatar" class="w-16 h-16 rounded-full object-cover border-2 border-surface-variant shadow-sm" data-alt="A clean, professional headshot avatar of a recruiter against a stark white background. High resolution, modern corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABLwGBPW5aL743O3VQngQmA5NyUwhE5q6h7hxmGZbVgv9tcUn6-Q8vtx4xlJ0guvSMGgS0z623qInRKC21EMmzAEMCUhiybLSfC3bxhr0W4q-5c9vPT58_PNo7yya8dIv4OxT86a2BObsT_2fpH3U5z6Y5vjTC_TAjYIHwziShy7N1iVvMT35CaEfu6hXYBwq6xTjuElDr4zQRQQ40qai6dJw8YIKDwFLdZ_L3BrOZfFH_YfrimSVP"/>
+                            <div class="absolute inset-0 bg-primary/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span class="material-symbols-outlined text-on-primary">edit</span>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="text-secondary font-label-md text-label-md hover:underline" id="uploadAvatarBtn">Upload new</button>
+                            <p class="text-label-md text-outline mt-1">Max size 2MB</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div>
+                            <label class="block font-label-md text-label-md text-on-surface mb-1">Full Name</label>
+                            <input class="glass-input w-full px-4 py-2 font-body-md h-[48px]" type="text" value="Jane Doe" id="fullName"/>
+                        </div>
+                        <div>
+                            <label class="block font-label-md text-label-md text-on-surface mb-1">Email Address</label>
+                            <input class="glass-input w-full px-4 py-2 font-body-md h-[48px]" type="email" value="jane.doe@hybridhire.ai" id="emailAddress"/>
+                        </div>
+                        <div>
+                            <label class="block font-label-md text-label-md text-on-surface mb-1">Role</label>
+                            <input class="glass-input w-full px-4 py-2 font-body-md h-[48px] bg-surface-variant/30 text-outline cursor-not-allowed border-none" disabled type="text" value="Lead AI Recruiter"/>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Company Details -->
+                <section class="glass-card p-6 flex flex-col gap-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="font-headline-sm text-headline-sm text-primary">Company</h2>
+                        <span class="material-symbols-outlined text-outline">corporate_fare</span>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div>
+                            <label class="block font-label-md text-label-md text-on-surface mb-1">Organization Name</label>
+                            <input class="glass-input w-full px-4 py-2 font-body-md h-[48px]" type="text" value="Acme Corp Global" id="orgName"/>
+                        </div>
+                        <div>
+                            <label class="block font-label-md text-label-md text-on-surface mb-1">Industry</label>
+                            <select class="glass-input w-full px-4 py-2 font-body-md h-[48px]" id="industrySelect">
+                                <option selected>Technology</option>
+                                <option>Finance</option>
+                                <option>Healthcare</option>
+                                <option>Education</option>
+                                <option>Retail</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Column 2: AI Settings & Rules (The Core) -->
+            <div class="flex flex-col gap-6 md:col-span-2">
+                <!-- AI Engine Configuration -->
+                <section class="glass-card p-6 border-t-[3px] border-t-secondary relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+                                <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                                AI Screening Engine
+                            </h2>
+                            <p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Configure how the machine learning model evaluates candidates.</p>
+                        </div>
+                        <div class="w-12 h-6 bg-secondary rounded-full relative cursor-pointer flex items-center p-1 transition-colors" id="aiToggle">
+                            <div class="w-4 h-4 bg-white rounded-full shadow-sm transform translate-x-6 transition-transform" id="aiToggleDot"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Sensitivity -->
+                        <div class="flex flex-col gap-2">
+                            <div class="flex justify-between items-center">
+                                <label class="font-label-md text-label-md text-on-surface">Semantic Match Sensitivity</label>
+                                <span class="text-secondary font-bold text-body-sm" id="sensitivityLabel">High (85%)</span>
+                            </div>
+                            <input class="w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-secondary" max="100" min="0" type="range" value="85" id="sensitivityRange"/>
+                            <p class="text-[11px] text-outline mt-1">Higher sensitivity requires closer conceptual alignment between resume and job description.</p>
+                        </div>
+                        <!-- Skill Weighting -->
+                        <div class="flex flex-col gap-2">
+                            <div class="flex justify-between items-center">
+                                <label class="font-label-md text-label-md text-on-surface">Technical Skill Weighting</label>
+                                <span class="text-secondary font-bold text-body-sm" id="weightingLabel">Aggressive</span>
+                            </div>
+                            <input class="w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-secondary" max="100" min="0" type="range" value="60" id="weightingRange"/>
+                            <p class="text-[11px] text-outline mt-1">Prioritize hard skills over soft skills in the initial sorting phase.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- ATS Rules -->
+                    <div class="mt-8 border-t border-outline-variant/30 pt-6">
+                        <h3 class="font-label-md text-label-md text-on-surface mb-4">Hard ATS Disqualification Rules</h3>
+                        <div class="flex flex-col gap-3">
+                            <label class="flex items-center gap-3 p-3 bg-surface rounded-lg border border-outline-variant/30 hover:border-secondary/50 transition-colors cursor-pointer">
+                                <input checked class="w-5 h-5 rounded text-secondary border-outline-variant focus:ring-secondary/50 ats-checkbox" type="checkbox"/>
+                                <div>
+                                    <span class="block font-body-md text-on-surface font-medium">Require Minimum Experience</span>
+                                    <span class="block text-body-sm text-outline">Auto-reject candidates below the stated years of experience.</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-surface rounded-lg border border-outline-variant/30 hover:border-secondary/50 transition-colors cursor-pointer">
+                                <input class="w-5 h-5 rounded text-secondary border-outline-variant focus:ring-secondary/50 ats-checkbox" type="checkbox"/>
+                                <div>
+                                    <span class="block font-body-md text-on-surface font-medium">Strict Degree Requirement</span>
+                                    <span class="block text-body-sm text-outline">Must have exact matching degree level to proceed.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Resume Parsing & Notifications Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Parsing -->
+                    <section class="glass-card p-6 flex flex-col gap-4">
+                        <h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2 mb-2">
+                            <span class="material-symbols-outlined text-outline">document_scanner</span>
+                            Resume Extraction
+                        </h2>
+                        <div class="flex flex-col gap-3">
+                            <label class="flex items-center justify-between">
+                                <span class="font-body-sm text-on-surface">Extract LinkedIn URLs</span>
+                                <input checked class="w-4 h-4 rounded text-secondary border-outline-variant focus:ring-secondary/50 parsing-checkbox" type="checkbox"/>
+                            </label>
+                            <label class="flex items-center justify-between">
+                                <span class="font-body-sm text-on-surface">Parse Education History</span>
+                                <input checked class="w-4 h-4 rounded text-secondary border-outline-variant focus:ring-secondary/50 parsing-checkbox" type="checkbox"/>
+                            </label>
+                            <label class="flex items-center justify-between">
+                                <span class="font-body-sm text-on-surface">Normalize Job Titles</span>
+                                <input class="w-4 h-4 rounded text-secondary border-outline-variant focus:ring-secondary/50 parsing-checkbox" type="checkbox"/>
+                            </label>
+                        </div>
+                    </section>
+                    
+                    <!-- Notifications -->
+                    <section class="glass-card p-6 flex flex-col gap-4">
+                        <h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2 mb-2">
+                            <span class="material-symbols-outlined text-outline">notifications</span>
+                            Alerts
+                        </h2>
+                        <div class="flex flex-col gap-3">
+                            <label class="flex items-center justify-between">
+                                <span class="font-body-sm text-on-surface">High AI Match Alerts</span>
+                                <input checked class="w-4 h-4 rounded text-secondary border-outline-variant focus:ring-secondary/50 alert-checkbox" type="checkbox"/>
+                            </label>
+                            <label class="flex items-center justify-between">
+                                <span class="font-body-sm text-on-surface">Daily Candidate Digest</span>
+                                <input checked class="w-4 h-4 rounded text-secondary border-outline-variant focus:ring-secondary/50 alert-checkbox" type="checkbox"/>
+                            </label>
+                            <label class="flex items-center justify-between">
+                                <span class="font-body-sm text-on-surface">System Updates</span>
+                                <input class="w-4 h-4 rounded text-secondary border-outline-variant focus:ring-secondary/50 alert-checkbox" type="checkbox"/>
+                            </label>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- External JavaScript -->
+    <script src="settings.js"></script>
+</body>
+</html>

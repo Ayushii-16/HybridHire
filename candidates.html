@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Dashboard - HybridHire AI</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- FOOLPROOF Google Material Symbols & Fonts Link -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transitions for chart bars */
+        .chart-bar {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .chart-bar:hover {
+            fill: #1D4ED8 !important;
+            filter: drop-shadow(0px 4px 6px rgba(37, 99, 235, 0.4));
+        }
+    </style>
+</head>
+<body class="font-sans bg-[#f4f7fc] text-[#0b1c30] antialiased flex min-h-screen">
+
+    <!-- Left Side NavBar -->
+    <nav class="w-64 bg-white border-r border-gray-200 flex flex-col p-5 justify-between shrink-0">
+        <div>
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-[#2170e4] text-white flex items-center justify-center font-bold text-xl shadow-sm shrink-0">HH</div>
+                <div>
+                    <div class="text-xl font-bold tracking-tight text-[#0b1c30]">HybridHire AI</div>
+                    <div class="text-xs text-gray-500 font-medium">Recruiter Portal</div>
+                </div>
+            </div>
+
+        <a href="upload.html">  <button class="w-full bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-6 shadow-sm transition-colors">
+                <span class="material-symbols-outlined text-xl shrink-0">upload</span>
+                Upload Resumes
+            </button></a>  
+
+            <ul class="space-y-1">
+                <li>
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-50 text-[#3B82F6] font-semibold border-r-4 border-[#3B82F6]">
+                        <span class="material-symbols-outlined shrink-0">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="candidates.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                        <span class="material-symbols-outlined shrink-0">group</span>
+                        <span>Candidates</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="analytics.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                        <span class="material-symbols-outlined shrink-0">analytics</span>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                        <span class="material-symbols-outlined shrink-0">settings</span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col p-8 overflow-y-auto">
+        <header class="flex justify-between items-center mb-6">
+            <div class="w-full max-w-2xl">
+                <div class="relative flex items-center">
+                    <span class="material-symbols-outlined absolute left-4 text-gray-400">search</span>
+                    <input type="text" id="mainSearchInput" class="w-full h-12 pl-12 pr-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 text-gray-700 shadow-sm" placeholder="Search candidates by name or role..."/>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="p-2 text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined text-2xl">notifications</span></button>
+                <button class="p-2 text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined text-2xl">help</span></button>
+                <div class="w-10 h-10 rounded-full overflow-hidden border border-gray-200">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" alt="Profile" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </header>
+
+        <!-- Filters Strip (All Dropdowns Completely Restored & Fully Functional) -->
+        <div id="filterStrip" class="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm mb-8 flex flex-wrap items-center gap-3 transition-all duration-300">
+            <div class="flex items-center gap-2 text-gray-500 font-semibold text-sm px-2">
+                <span class="material-symbols-outlined text-lg">filter_list</span>
+                Filters:
+            </div>
+            <select id="skillFilter" class="bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:border-blue-500">
+                <option value="">All Skills</option>
+                <option value="Senior ML Engineer">ML Engineer</option>
+                <option value="Product Manager">Product Manager</option>
+                <option value="UX Designer">UX Designer</option>
+                <option value="Frontend Dev">Frontend Dev</option>
+            </select>
+            <select id="expFilter" class="bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:border-blue-500">
+                <option value="">All Experience</option>
+                <option value="6">6 Years</option>
+                <option value="4">4 Years</option>
+                <option value="3">3 Years</option>
+                <option value="2">2 Years</option>
+            </select>
+            <select id="atsFilter" class="bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:border-blue-500">
+                <option value="">ATS Score</option>
+                <option value="90">90+</option>
+                <option value="80">80+</option>
+                <option value="40">40+</option>
+            </select>
+            <select id="aiFilter" class="bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:border-blue-500">
+                <option value="">AI Match</option>
+                <option value="90">90%+</option>
+                <option value="70">70%+</option>
+                <option value="30">30%+</option>
+            </select>
+            <select id="statusFilter" class="bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:border-blue-500">
+                <option value="">All Status</option>
+                <option value="Shortlisted">Shortlisted</option>
+                <option value="In Review">In Review</option>
+                <option value="Rejected">Rejected</option>
+                <option value="New Match">New Match</option>
+            </select>
+            <button id="clearAllBtn" class="text-blue-600 font-semibold text-sm hover:underline ml-auto pr-2">Clear All</button>
+        </div>
+
+        <!-- Layout Content Grid -->
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+            
+            <!-- Screening Trends -->
+            <div class="xl:col-span-4 bg-white border border-gray-100 rounded-3xl p-6 shadow-sm flex flex-col">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Screening Trends</h2>
+                    <button class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">more_horiz</span></button>
+                </div>
+                
+                <div class="border border-gray-100 bg-[#f8faff] rounded-2xl p-5 flex flex-col justify-between h-[360px]">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-lg text-blue-500">bar_chart</span>
+                        <span class="text-xs font-bold text-gray-500 tracking-wide uppercase">Weekly Screening Trends</span>
+                    </div>
+                    
+                    <div class="relative w-full h-56 flex items-end">
+                        <svg class="w-full h-full" viewBox="0 0 350 200" preserveAspectRatio="none">
+                            <line x1="0" y1="50" x2="350" y2="50" stroke="#e5e7eb" stroke-dasharray="4" stroke-width="1"/>
+                            <line x1="0" y1="100" x2="350" y2="100" stroke="#e5e7eb" stroke-dasharray="4" stroke-width="1"/>
+                            <line x1="0" y1="150" x2="350" y2="150" stroke="#e5e7eb" stroke-dasharray="4" stroke-width="1"/>
+                            <line x1="0" y1="200" x2="350" y2="200" stroke="#cbd5e1" stroke-width="1.5"/>
+
+                            <rect class="chart-bar" data-day="Mon" data-value="12" x="15" y="140" width="30" height="60" rx="6" fill="#3B82F6"/>
+                            <rect class="chart-bar" data-day="Tue" data-value="18" x="65" y="100" width="30" height="100" rx="6" fill="#3B82F6"/>
+                            <rect class="chart-bar" data-day="Wed" data-value="25" x="115" y="40" width="30" height="160" rx="6" fill="#3B82F6"/>
+                            <rect class="chart-bar" data-day="Thu" data-value="15" x="165" y="110" width="30" height="90" rx="6" fill="#3B82F6"/>
+                            <rect class="chart-bar" data-day="Fri" data-value="22" x="215" y="60" width="30" height="140" rx="6" fill="#3B82F6"/>
+                            <rect class="chart-bar" data-day="Sat" data-value="9" x="265" y="150" width="30" height="50" rx="6" fill="#3B82F6"/>
+                            <rect class="chart-bar" data-day="Sun" data-value="14" x="315" y="120" width="30" height="80" rx="6" fill="#3B82F6"/>
+                        </svg>
+                        <div id="chartTooltip" class="absolute bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 pointer-events-none transition-opacity duration-200 shadow-md z-10"></div>
+                    </div>
+
+                    <div class="flex justify-between px-1 text-[11px] font-bold text-gray-400 mt-2">
+                        <span class="w-[30px] text-center">Mon</span>
+                        <span class="w-[30px] text-center">Tue</span>
+                        <span class="w-[30px] text-center">Wed</span>
+                        <span class="w-[30px] text-center">Thu</span>
+                        <span class="w-[30px] text-center">Fri</span>
+                        <span class="w-[30px] text-center">Sat</span>
+                        <span class="w-[30px] text-center">Sun</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Candidates Table Area -->
+            <div class="xl:col-span-8 bg-white border border-gray-100 rounded-3xl p-6 shadow-sm min-h-[460px]">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Top Candidates</h2>
+                    <div class="flex gap-3">
+                        <button id="filterToggleBtn" class="h-10 px-4 border border-gray-200 hover:bg-gray-50 text-gray-700 font-semibold rounded-xl flex items-center gap-2 text-sm shadow-sm transition-colors">
+                            <span class="material-symbols-outlined text-lg">tune</span>
+                            Filter
+                        </button>
+                        <button id="batchShortlistBtn" class="h-10 px-4 bg-[#3B82F6] hover:bg-blue-600 text-white font-semibold rounded-xl flex items-center gap-2 text-sm shadow-sm transition-colors">
+                            Batch Shortlist
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="border-b border-gray-100 text-gray-400 text-xs font-bold uppercase tracking-wider">
+                                <th class="py-4 pl-2 w-10"><input type="checkbox" id="headerCheckbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"/></th>
+                                <th class="py-4 w-44">Candidate</th>
+                                <th class="py-4 w-44">Job Title</th>
+                                <th class="py-4 w-28">Experience</th>
+                                <th class="py-4 w-24">ATS Score</th>
+                                <th class="py-4 w-40">AI Match</th>
+                                <th class="py-4 w-28">Status</th>
+                                <th class="py-4 text-center w-16">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="candidateRowsContainer" class="divide-y divide-gray-50 text-sm font-medium text-gray-800">
+                            <!-- Elena Rostova -->
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="py-4 pl-2"><input type="checkbox" class="row-checkbox rounded border-gray-300 text-blue-600 focus:ring-blue-500"/></td>
+                                <td class="py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-blue-50 text-[#2170e4] flex items-center justify-center font-bold text-xs">ES</div>
+                                        <span class="font-semibold text-gray-900 candidate-name">Elena Rostova</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-500 job-title">Senior ML Engineer</td>
+                                <td class="py-4 text-gray-600 exp-level">6 Years</td>
+                                <td class="py-4 text-gray-700 font-semibold ats-score">92</td>
+                                <td class="py-4">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-blue-600 font-semibold w-8 ai-match-val">98%</span>
+                                        <div class="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 98%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4">
+                                    <span class="px-2.5 py-1 rounded-lg bg-green-50 text-green-700 text-xs font-bold status-tag">Shortlisted</span>
+                                </td>
+                                <td class="py-4 text-center"><button class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined text-xl">visibility</span></button></td>
+                            </tr>
+                            <!-- Marcus Chen -->
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="py-4 pl-2"><input type="checkbox" class="row-checkbox rounded border-gray-300 text-blue-600 focus:ring-blue-500"/></td>
+                                <td class="py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">MC</div>
+                                        <span class="font-semibold text-gray-900 candidate-name">Marcus Chen</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-500 job-title">Product Manager</td>
+                                <td class="py-4 text-gray-600 exp-level">4 Years</td>
+                                <td class="py-4 text-gray-700 font-semibold ats-score">85</td>
+                                <td class="py-4">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-amber-600 font-semibold w-8 ai-match-val">76%</span>
+                                        <div class="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-amber-500 rounded-full" style="width: 76%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4">
+                                    <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 text-xs font-bold status-tag">In Review</span>
+                                </td>
+                                <td class="py-4 text-center"><button class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined text-xl">visibility</span></button></td>
+                            </tr>
+                            <!-- Sarah Jenkins -->
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="py-4 pl-2"><input type="checkbox" class="row-checkbox rounded border-gray-300 text-blue-600 focus:ring-blue-500"/></td>
+                                <td class="py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">SJ</div>
+                                        <span class="font-semibold text-gray-900 candidate-name">Sarah Jenkins</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-500 job-title">UX Designer</td>
+                                <td class="py-4 text-gray-600 exp-level">3 Years</td>
+                                <td class="py-4 text-gray-700 font-semibold ats-score">45</td>
+                                <td class="py-4">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-red-600 font-semibold w-8 ai-match-val">32%</span>
+                                        <div class="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-red-500 rounded-full" style="width: 32%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4">
+                                    <span class="px-2.5 py-1 rounded-lg bg-red-50 text-red-700 text-xs font-bold status-tag">Rejected</span>
+                                </td>
+                                <td class="py-4 text-center"><button class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined text-xl">visibility</span></button></td>
+                            </tr>
+                            <!-- David Thompson -->
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="py-4 pl-2"><input type="checkbox" class="row-checkbox rounded border-gray-300 text-blue-600 focus:ring-blue-500"/></td>
+                                <td class="py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">DT</div>
+                                        <span class="font-semibold text-gray-900 candidate-name">David Thompson</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-gray-500 job-title">Frontend Dev</td>
+                                <td class="py-4 text-gray-600 exp-level">2 Years</td>
+                                <td class="py-4 text-gray-700 font-semibold ats-score">88</td>
+                                <td class="py-4">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-blue-600 font-semibold w-8 ai-match-val">89%</span>
+                                        <div class="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 89%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4">
+                                    <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 text-xs font-bold status-tag">New Match</span>
+                                </td>
+                                <td class="py-4 text-center"><button class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined text-xl">visibility</span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Master Interactive Scripts Engine -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.getElementById("mainSearchInput");
+            const skillFilter = document.getElementById("skillFilter");
+            const expFilter = document.getElementById("expFilter");
+            const atsFilter = document.getElementById("atsFilter");
+            const aiFilter = document.getElementById("aiFilter");
+            const statusFilter = document.getElementById("statusFilter");
+            const clearAllBtn = document.getElementById("clearAllBtn");
+            const tableRows = document.querySelectorAll("#candidateRowsContainer tr");
+            
+            const filterToggleBtn = document.getElementById("filterToggleBtn"); 
+            const batchShortlistBtn = document.getElementById("batchShortlistBtn");
+            const filterStrip = document.getElementById("filterStrip");
+            const headerCheckbox = document.getElementById("headerCheckbox");
+
+            // 1. Chart Tooltip Mechanism
+            const bars = document.querySelectorAll(".chart-bar");
+            const tooltip = document.getElementById("chartTooltip");
+            if (bars && tooltip) {
+                bars.forEach(bar => {
+                    bar.addEventListener("mousemove", (e) => {
+                        const day = bar.getAttribute("data-day");
+                        const val = bar.getAttribute("data-value");
+                        tooltip.innerHTML = `<strong>${day}</strong>: ${val} Resumes`;
+                        tooltip.style.opacity = "1";
+                        tooltip.style.left = `${e.offsetX + 15}px`;
+                        tooltip.style.top = `${e.offsetY - 25}px`;
+                    });
+                    bar.addEventListener("mouseleave", () => {
+                        tooltip.style.opacity = "0";
+                    });
+                });
+            }
+
+            // 2. Real-Time Smart Multi-Filter System
+            function runFilteringEngine() {
+                const query = searchInput.value.toLowerCase();
+                const selectedSkill = skillFilter.value;
+                const selectedExp = expFilter.value;
+                const selectedAts = atsFilter.value;
+                const selectedAi = aiFilter.value;
+                const selectedStatus = statusFilter.value;
+
+                tableRows.forEach(row => {
+                    const name = row.querySelector(".candidate-name").textContent.toLowerCase();
+                    const title = row.querySelector(".job-title").textContent;
+                    const exp = row.querySelector(".exp-level").textContent;
+                    const ats = parseInt(row.querySelector(".ats-score").textContent) || 0;
+                    const ai = parseInt(row.querySelector(".ai-match-val").textContent) || 0;
+                    const status = row.querySelector(".status-tag").textContent;
+
+                    const matchSearch = name.includes(query) || title.toLowerCase().includes(query);
+                    const matchSkill = !selectedSkill || title === selectedSkill;
+                    const matchExp = !selectedExp || exp.startsWith(selectedExp);
+                    const matchStatus = !selectedStatus || status === selectedStatus;
+                    const matchAts = !selectedAts || ats >= parseInt(selectedAts);
+                    const matchAi = !selectedAi || ai >= parseInt(selectedAi);
+
+                    if(matchSearch && matchSkill && matchExp && matchStatus && matchAts && matchAi) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            }
+
+            // Attaching events to all dropdown inputs
+            [skillFilter, expFilter, atsFilter, aiFilter, statusFilter].forEach(elem => {
+                if(elem) elem.addEventListener("change", runFilteringEngine);
+            });
+            if(searchInput) searchInput.addEventListener("input", runFilteringEngine);
+
+            if(clearAllBtn) {
+                clearAllBtn.addEventListener("click", () => {
+                    searchInput.value = "";
+                    skillFilter.value = "";
+                    expFilter.value = "";
+                    atsFilter.value = "";
+                    aiFilter.value = "";
+                    statusFilter.value = "";
+                    runFilteringEngine();
+                });
+            }
+
+            // 3. Filter Layout Action Toggle (Show/Hide)
+            if(filterToggleBtn && filterStrip) {
+                filterToggleBtn.addEventListener("click", () => {
+                    filterStrip.classList.toggle("hidden");
+                });
+            }
+
+            // Master Select All Process Logic
+            if(headerCheckbox) {
+                headerCheckbox.addEventListener("change", () => {
+                    const visibleCheckboxes = document.querySelectorAll("#candidateRowsContainer tr:not([style*='display: none']) .row-checkbox");
+                    visibleCheckboxes.forEach(cb => {
+                        cb.checked = headerCheckbox.checked;
+                    });
+                });
+            }
+
+            // 4. Batch Shortlist Action Execution
+            if(batchShortlistBtn) {
+                batchShortlistBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const visibleRows = document.querySelectorAll("#candidateRowsContainer tr");
+                    let count = 0;
+
+                    visibleRows.forEach(row => {
+                        if (row.style.display !== "none") {
+                            const cb = row.querySelector(".row-checkbox");
+                            if (cb && cb.checked) {
+                                const statusTag = row.querySelector(".status-tag");
+                                
+                                // Live dynamic state updating to green 'Shortlisted' pill
+                                statusTag.textContent = "Shortlisted";
+                                statusTag.className = "px-2.5 py-1 rounded-lg bg-green-50 text-green-700 text-xs font-bold status-tag";
+                                
+                                cb.checked = false; // uncheck row checkbox after successful transition
+                                count++;
+                            }
+                        }
+                    });
+
+                    if(headerCheckbox) headerCheckbox.checked = false;
+
+                    if(count > 0) {
+                        alert(`Success: ${count} candidates have been batch-shortlisted successfully! 🎉`);
+                    } else {
+                        alert("Please select at least one visible candidate checkbox first!");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

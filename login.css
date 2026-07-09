@@ -1,0 +1,30 @@
+/* ===== BASE STYLES ===== */
+body {
+    background-color: theme('colors.surface');
+    color: theme('colors.on-surface');
+}
+
+/* ===== AI BORDER TOP ===== */
+.ai-border-top {
+    border-top: 4px solid theme('colors.ai-blue');
+}
+
+/* ===== GLASS PANEL ===== */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+}
+
+/* ===== INPUT FOCUS RING ===== */
+.input-ring:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    border-color: theme('colors.ai-blue');
+}
+
+/* ===== MATERIAL SYMBOLS ===== */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

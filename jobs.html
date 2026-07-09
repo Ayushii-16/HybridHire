@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Job Recommendations - HybridHire AI</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="jobs.css"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-blue": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "on-secondary-container": "#fefcff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-high": "#dce9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface-variant": "#45464d",
+                        "outline": "#76777d",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "secondary-container": "#2170e4",
+                        "surface": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#131b2e",
+                        "inverse-surface": "#213145",
+                        "background": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "error-red": "#dc2626",
+                        "primary-fixed": "#dae2fd",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "secondary": "#0058be",
+                        "primary": "#000000",
+                        "surface-dim": "#cbdbf5",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "error-container": "#ffdad6",
+                        "success-green": "#16a34a",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "ai-blue": "#3b82f6",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-container": "#818486",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#565e74",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#d8e2ff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary": "#000000",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed": "#191c1e",
+                        "tertiary-fixed": "#e0e3e5",
+                        "tertiary-container": "#191c1e",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-error": "#ffffff",
+                        "warning-amber": "#d97706",
+                        "on-primary-container": "#7c839b",
+                        "primary-container": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-xl": "64px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+    <!-- SideNavBar (Desktop) -->
+    <nav class="hidden md:flex flex-col h-screen w-64 bg-surface/70 backdrop-blur-md border-r border-outline-variant/30 shadow-sm fixed left-0 top-0 py-stack-md z-50">
+        <!-- Brand -->
+        <div class="px-margin-desktop mb-stack-lg flex items-center gap-3">
+            <span class="material-symbols-outlined text-secondary text-3xl">hub</span>
+            <div>
+                <h1 class="font-display-lg text-display-lg font-bold text-on-surface text-xl">HybridHire AI</h1>
+                <p class="font-label-md text-label-md text-on-surface-variant">Student Portal</p>
+            </div>
+        </div>
+        <!-- Navigation Links -->
+        <div class="flex-1 overflow-y-auto px-stack-sm space-y-1">
+            <a href="student.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 transition-all active:scale-95 duration-200" >
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="font-label-md text-label-md">Dashboard</span>
+            </a>
+            <a href="jobs.html" class="flex items-center gap-3 px-3 py-2 rounded-lg relative bg-secondary/10 text-secondary after:absolute after:right-0 after:top-0 after:h-full after:w-1 after:bg-secondary active:scale-95 duration-200" >
+                <span class="material-symbols-outlined">work</span>
+                <span class="font-label-md text-label-md">Job Search</span>
+            </a>
+            <a href="applications.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 transition-all active:scale-95 duration-200" >
+                <span class="material-symbols-outlined">assignment_turned_in</span>
+                <span class="font-label-md text-label-md">Applications</span>
+            </a>
+            <a href="resume.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 transition-all active:scale-95 duration-200" href="#">
+                <span class="material-symbols-outlined">psychology</span>
+                <span class="font-label-md text-label-md">Skill Insights</span>
+            </a>
+            <a href="roadmap.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 transition-all active:scale-95 duration-200" href="#">
+                <span class="material-symbols-outlined">school</span>
+                <span class="font-label-md text-label-md">Learning Paths</span>
+            </a>
+            <a href="profile.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 transition-all active:scale-95 duration-200" href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="font-label-md text-label-md">Settings</span>
+            </a>
+        </div>
+        <!-- Footer Actions -->
+        <div class="px-margin-desktop mt-auto pt-stack-md space-y-2 border-t border-outline-variant/30">
+            <button class="w-full bg-ai-blue text-on-primary font-label-md text-label-md py-2 rounded-lg hover:bg-secondary transition-colors shadow-sm mb-4" id="upgradeBtn">
+                Upgrade to Pro
+            </button>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 transition-all" href="#">
+                <span class="material-symbols-outlined">help</span>
+                <span class="font-label-md text-label-md">Help Center</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/50 transition-all" href="login.html" id="logoutBtn">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-label-md text-label-md">Logout</span>
+            </a>
+            <div class="mt-4 flex items-center gap-3 px-3">
+                <img alt="Student User Profile" class="w-8 h-8 rounded-full object-cover" data-alt="A small, circular avatar portrait of a diverse university student in a bright, modern setting. Professional yet approachable, soft natural lighting, high-resolution photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqGLl3xoNIWbU6fq1BqAGtJ4Jfi6DOg3mIhJVDQB1eoOxc67u_HQY7QbWmfttwyvR-aoh-4NYCfzdbJfZW2vnOplNLurqcw1ZM5Mt5avGTPFtA9-yWpilpScO5WE7jwLoRT8Fa5d4-rhDS4kzLth2Hlndpk_ej0q-0in9u2mXDohW6BV6HsL6OWBBezRKp9hlyrvtYvlPn8r_FdbICSEXGdQnpIbp7o4XbdDmlY-fb43v38O5ExRlQ"/>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content Wrapper -->
+    <div class="flex-1 flex flex-col min-h-screen md:ml-64 w-full md:max-w-[calc(100%-16rem)]">
+        <!-- TopNavBar -->
+        <header class="sticky top-0 w-full z-40 bg-surface/70 backdrop-blur-md border-b border-outline-variant/20 shadow-sm flex justify-between items-center h-16 px-margin-desktop">
+            <div class="flex items-center gap-6">
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-on-surface-variant" id="mobileMenuBtn">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+                <!-- Navigation Links (Desktop) -->
+                <div class="hidden md:flex gap-6 h-full items-center">
+                    <a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary h-full flex items-center transition-colors" href="jobs.html">Remote Jobs</a>
+                    <a class="font-label-md text-label-md text-secondary border-b-2 border-secondary h-full flex items-center" href="#">Internships</a>
+                    <a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary h-full flex items-center transition-colors" href="#">Grad Schemes</a>
+                </div>
+            </div>
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md mx-6 relative focus-within:ring-2 focus-within:ring-ai-blue/20 rounded-lg overflow-hidden border border-outline-variant/50">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none placeholder:text-on-surface-variant/70 border-none ring-0" placeholder="Search skills, roles, companies..." type="text" id="searchInput"/>
+            </div>
+            <!-- Trailing Actions -->
+            <div class="flex items-center gap-4">
+                <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-error-red rounded-full"></span>
+                </button>
+                <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                </button>
+              <a href="profile.html">  <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </button></a>
+                <img alt="User avatar" class="w-8 h-8 rounded-full object-cover md:hidden" data-alt="A small, circular user avatar portrait of a professional looking directly at the camera. Soft studio lighting, clean background, modern corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrb3DJkb7BxCbSMEECWESdTfNrGBG48iJwrmf0hdIBOEzVSSVfK1J8MrKebvt8UguVzeVRplNd69DVVsiQApfxDTHHtjhfChtZ7emjF3JRCU4NN2E52dmm1JzAG3alfipNy939QSNLiS7QeypcQ6scRhTOr43HYgWPZdpW7bzcrze-HI3_B_fNFPJnDQuoyUL_5MXSoGQ0yJjn_B2IRQ_uukGaruCe67tS3sykrKvycPBPpzAP5lEu"/>
+            </div>
+        </header>
+        
+        <!-- Page Content -->
+        <main class="flex-1 p-margin-mobile md:p-margin-desktop overflow-y-auto w-full max-w-container-max mx-auto space-y-stack-lg">
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                <div>
+                    <h2 class="font-headline-md text-headline-md text-on-surface mb-2">AI Job Recommendations</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">We've analyzed your skills and portfolio to find the perfect internship opportunities for you.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-label-md text-label-md text-on-surface-variant">Sort by:</span>
+                    <select class="bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-3 py-2 font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-ai-blue/20 focus:border-ai-blue outline-none cursor-pointer" id="sortSelect">
+                        <option>Highest Match Score</option>
+                        <option>Newest Posted</option>
+                        <option>Salary: High to Low</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Filters Bar (Sleek Horizontal) -->
+            <div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 p-4 flex flex-wrap gap-4 items-center">
+                <div class="flex-1 min-w-[150px] relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">work_outline</span>
+                    <input class="w-full pl-10 pr-3 py-2 bg-surface-blue border border-outline-variant/30 rounded-lg font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-ai-blue/20 focus:border-ai-blue outline-none h-[40px]" placeholder="Job Role" type="text" id="filterRole"/>
+                </div>
+                <div class="flex-1 min-w-[150px] relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">location_on</span>
+                    <input class="w-full pl-10 pr-3 py-2 bg-surface-blue border border-outline-variant/30 rounded-lg font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-ai-blue/20 focus:border-ai-blue outline-none h-[40px]" placeholder="Location" type="text" id="filterLocation"/>
+                </div>
+                <div class="flex-1 min-w-[150px]">
+                    <select class="w-full px-3 py-2 bg-surface-blue border border-outline-variant/30 rounded-lg font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-ai-blue/20 focus:border-ai-blue outline-none h-[40px] cursor-pointer" id="filterExperience">
+                        <option disabled selected value="">Experience Level</option>
+                        <option>Internship</option>
+                        <option>Entry Level</option>
+                        <option>Associate</option>
+                    </select>
+                </div>
+                <div class="flex-1 min-w-[150px]">
+                    <select class="w-full px-3 py-2 bg-surface-blue border border-outline-variant/30 rounded-lg font-body-sm text-body-sm text-on-surface focus:ring-2 focus:ring-ai-blue/20 focus:border-ai-blue outline-none h-[40px] cursor-pointer" id="filterSalary">
+                        <option disabled selected value="">Salary Range</option>
+                        <option>£20k - £30k</option>
+                        <option>£30k - £40k</option>
+                        <option>£40k+</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-2 px-2">
+                    <label class="font-label-md text-label-md text-on-surface-variant cursor-pointer">Remote Only</label>
+                    <button class="w-10 h-5 bg-surface-container-high rounded-full relative transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-ai-blue/50 toggle-remote" onclick="this.classList.toggle('bg-ai-blue'); this.children[0].classList.toggle('translate-x-5');">
+                        <span class="absolute left-1 top-1 bg-white w-3 h-3 rounded-full transition-transform duration-300 transform"></span>
+                    </button>
+                </div>
+                <button class="bg-ai-blue text-white px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-secondary transition-colors h-[40px] shadow-sm whitespace-nowrap" id="applyFiltersBtn">
+                    Apply Filters
+                </button>
+            </div>
+            
+            <!-- Bento Grid Layout for Main Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-gutter">
+                <!-- Left Column: Job Cards (Span 3 on Desktop) -->
+                <div class="lg:col-span-3 space-y-stack-md">
+                    <!-- Job Card 1 -->
+                    <div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 overflow-hidden relative group border-t-4 border-t-ai-blue transition-all hover:-translate-y-1 hover:shadow-md job-card">
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <div class="flex items-center gap-1 bg-success-green/10 text-success-green px-2 py-1 rounded-md">
+                                <span class="material-symbols-outlined text-[14px]">psychology</span>
+                                <span class="font-label-md text-[11px]">94% Match</span>
+                            </div>
+                            <div class="flex items-center gap-1 bg-surface-container-high text-secondary px-2 py-1 rounded-md">
+                                <span class="material-symbols-outlined text-[14px]">fact_check</span>
+                                <span class="font-label-md text-[11px]">88% ATS</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 bg-surface-blue rounded-lg border border-outline-variant/20 flex items-center justify-center p-2 flex-shrink-0">
+                                    <img alt="Company Logo" class="w-full h-full object-contain" data-alt="A clean, minimalist logo of a modern tech company. Geometric shapes, electric blue and dark navy colors on a white background, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVQ99TkMYCjSPN0KUe3NYIUwVV1bnhE4R0f6pg3rPMLDtxwdZ2K6XMr8LXsy8HVfSKVzJeIB2pH8lDZOVmcvuoXLryMuABLbHYnktsKB_i7m3yBiiWYrkXzw5poHSUF-cC96xEwxSteXJutKTCl2Jj_y-hOnusCqPj92gclX6gY-PvlgM8SJ8KsNFL3_rjASpd2mVNSYFFlR6aEm7BoY-MA8DIjZZnxI0lbc5VJFMsHkUw_BMPf3Cg"/>
+                                </div>
+                                <div>
+                                    <h3 class="font-headline-sm text-headline-sm text-on-surface leading-tight mb-1">Junior Frontend Developer Intern</h3>
+                                    <div class="flex flex-wrap items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+                                        <span class="font-semibold text-secondary">TechNova Solutions</span>
+                                        <span>•</span>
+                                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> London (Hybrid)</span>
+                                        <span>•</span>
+                                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">payments</span> £28,000/yr (Pro-rata)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Skills Section -->
+                            <div class="mb-4">
+                                <p class="font-label-md text-[11px] text-on-surface-variant mb-2 uppercase tracking-wider">Required Skills</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-surface-container text-on-surface font-body-sm text-[12px] rounded border border-outline-variant/20 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-success-green"></span> React.js
+                                    </span>
+                                    <span class="px-2 py-1 bg-surface-container text-on-surface font-body-sm text-[12px] rounded border border-outline-variant/20 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-success-green"></span> TypeScript
+                                    </span>
+                                    <span class="px-2 py-1 bg-surface-container text-on-surface font-body-sm text-[12px] rounded border border-outline-variant/20 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-success-green"></span> Tailwind CSS
+                                    </span>
+                                    <span class="px-2 py-1 bg-error-container/50 text-error-red font-body-sm text-[12px] rounded border border-error-red/20 flex items-center gap-1" title="Missing Skill">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-error-red"></span> Next.js
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- AI Reasoning Block -->
+                            <div class="bg-surface-blue rounded-lg p-4 mb-6 border border-ai-blue/20 relative">
+                                <div class="absolute -top-3 left-4 bg-surface-container-lowest px-2 py-0.5 rounded border border-ai-blue/20 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-ai-blue text-[14px]">smart_toy</span>
+                                    <span class="font-label-md text-[10px] text-ai-blue">AI Insights</span>
+                                </div>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+                                    Your recent GitHub project "E-commerce Dashboard" demonstrates strong proficiency in React and Tailwind CSS, aligning perfectly with this role's primary requirements. The missing Next.js skill can be easily bridged with a short introductory course.
+                                </p>
+                            </div>
+                            <!-- Actions -->
+                            <div class="flex items-center justify-between border-t border-outline-variant/20 pt-4 mt-auto">
+                                <span class="font-body-sm text-[12px] text-on-surface-variant flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">schedule</span> Posted 2 days ago
+                                </span>
+                                <div class="flex items-center gap-3">
+                                    <button class="text-on-surface-variant hover:text-secondary transition-colors p-2 save-btn" title="Save Job">
+                                        <span class="material-symbols-outlined">bookmark_border</span>
+                                    </button>
+                                    <button class="text-on-surface-variant hover:text-secondary transition-colors p-2 compare-btn" title="Compare">
+                                        <span class="material-symbols-outlined">compare_arrows</span>
+                                    </button>
+                                    <button class="px-4 py-2 border border-outline-variant/30 text-on-surface font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-colors view-details-btn">
+                                        View Details
+                                    </button>
+                                    <button class="px-6 py-2 bg-ai-blue text-white font-label-md text-label-md rounded-lg shadow-sm hover:bg-secondary transition-colors apply-btn">
+                                        Apply Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Job Card 2 -->
+                    <div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 overflow-hidden relative group transition-all hover:-translate-y-1 hover:shadow-md job-card">
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <div class="flex items-center gap-1 bg-surface-container-high text-secondary px-2 py-1 rounded-md">
+                                <span class="material-symbols-outlined text-[14px]">psychology</span>
+                                <span class="font-label-md text-[11px]">85% Match</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 bg-surface-blue rounded-lg border border-outline-variant/20 flex items-center justify-center p-2 flex-shrink-0">
+                                    <img alt="Company Logo" class="w-full h-full object-contain" data-alt="A modern corporate logo featuring abstract interconnected nodes, primarily navy blue and silver colors, clean white background, sharp vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLezworHLa15CTzydrZcooCGhSYCvjWnodY-TLtdn_CoWJS1_FuAHRGx5ZB0nMZsVIXXZqSPVLdHESJrNyQgpmNo0WolMqI5Z_jG1LMpVtx1gSCDX32ovhfkIqVF93oz4Oov_1NDTMpIvkWsrHrPnAQVj5TYZHcs9WWXor9RHCPiKoCdhh1wtuaWWTi7uyZCfDUF9s83bfEx65CvAOk7WnnFC7vGdntDQO-qMtufK6zSX59NV1Cr_q"/>
+                                </div>
+                                <div>
+                                    <h3 class="font-headline-sm text-headline-sm text-on-surface leading-tight mb-1">UX/UI Design Intern</h3>
+                                    <div class="flex flex-wrap items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+                                        <span class="font-semibold text-secondary">CreativePulse</span>
+                                        <span>•</span>
+                                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> Remote</span>
+                                        <span>•</span>
+                                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">payments</span> £24,000/yr</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <p class="font-label-md text-[11px] text-on-surface-variant mb-2 uppercase tracking-wider">Required Skills</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-surface-container text-on-surface font-body-sm text-[12px] rounded border border-outline-variant/20 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-success-green"></span> Figma
+                                    </span>
+                                    <span class="px-2 py-1 bg-surface-container text-on-surface font-body-sm text-[12px] rounded border border-outline-variant/20 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-success-green"></span> Wireframing
+                                    </span>
+                                    <span class="px-2 py-1 bg-error-container/50 text-error-red font-body-sm text-[12px] rounded border border-error-red/20 flex items-center gap-1" title="Missing Skill">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-error-red"></span> User Testing
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="bg-surface-blue rounded-lg p-4 mb-6 border border-outline-variant/20 relative">
+                                <div class="absolute -top-3 left-4 bg-surface-container-lowest px-2 py-0.5 rounded border border-outline-variant/20 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-on-surface-variant text-[14px]">smart_toy</span>
+                                    <span class="font-label-md text-[10px] text-on-surface-variant">AI Insights</span>
+                                </div>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+                                    Your portfolio highlights excellent visual design skills in Figma. However, this role emphasizes User Testing, which is currently missing from your parsed resume. Consider adding relevant coursework projects to boost your match score.
+                                </p>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-outline-variant/20 pt-4 mt-auto">
+                                <span class="font-body-sm text-[12px] text-on-surface-variant flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">schedule</span> Posted 5 days ago
+                                </span>
+                                <div class="flex items-center gap-3">
+                                    <button class="text-on-surface-variant hover:text-secondary transition-colors p-2 save-btn" title="Save Job">
+                                        <span class="material-symbols-outlined">bookmark_border</span>
+                                    </button>
+                                    <button class="px-4 py-2 border border-outline-variant/30 text-on-surface font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-colors view-details-btn">
+                                        View Details
+                                    </button>
+                                    <button class="px-6 py-2 border-2 border-ai-blue text-ai-blue font-label-md text-label-md rounded-lg hover:bg-ai-blue hover:text-white transition-colors apply-btn">
+                                        Apply Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Widgets (Span 1 on Desktop) -->
+                <div class="lg:col-span-1 space-y-stack-md">
+                    <!-- Application Tracker Widget -->
+                    <div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 p-5">
+                        <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Application Status</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-2 rounded-lg hover:bg-surface-blue transition-colors cursor-pointer status-item" data-status="applied">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                    <span class="font-body-md text-body-md text-on-surface-variant">Applied</span>
+                                </div>
+                                <span class="font-headline-sm text-headline-sm text-on-surface">12</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 rounded-lg hover:bg-surface-blue transition-colors cursor-pointer status-item" data-status="interviewing">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-warning-amber"></span>
+                                    <span class="font-body-md text-body-md text-on-surface-variant">Interviewing</span>
+                                </div>
+                                <span class="font-headline-sm text-headline-sm text-on-surface">3</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 rounded-lg hover:bg-surface-blue transition-colors cursor-pointer status-item" data-status="offers">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-success-green"></span>
+                                    <span class="font-body-md text-body-md text-on-surface-variant">Offers</span>
+                                </div>
+                                <span class="font-headline-sm text-headline-sm text-on-surface">1</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 rounded-lg hover:bg-surface-blue transition-colors cursor-pointer status-item" data-status="rejected">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+                                    <span class="font-body-md text-body-md text-on-surface-variant">Rejected</span>
+                                </div>
+                                <span class="font-headline-sm text-headline-sm text-on-surface">4</span>
+                            </div>
+                            <div class="h-px w-full bg-outline-variant/20 my-2"></div>
+                            <div class="flex justify-between items-center p-2 rounded-lg hover:bg-surface-blue transition-colors cursor-pointer" id="savedJobsBtn">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-on-surface-variant text-[18px]">bookmark</span>
+                                    <span class="font-body-md text-body-md text-on-surface-variant">Saved Jobs</span>
+                                </div>
+                                <span class="font-headline-sm text-headline-sm text-on-surface">8</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill Gap Suggestions Widget -->
+                    <div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 p-5 bg-gradient-to-b from-surface-container-lowest to-surface-container-low/30">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="material-symbols-outlined text-ai-blue">school</span>
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface">Bridge the Gap</h3>
+                        </div>
+                        <p class="font-body-sm text-[13px] text-on-surface-variant mb-4">Recommended courses to improve your match score for top saved jobs.</p>
+                        <div class="space-y-4">
+                            <a class="block group course-link" href="#">
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center flex-shrink-0 group-hover:bg-surface-container-high transition-colors">
+                                        <span class="material-symbols-outlined text-secondary">code</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-label-md text-label-md text-on-surface group-hover:text-secondary transition-colors">Next.js Fundamentals</h4>
+                                        <p class="font-body-sm text-[12px] text-on-surface-variant">Unlocks 5 new job matches</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="block group course-link" href="#">
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center flex-shrink-0 group-hover:bg-surface-container-high transition-colors">
+                                        <span class="material-symbols-outlined text-secondary">groups</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-label-md text-label-md text-on-surface group-hover:text-secondary transition-colors">Intro to User Testing</h4>
+                                        <p class="font-body-sm text-[12px] text-on-surface-variant">Improves ATS score by 12%</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <button class="w-full mt-5 py-2 border border-outline-variant/30 text-on-surface font-label-md text-label-md rounded-lg hover:bg-surface-container-high transition-colors text-center" id="viewLearningPaths">
+                            View All Learning Paths
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- External JavaScript -->
+    <script src="jobs.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+/* ===== AI BORDER TOP ===== */
+.ai-border-top { 
+    border-top: 2px solid #3b82f6; 
+}
+
+/* ===== GLASSMORPHISM ===== */
+.glassmorphism { 
+    background-color: rgba(248, 249, 255, 0.7); 
+    backdrop-filter: blur(12px); 
+}
+
+/* ===== AMBIENT SHADOW ===== */
+.ambient-shadow { 
+    box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05); 
+}
+
+/* ===== MATCH SCORE TRACK ===== */
+.match-score-track { 
+    height: 6px; 
+    background-color: #dce9ff; 
+    border-radius: 9999px; 
+    overflow: hidden; 
+}
+
+.match-score-fill { 
+    height: 100%; 
+    background-color: #3b82f6; 
+    border-radius: 9999px; 
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); 
+}
+
+/* ===== CIRCULAR GAUGE ===== */
+.circular-gauge {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(#3b82f6 78%, #dce9ff 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.circular-gauge::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.circular-gauge-content { 
+    position: relative; 
+    z-index: 1; 
+    text-align: center; 
+}
+
+/* ===== MATERIAL SYMBOLS ===== */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

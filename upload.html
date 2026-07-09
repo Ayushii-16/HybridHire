@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HybridHire AI - Bulk Resume Upload</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="upload.css"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#cbdbf5",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#001a42",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-tint": "#565e74",
+                        "on-primary-container": "#7c839b",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-container": "#fefcff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0b1c30",
+                        "tertiary-container": "#191c1e",
+                        "secondary": "#0058be",
+                        "outline-variant": "#c6c6cd",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-background": "#0b1c30",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-secondary-fixed-variant": "#004395",
+                        "inverse-surface": "#213145",
+                        "outline": "#76777d",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container": "#e5eeff",
+                        "primary-container": "#131b2e",
+                        "inverse-primary": "#bec6e0",
+                        "surface-container-low": "#eff4ff",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary": "#000000",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#2170e4",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-error": "#ffffff",
+                        "primary": "#000000",
+                        "on-tertiary-container": "#818486",
+                        "surface-variant": "#d3e4fe",
+                        "background": "#f8f9ff",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "on-tertiary-fixed-variant": "#444749"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "stack-xl": "64px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface antialiased flex h-screen overflow-hidden">
+    <!-- SideNavBar -->
+    <aside class="bg-white dark:bg-inverse-surface border-r border-outline-variant/30 shadow-md docked h-screen left-0 w-64 flex-col fixed left-0 top-0 h-full flex flex-col gap-stack-md py-stack-lg z-40 hidden md:flex">
+        <div class="px-6 flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary">
+                <span class="material-symbols-outlined" data-icon="work" data-weight="fill" style="font-variation-settings: 'FILL' 1;">work</span>
+            </div>
+            <div>
+                <h1 class="font-headline-sm text-headline-sm font-bold text-secondary dark:text-secondary-fixed">HybridHire AI</h1>
+                <p class="font-label-md text-label-md text-on-surface-variant">Recruiter Portal</p>
+            </div>
+        </div>
+        <nav class="flex-1 flex flex-col gap-2">
+            <a class="text-on-surface-variant dark:text-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-300 cursor-pointer transform hover:translate-x-1 font-label-md text-label-md" href="dashboard.html">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Dashboard
+            </a>
+            <a class="bg-secondary-container/10 text-secondary dark:text-secondary-fixed-dim font-bold border-r-4 border-secondary flex items-center gap-3 px-6 py-3 font-label-md text-label-md" href="upload.html">
+                <span class="material-symbols-outlined" data-icon="group" data-weight="fill" style="font-variation-settings: 'FILL' 1;">group</span> Candidates
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-300 cursor-pointer transform hover:translate-x-1 font-label-md text-label-md" href="analytics.html">
+                <span class="material-symbols-outlined" data-icon="analytics">analytics</span> Analytics
+            </a>
+        </nav>
+        <!-- <div class="px-6 py-4 border-t border-outline-variant/30">
+            <button class="w-full bg-[#3B82F6] hover:bg-blue-600 text-white font-label-md text-label-md h-12 rounded-lg flex items-center justify-center gap-2 transition-colors" id="postJobBtn">
+                <span class="material-symbols-outlined" data-icon="add">add</span> Post New Job
+            </button>
+        </div> -->
+        <div class="mt-auto flex flex-col gap-2 pb-4">
+            <a class="text-on-surface-variant dark:text-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-300 cursor-pointer transform hover:translate-x-1 font-label-md text-label-md" href="settings.html">
+                <span class="material-symbols-outlined" data-icon="settings">settings</span> Settings
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-300 cursor-pointer transform hover:translate-x-1 font-label-md text-label-md" href="#">
+                <span class="material-symbols-outlined" data-icon="contact_support">contact_support</span> Support
+            </a>
+        </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col md:ml-64 relative overflow-y-auto">
+        <!-- TopNavBar -->
+        <header class="bg-white/70 dark:bg-inverse-surface/70 backdrop-blur-md text-secondary dark:text-secondary-fixed docked full-width top-0 sticky z-50 bg-white/70 dark:bg-inverse-surface/70 border-b border-outline-variant/30 shadow-sm flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto md:hidden">
+            <div class="flex items-center gap-3">
+                <span class="font-headline-sm text-headline-sm font-bold text-on-surface dark:text-inverse-on-surface">HybridHire AI</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+                <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80">
+                    <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                </button>
+              <a href="settings.html"><img alt="Recruiter Profile Avatar" class="w-8 h-8 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUVmafhblx7xlBamHJS8aS4qf2DZR7AVdmDB5RjWkBTfSP82uCDh-qnsi35Ir5axjrq58Vad1b8RCR6_DVZeVcjuVAbLmtg1bdb9kGsPfn0HROBfNMnZFNt62rG1XGUyl5Rx091b1DwTWg49mI4bUrJiFz2A_WaL95gLcSgUFzqasoiblKfX7uGm5sXyKu0Z62ThNkbznIGR-VU7URIqogZy4Rjy1TSasz7rIm8kfk9K4tatw4Td_F"/></a>
+            </div>
+        </header>
+        
+        <header class="hidden md:flex bg-white/70 dark:bg-inverse-surface/70 backdrop-blur-md text-secondary dark:text-secondary-fixed docked full-width top-0 sticky z-50 bg-white/70 dark:bg-inverse-surface/70 border-b border-outline-variant/30 shadow-sm justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+            <div class="flex items-center bg-surface-container-low rounded-full px-4 py-2 border border-outline-variant/30 w-96 focus-within:border-secondary focus-within:ring-2 focus-within:ring-secondary/20 transition-all">
+                <span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+                <input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full ml-2 text-on-surface outline-none" placeholder="Search candidates, skills, or jobs..." type="text" id="searchInput"/>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+                <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80">
+                    <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                </button>
+                <img alt="Recruiter Profile Avatar" class="w-10 h-10 rounded-full border border-outline-variant cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-eDvYmAToYijB0ghRQqsWHG5EYQXipMj90gaQI7hmWCUuE_4X1y75XXu8wmS2pN58m606z7YTTdS9J_PcRoXX2SWHgjcvkbf2dITVpEFrY-0ZeUBdlQQNHHY4_vejd4IRsVwf_RdTl4jNN-PxH1paltRr8Xkq_c-FstI91Q1LVreRgraqdQgcoLHkN6evpL5U6-ysNeFmcrxoWAQiwTImfJVM_Dp_HI6Eb66A3VRcfNq96mRo2TkV"/>
+            </div>
+        </header>
+        
+        <main class="flex-1 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto w-full">
+            <div class="mb-8">
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-2">Bulk Resume Upload</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Upload multiple candidate resumes for AI parsing and insight generation.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+                <!-- Left Column: Upload & Current Status -->
+                <div class="lg:col-span-2 flex flex-col gap-stack-lg">
+                    <!-- Drag & Drop Zone -->
+                    <div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border-2 border-dashed border-outline-variant hover:border-secondary transition-colors duration-300 p-12 flex flex-col items-center justify-center text-center cursor-pointer group" id="dropZone">
+                        <div class="flex gap-4 mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-error-container/30 text-error flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-4xl" data-icon="picture_as_pdf">picture_as_pdf</span>
+                            </div>
+                            <div class="w-16 h-16 rounded-2xl bg-secondary-container/30 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform delay-75">
+                                <span class="material-symbols-outlined text-4xl" data-icon="description">description</span>
+                            </div>
+                        </div>
+                        <h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Drag &amp; Drop Resumes Here</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-md">Supports PDF, DOCX, and TXT files. You can upload up to 50 files at once for batch processing.</p>
+                        <button class="bg-white text-[#3B82F6] border border-[#3B82F6] font-label-md text-label-md h-12 px-6 rounded-lg hover:bg-surface-container-low transition-colors flex items-center gap-2" id="browseBtn">
+                            <span class="material-symbols-outlined" data-icon="folder_open">folder_open</span> Browse Files
+                        </button>
+                        <input type="file" id="fileInput" multiple accept=".pdf,.docx,.txt" class="hidden"/>
+                    </div>
+                    
+                    <!-- Upload Progress -->
+                    <div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-6" id="progressSection">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-headline-sm text-headline-sm text-on-surface">Uploading <span id="fileCount">12</span> files...</h4>
+                            <span class="font-label-md text-label-md text-secondary" id="progressPercent">45% Complete</span>
+                        </div>
+                        <div class="w-full bg-[#F8FAFC] rounded-full h-2 mb-2 overflow-hidden border border-[#E2E8F0]">
+                            <div class="bg-[#3B82F6] h-2 rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" style="width: 45%" id="progressBar"></div>
+                        </div>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant text-right" id="timeRemaining">Estimated time remaining: ~2 mins</p>
+                    </div>
+                    
+                    <!-- AI Parsing Status List -->
+                    <div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border-t border-[#3B82F6] overflow-hidden">
+                        <div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
+                            <h4 class="font-headline-sm text-headline-sm text-on-surface">AI Parsing Status</h4>
+                            <button class="bg-[#3B82F6] hover:bg-blue-600 text-white font-label-md text-label-md h-10 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-sm" id="analyzeBtn">
+                                <span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span> Analyze All
+                            </button>
+                        </div>
+                        <div class="divide-y divide-outline-variant/20" id="fileStatusList">
+                            <!-- Item 1 -->
+                            <div class="p-4 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded bg-error-container/20 text-error flex items-center justify-center">
+                                        <span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-label-md text-label-md text-on-surface">j_smith_resume_2024.pdf</p>
+                                        <p class="font-body-sm text-body-sm text-on-surface-variant">1.2 MB</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="px-3 py-1 bg-secondary-container/10 text-secondary rounded-full font-label-md text-[10px] flex items-center gap-1 status-badge">
+                                        <span class="material-symbols-outlined text-[12px] animate-spin" data-icon="sync">sync</span> Analyzing Skills
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- Item 2 -->
+                            <div class="p-4 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded bg-secondary-container/20 text-secondary flex items-center justify-center">
+                                        <span class="material-symbols-outlined" data-icon="description">description</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-label-md text-label-md text-on-surface">sarah_connor_senior_dev.docx</p>
+                                        <p class="font-body-sm text-body-sm text-on-surface-variant">845 KB</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="px-3 py-1 bg-[#10B981]/10 text-[#059669] rounded-full font-label-md text-[10px] flex items-center gap-1 status-badge">
+                                        <span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span> Parsed Successfully
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- Item 3 -->
+                            <div class="p-4 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded bg-error-container/20 text-error flex items-center justify-center">
+                                        <span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-label-md text-label-md text-on-surface">m_johnson_ux.pdf</p>
+                                        <p class="font-body-sm text-body-sm text-on-surface-variant">2.1 MB</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-[10px] flex items-center gap-1 status-badge">
+                                        <span class="material-symbols-outlined text-[12px]" data-icon="hourglass_empty">hourglass_empty</span> Queued
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Stats & History -->
+                <div class="flex flex-col gap-stack-lg">
+                    <!-- Processing Stats -->
+                    <div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-6">
+                        <h4 class="font-headline-sm text-headline-sm text-on-surface mb-6 border-b border-outline-variant/20 pb-4">Current Batch Processing</h4>
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-[#F8FAFC] rounded-lg p-4 border border-[#E2E8F0]">
+                                <div class="flex items-center gap-2 text-[#059669] mb-1">
+                                    <span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+                                    <span class="font-label-md text-label-md uppercase tracking-wider">Success</span>
+                                </div>
+                                <span class="font-display-lg text-display-lg text-on-surface" id="successCount">8</span>
+                            </div>
+                            <div class="bg-[#F8FAFC] rounded-lg p-4 border border-[#E2E8F0]">
+                                <div class="flex items-center gap-2 text-error mb-1">
+                                    <span class="material-symbols-outlined text-sm" data-icon="error">error</span>
+                                    <span class="font-label-md text-label-md uppercase tracking-wider">Failed</span>
+                                </div>
+                                <span class="font-display-lg text-display-lg text-on-surface" id="failedCount">1</span>
+                            </div>
+                        </div>
+                        <div class="bg-surface-container-low rounded-lg p-4 text-sm text-on-surface-variant flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-secondary mt-0.5" data-icon="info">info</span>
+                            <p class="font-body-sm text-body-sm">AI matching scores will be generated automatically once parsing is complete. Review failed documents to correct formatting.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent History -->
+                    <div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] p-6 flex-1">
+                        <h4 class="font-headline-sm text-headline-sm text-on-surface mb-4">Recent Uploads</h4>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex justify-between items-center pb-3 border-b border-outline-variant/20">
+                                <div>
+                                    <p class="font-label-md text-label-md text-on-surface">Frontend Eng Batch</p>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">Today, 10:23 AM</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-label-md text-label-md text-on-surface">24 Files</p>
+                                    <p class="font-body-sm text-body-sm text-[#059669]">Completed</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center pb-3 border-b border-outline-variant/20">
+                                <div>
+                                    <p class="font-label-md text-label-md text-on-surface">Sales Exec Roles</p>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">Yesterday</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-label-md text-label-md text-on-surface">15 Files</p>
+                                    <p class="font-body-sm text-body-sm text-[#059669]">Completed</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-label-md text-label-md text-on-surface">Q3 Design Candidates</p>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">Oct 12, 2023</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-label-md text-label-md text-on-surface">42 Files</p>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant">Archived</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full mt-6 text-[#3B82F6] font-label-md text-label-md hover:underline text-center" id="viewHistoryBtn">View Full History</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- External JavaScript -->
+    <script src="upload.js"></script>
+</body>
+</html>

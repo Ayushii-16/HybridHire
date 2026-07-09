@@ -1,0 +1,10 @@
+/* ===== BODY STYLES ===== */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F8FAFC;
+}
+
+/* ===== MATERIAL SYMBOLS ===== */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

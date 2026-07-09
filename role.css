@@ -1,0 +1,31 @@
+/* ===== ROLE CARD STYLES ===== */
+.role-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.role-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.role-card.selected {
+    border-color: #3b82f6; /* ai-blue */
+    background-color: #eff4ff; /* surface-container-low */
+}
+
+.role-card.selected .card-icon {
+    color: #3b82f6;
+}
+
+/* ===== AI GRADIENT TEXT ===== */
+.ai-gradient-text {
+    background: linear-gradient(135deg, #000000 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ===== MATERIAL SYMBOLS ===== */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

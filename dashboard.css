@@ -1,0 +1,20 @@
+/* ===== GLASS OVERLAY ===== */
+.glass-overlay {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+}
+
+/* ===== CARD SHADOW ===== */
+.card-shadow {
+    box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+}
+
+/* ===== AI BORDER ===== */
+.ai-border {
+    border-top: 1px solid #3B82F6;
+}
+
+/* ===== MATERIAL SYMBOLS ===== */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

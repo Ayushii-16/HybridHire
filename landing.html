@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HybridHire AI - AI Hiring & Career Guidance</title>
+    
+    <link rel="stylesheet" href="landing.css"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#e0e3e5",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "outline-variant": "#c6c6cd",
+                        "surface-variant": "#d3e4fe",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#45464d",
+                        "primary": "#000000",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "inverse-surface": "#213145",
+                        "inverse-primary": "#bec6e0",
+                        "primary-fixed": "#dae2fd",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed": "#191c1e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "secondary-container": "#2170e4",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#000000",
+                        "outline": "#76777d",
+                        "background": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "primary-container": "#131b2e",
+                        "on-primary-container": "#7c839b",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-tint": "#565e74",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-container": "#191c1e",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-secondary-container": "#fefcff",
+                        "on-tertiary-container": "#818486",
+                        "secondary": "#0058be",
+                        "on-surface": "#0b1c30",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "surface-dim": "#cbdbf5",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-primary-fixed": "#131b2e",
+                        "secondary-fixed": "#d8e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-xl": "64px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+    <header class="fixed top-0 w-full z-50 bg-surface/70 border-b border-outline-variant/30 shadow-sm backdrop-blur-md">
+        <div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#3B82F6]" style="font-size: 32px;">memory</span>
+                <span class="text-headline-sm font-headline-sm font-bold text-primary">HybridHire AI</span>
+            </div>
+            <nav class="hidden md:flex gap-8 font-body-md text-body-md">
+                <a class="text-secondary font-semibold border-b-2 border-secondary pb-1 active:scale-95 transition-transform" href="#">Home</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-200 active:scale-95 transition-transform" href="#features">Features</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-200 active:scale-95 transition-transform" href="#how-it-works">How It Works</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-200 active:scale-95 transition-transform" href="role.html">Employers</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-200 active:scale-95 transition-transform" href="role.html">Students</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-200 active:scale-95 transition-transform" href="#about">About</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors duration-200 active:scale-95 transition-transform" href="#contact">Contact</a>
+            </nav>
+            <div class="flex items-center gap-4 hidden md:flex">
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="login.html">Login</a>
+                <a class="h-[48px] px-6 inline-flex items-center justify-center bg-[#3B82F6] text-white rounded-lg font-label-md text-label-md hover:bg-opacity-90 transition-all shadow-md hover:shadow-lg active:scale-95" href="role.html">Get Started</a>
+            </div>
+            <button class="md:hidden text-on-surface-variant" id="mobileMenuBtn">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+        </div>
+    </header>
+    
+    <main class="flex-grow pt-24">
+        <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pt-stack-xl pb-stack-lg relative animate-fade-in">
+            <div class="absolute inset-0 bg-surface-container-low rounded-3xl -z-10 transform -skew-y-2 translate-y-12"></div>
+            <div class="grid md:grid-cols-2 gap-gutter items-center">
+                <div class="space-y-stack-md relative z-10">
+                    <div class="inline-flex items-center gap-2 bg-surface-container-high px-3 py-1 rounded-full border border-surface-tint/10">
+                        <span class="material-symbols-outlined text-secondary text-sm">rocket_launch</span>
+                        <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">AI-Powered Recruitment Engine</span>
+                    </div>
+                    <div class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-blue-200 mb-2">Hybrid AI + Bulk Resume Upload</div>
+                    <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-gradient leading-tight">
+                        Next-Gen AI Hiring & Career Guidance
+                    </h1>
+                    <div class="flex flex-wrap gap-3">
+                        <div class="inline-flex items-center gap-1.5 bg-[#3B82F6]/10 text-[#3B82F6] px-3 py-1.5 rounded-full font-label-md shadow-sm">
+                            <span class="material-symbols-outlined text-[16px]">memory</span>
+                            <span>Hybrid AI</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 bg-[#3B82F6]/10 text-[#3B82F6] px-3 py-1.5 rounded-full font-label-md shadow-sm">
+                            <span class="material-symbols-outlined text-[16px]">cloud_upload</span>
+                            <span>Bulk Resume Upload</span>
+                        </div>
+                    </div>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant">
+                        Upload thousands of resumes, shortlist the best candidates using our Hybrid AI engine combining ATS filtering and semantic AI analysis, while providing personalized career guidance for students.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a class="h-[56px] px-10 inline-flex items-center justify-center bg-[#3B82F6] text-white rounded-lg font-headline-sm text-[18px] hover-scale" href="login.html">For Employers</a>
+                        <a class="h-[56px] px-10 inline-flex items-center justify-center border-2 border-[#3B82F6] text-[#3B82F6] bg-transparent rounded-lg font-headline-sm text-[18px] hover:bg-surface-container-low hover-scale" href="register.html">For Students</a>
+                    </div>
+                </div>
+                <div class="relative z-10 h-full min-h-[400px]">
+                    <div class="absolute inset-0 glass-panel rounded-xl flex items-center justify-center overflow-hidden border border-outline-variant/20 p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="bg-cover bg-center w-full h-full rounded-lg shadow-sm" data-alt="A modern, abstract digital illustration representing artificial intelligence processing data networks." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCUzyL4oyDlzhNRYkMNuUNhUG4YJPg97yzKWDHca1To6cmbIgSUqftfDE8d43X6DBd_Pskn-v5r6L5Cf5nd8Lf5CT0D1lmLGG6XPwZtJmHviEu7A4xEneWPzyyyJ3mXt2-57iiG7NEL7OKL3OjgpYrv8vbm_wXSyWaAmqD3ldAf4GvUAkJPmz1i_-YY59jOPvTNr1kZsWycVLTmR-UhihZYeB0hC2FlCAWFIrOf0tRvpmH_DoFMsE8f')"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8 md:mt-12">
+                <p class="text-xl font-medium text-[#3B82F6] animate-fade-in" style="animation-delay: 0.2s;">Process 10,000+ resumes in minutes with intelligent candidate ranking.</p>
+            </div>
+        </section>
+        
+        <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-10 animate-fade-in" style="animation-delay: 0.3s;">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-xl p-6 text-center border border-outline-variant/20 shadow-md hover-scale">
+                    <div class="text-3xl font-bold text-[#3B82F6] mb-2">10,000+</div>
+                    <div class="text-sm font-medium text-on-surface-variant">Resumes Processed</div>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center border border-outline-variant/20 shadow-md hover-scale">
+                    <div class="text-3xl font-bold text-[#3B82F6] mb-2">95%</div>
+                    <div class="text-sm font-medium text-on-surface-variant">ATS Accuracy</div>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center border border-outline-variant/20 shadow-md hover-scale">
+                    <div class="text-3xl font-bold text-[#3B82F6] mb-2">85%</div>
+                    <div class="text-sm font-medium text-on-surface-variant">Faster Shortlisting</div>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center border border-outline-variant/20 shadow-md hover-scale">
+                    <div class="text-3xl font-bold text-[#3B82F6] mb-2">5000+</div>
+                    <div class="text-sm font-medium text-on-surface-variant">Students Guided</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-stack-xl animate-fade-in" id="how-it-works" style="animation-delay: 0.4s;">
+            <div class="text-center mb-stack-lg">
+                <h2 class="font-headline-md text-headline-md text-on-background mb-2">The Intelligent Hiring Workflow</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Seamlessly transition from raw data to your top candidates in minutes, powered by our hybrid AI engine.</p>
+            </div>
+            <div class="relative mt-12">
+                <div class="hidden md:block absolute top-1/2 left-[10%] right-[10%] h-1 bg-surface-variant -z-10 -translate-y-1/2"></div>
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+                    <div class="flex-1 w-full bg-surface rounded-xl p-8 text-center border border-outline-variant/20 shadow-md hover-scale">
+                        <div class="w-16 h-16 mx-auto bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6] border border-surface-variant shadow-sm bg-white">
+                            <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud_upload</span>
+                        </div>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-lg mb-2">Bulk Resume Upload</h3>
+                    </div>
+                    <span class="hidden md:block material-symbols-outlined text-[#3B82F6] text-4xl bg-white p-1 rounded-full shadow-sm z-20">arrow_forward</span>
+                    <span class="md:hidden material-symbols-outlined text-[#3B82F6] text-4xl">arrow_downward</span>
+                    <div class="flex-1 w-full bg-surface rounded-xl p-8 text-center border border-outline-variant/20 shadow-md hover-scale">
+                        <div class="w-16 h-16 mx-auto bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6] border border-surface-variant shadow-sm bg-white">
+                            <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">filter_alt</span>
+                        </div>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-lg mb-2">ATS Filtering</h3>
+                    </div>
+                    <span class="hidden md:block material-symbols-outlined text-[#3B82F6] text-4xl bg-white p-1 rounded-full shadow-sm z-20">arrow_forward</span>
+                    <span class="md:hidden material-symbols-outlined text-[#3B82F6] text-4xl">arrow_downward</span>
+                    <div class="flex-1 w-full bg-surface rounded-xl p-8 text-center border border-outline-variant/20 shadow-md hover-scale ai-border-top relative transform scale-105 shadow-lg">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#3B82F6] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Core Tech</div>
+                        <div class="w-16 h-16 mx-auto bg-[#3B82F6] rounded-full flex items-center justify-center mb-4 text-white shadow-[0_0_20px_rgba(59,130,246,0.6)]">
+                            <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                        </div>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-lg mb-2 font-bold">AI Semantic Analysis</h3>
+                    </div>
+                    <span class="hidden md:block material-symbols-outlined text-[#3B82F6] text-4xl bg-white p-1 rounded-full shadow-sm z-20">arrow_forward</span>
+                    <span class="md:hidden material-symbols-outlined text-[#3B82F6] text-4xl">arrow_downward</span>
+                    <div class="flex-1 w-full bg-surface rounded-xl p-8 text-center border border-outline-variant/20 shadow-md hover-scale">
+                        <div class="w-16 h-16 mx-auto bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6] border border-surface-variant shadow-sm bg-white">
+                            <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">sort</span>
+                        </div>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-lg mb-2">Candidate Ranking</h3>
+                    </div>
+                    <span class="hidden md:block material-symbols-outlined text-[#3B82F6] text-4xl bg-white p-1 rounded-full shadow-sm z-20">arrow_forward</span>
+                    <span class="md:hidden material-symbols-outlined text-[#3B82F6] text-4xl">arrow_downward</span>
+                    <div class="flex-1 w-full bg-surface rounded-xl p-8 text-center border border-outline-variant/20 shadow-md hover-scale">
+                        <div class="w-16 h-16 mx-auto bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6] border border-surface-variant shadow-sm bg-white">
+                            <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">how_to_reg</span>
+                        </div>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-lg mb-2">Interview Shortlist</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="bg-surface-container-lowest px-margin-mobile md:px-margin-desktop py-stack-xl border-y border-outline-variant/20 animate-fade-in" id="features" style="animation-delay: 0.5s;">
+            <div class="max-w-container-max mx-auto">
+                <div class="mb-stack-lg">
+                    <h2 class="font-headline-md text-headline-md text-on-background mb-2">Core Capabilities</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Discover how HybridHire AI transforms your recruitment process with advanced features.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-panel p-8 rounded-xl ai-border-top hover-scale duration-300 bg-white">
+                        <span class="material-symbols-outlined text-4xl text-[#3B82F6] mb-4">cloud_upload</span>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-xl mb-3">Bulk Resume Upload</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Process thousands of resumes simultaneously without performance degradation, saving hours of manual labor.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-xl hover-scale duration-300 bg-white">
+                        <span class="material-symbols-outlined text-4xl text-[#3B82F6] mb-4">memory</span>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-xl mb-3">Hybrid AI Screening</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Combines rule-based ATS logic with advanced machine learning for unmatched accuracy and fairness.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-xl hover-scale duration-300 bg-white">
+                        <span class="material-symbols-outlined text-4xl text-[#3B82F6] mb-4">analytics</span>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-xl mb-3">ATS Score Analysis</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Get transparent breakdowns of how candidates align with traditional ATS keyword requirements.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-xl ai-border-top hover-scale duration-300 bg-white">
+                        <span class="material-symbols-outlined text-4xl text-[#3B82F6] mb-4">target</span>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-xl mb-3">AI Match Score</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Our proprietary algorithm scores candidates on semantic context, not just keyword frequency.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-xl hover-scale duration-300 bg-white">
+                        <span class="material-symbols-outlined text-4xl text-[#3B82F6] mb-4">document_scanner</span>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-xl mb-3">Resume Parsing</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Extract structured data (skills, experience, education) from any document format instantly.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-xl hover-scale duration-300 md:col-span-1 bg-white">
+                        <span class="material-symbols-outlined text-4xl text-[#3B82F6] mb-4">explore</span>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background text-xl mb-3">Career Guidance</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Provide actionable feedback and personalized learning paths for student candidates to improve their matching.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-stack-xl animate-fade-in" style="animation-delay: 0.6s;">
+            <div class="text-center mb-stack-lg">
+                <h2 class="font-headline-md text-headline-md text-on-background mb-4">Why Choose HybridHire AI?</h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto">
+                    Traditional recruitment software relies on rigid keyword matching, leading to missed opportunities and biased screening. 
+                    HybridHire AI leverages a hybrid AI model that understands context, identifies true potential, and handles massive volume with ease.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-surface p-8 rounded-xl border border-outline-variant/20 shadow-md hover-scale bg-white">
+                    <div class="w-12 h-12 bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6]">
+                        <span class="material-symbols-outlined text-2xl">model_training</span>
+                    </div>
+                    <h4 class="font-headline-sm text-on-background text-xl mb-2">Hybrid AI Approach</h4>
+                    <p class="font-body-md text-on-surface-variant">Reduce time-to-hire by up to 60% with context-aware semantic screening.</p>
+                </div>
+                <div class="bg-surface p-8 rounded-xl border border-outline-variant/20 shadow-md hover-scale bg-white">
+                    <div class="w-12 h-12 bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6]">
+                        <span class="material-symbols-outlined text-2xl">cloud_upload</span>
+                    </div>
+                    <h4 class="font-headline-sm text-on-background text-xl mb-2">Bulk Resume Upload</h4>
+                    <p class="font-body-md text-on-surface-variant">Scale without limits. Process thousands of candidates simultaneously in seconds.</p>
+                </div>
+                <div class="bg-surface p-8 rounded-xl border border-outline-variant/20 shadow-md hover-scale bg-white">
+                    <div class="w-12 h-12 bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6]">
+                        <span class="material-symbols-outlined text-2xl">analytics</span>
+                    </div>
+                    <h4 class="font-headline-sm text-on-background text-xl mb-2">ATS Score Analysis</h4>
+                    <p class="font-body-md text-on-surface-variant">Deep insights into traditional keyword alignment combined with modern metrics.</p>
+                </div>
+                <div class="bg-surface p-8 rounded-xl border border-outline-variant/20 shadow-md hover-scale bg-white">
+                    <div class="w-12 h-12 bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6]">
+                        <span class="material-symbols-outlined text-2xl">target</span>
+                    </div>
+                    <h4 class="font-headline-sm text-on-background text-xl mb-2">AI Match Score</h4>
+                    <p class="font-body-md text-on-surface-variant">Eliminate unconscious bias with objective, skill-based potential scoring.</p>
+                </div>
+                <div class="bg-surface p-8 rounded-xl border border-outline-variant/20 shadow-md hover-scale bg-white">
+                    <div class="w-12 h-12 bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6]">
+                        <span class="material-symbols-outlined text-2xl">bolt</span>
+                    </div>
+                    <h4 class="font-headline-sm text-on-background text-xl mb-2">Fast Resume Parsing</h4>
+                    <p class="font-body-md text-on-surface-variant">Extract structured data perfectly from PDFs, Word docs, and messy formats.</p>
+                </div>
+                <div class="bg-surface p-8 rounded-xl border border-outline-variant/20 shadow-md hover-scale bg-white">
+                    <div class="w-12 h-12 bg-surface-container-low rounded-full flex items-center justify-center mb-4 text-[#3B82F6]">
+                        <span class="material-symbols-outlined text-2xl">school</span>
+                    </div>
+                    <h4 class="font-headline-sm text-on-background text-xl mb-2">Career Guidance</h4>
+                    <p class="font-body-md text-on-surface-variant">Provide real value back to your candidate pool with personalized skill pathways.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="w-full bg-surface border-t border-outline-variant">
+        <div class="flex flex-col md:flex-row justify-between items-center py-stack-lg px-margin-desktop max-w-container-max mx-auto">
+            <div class="mb-4 md:mb-0 text-center md:text-left flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#3B82F6] grayscale opacity-60" style="font-size: 24px;">memory</span>
+                <div>
+                    <span class="text-headline-sm font-headline-sm font-bold text-primary block mb-1">HybridHire AI</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant opacity-80 hover:opacity-100 transition-opacity">© 2026 HybridHire AI. All rights reserved.</span>
+                </div>
+            </div>
+            <nav class="flex flex-wrap justify-center gap-6 font-body-sm text-body-sm">
+                <a class="text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">Terms</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors opacity-80 hover:opacity-100" href="#">GitHub</a>
+            </nav>
+        </div>
+    </footer>
+    
+    <script src="landing.js"></script>
+    <script>
+        // Force fully clear login bypass when clicking action buttons on landing page
+        document.querySelectorAll('a[href="login.html"], a[href="register.html"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                localStorage.clear(); // Fixed incomplete statement
+            });
+        });
+    </script>
+</body>
+</html>

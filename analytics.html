@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HybridHire AI - Analytics Dashboard</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="analytics.css"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#7c839b",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "secondary": "#0058be",
+                        "primary": "#000000",
+                        "tertiary": "#000000",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-secondary-container": "#fefcff",
+                        "on-secondary-fixed": "#001a42",
+                        "tertiary-fixed": "#e0e3e5",
+                        "surface-tint": "#565e74",
+                        "on-tertiary-container": "#818486",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-low": "#eff4ff",
+                        "surface-bright": "#f8f9ff",
+                        "primary-fixed": "#dae2fd",
+                        "on-surface-variant": "#45464d",
+                        "tertiary-container": "#191c1e",
+                        "surface-variant": "#d3e4fe",
+                        "on-background": "#0b1c30",
+                        "inverse-primary": "#bec6e0",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container": "#e5eeff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "outline-variant": "#c6c6cd",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#2170e4",
+                        "primary-container": "#131b2e",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-error": "#ffffff",
+                        "background": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-fixed": "#191c1e",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-high": "#dce9ff",
+                        "outline": "#76777d",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#213145"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-xl": "64px",
+                        "margin-desktop": "40px",
+                        "container-max": "1280px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen selection:bg-secondary-container selection:text-on-secondary-container">
+    <!-- SideNavBar -->
+    <nav class="bg-surface dark:bg-surface-container-lowest text-secondary dark:text-secondary-fixed-dim font-label-md text-label-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-6 z-50 hidden md:flex">
+        <div class="px-6 mb-8 flex flex-col items-center">
+            <img alt="HybridHire AI Logo" class="w-16 h-16 rounded-xl shadow-sm mb-4" data-alt="A modern, minimalist abstract logo design featuring intersecting blue and black geometric shapes forming an intricate, technical monogram. High-key white background, sharp vector style, symbolizing artificial intelligence and structural recruitment processes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbnSO2CKtIah6td_avpBvxD-tYA0S2L-KgqsW9F4ojNogiBqNJdknrIhhYk5MxakvtQ_JLAc70Lt3S0DqCemnC0Folu5llNsjstIoqtwekfLHYVbQo7TJllhE4_zcv0erHNsi9603BJ7ZVxFihFdYDppDg9WIz5a8Hx7mvV-Y5l_gAp7TSYKZc6bfjTicC0z1qTuBZr171vsen-xqrCCeTLlj0hFw3sVlErMkh_o-_0wZzv6kjjT8I"/>
+            <h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-on-primary-fixed text-center">HybridHire AI</h1>
+            <p class="text-on-surface-variant opacity-70 mt-1">Recruiter Portal</p>
+        </div>
+        <div class="px-4 mb-6">
+        <a href="upload.html ">    <button   class="w-full bg-secondary text-on-secondary h-12 rounded-lg font-label-md hover:bg-secondary-container transition-colors shadow-sm flex items-center justify-center gap-2" id="uploadBtn">
+                <span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">upload_file</span>
+                Upload Resumes
+            </button> </a>
+        </div>
+        <div class="flex-1 flex flex-col gap-2 w-full px-2">
+            <a  href="dashboard.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-secondary-container/5 hover:text-secondary transition-all active:translate-x-1 duration-200 rounded-lg mx-2" href="dashboard.html">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+            <a href="candidates.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-secondary-container/5 hover:text-secondary transition-all active:translate-x-1 duration-200 rounded-lg mx-2" href="#">
+                <span class="material-symbols-outlined" data-icon="groups">groups</span>
+                Candidates
+            </a>
+            <a href="analytics.html" class="flex items-center gap-3 px-4 py-3 bg-secondary-container/10 text-secondary border-r-4 border-secondary hover:bg-secondary-container/5 hover:text-secondary transition-all active:translate-x-1 duration-200 rounded-lg mx-2 font-bold" href="analytics.html">
+                <span class="material-symbols-outlined" data-icon="leaderboard" data-weight="fill" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+                Analytics
+            </a>
+            <a href="settings.html" class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-secondary-container/5 hover:text-secondary transition-all active:translate-x-1 duration-200 rounded-lg mx-2" href="#">
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+        </div>
+        <div class="mt-auto px-2 flex flex-col gap-2">
+            <a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-secondary-container/5 hover:text-secondary transition-all active:translate-x-1 duration-200 rounded-lg mx-2" href="#">
+                <span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+                Support
+            </a>
+            <a  href="login.html" class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container/20 transition-all active:translate-x-1 duration-200 rounded-lg mx-2" href="#" id="logoutBtn">
+                <span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Main Content Area -->
+    <div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+        <!-- TopAppBar -->
+        <header class="bg-surface/70 dark:bg-surface-container-low/70 backdrop-blur-md text-secondary dark:text-secondary-fixed-dim font-body-md text-body-md w-full sticky top-0 bg-surface/70 dark:bg-surface-container-low/70 shadow-sm flex items-center justify-between px-margin-desktop py-4 w-full z-40 h-20 border-b border-outline-variant/30">
+            <div class="flex items-center gap-4 flex-1">
+                <span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-on-primary-fixed md:hidden">HybridHire AI</span>
+                <div class="hidden md:flex items-center bg-surface-container-low rounded-full px-4 py-2 border border-outline-variant/50 w-full max-w-md focus-within:border-secondary focus-within:ring-2 focus-within:ring-secondary/20 transition-all">
+                    <span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+                    <input class="bg-transparent border-none focus:ring-0 text-body-md w-full placeholder-on-surface-variant p-0 h-auto" placeholder="Search analytics..." type="text" id="searchInput"/>
+                </div>
+                
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-150 relative">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+                </button>
+                <button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-150 hidden md:block">
+                    <span class="material-symbols-outlined" data-icon="help">help</span>
+                </button>
+                <div class="h-8 w-px bg-outline-variant/50 mx-2 hidden md:block"></div>
+                <button class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-variant hover:border-secondary transition-colors cursor-pointer active:scale-95 duration-150 shadow-sm">
+               <a href="settings.html">     <img alt="Recruiter profile avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a confident recruiter in a modern office environment. Soft natural lighting, shallow depth of field, high-end corporate aesthetic with a neutral blue-gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_FD-MfuoCQVLODaUGv0Iq3yHniYuoL3m74tNoHMR2SnkCU2aBiWGlHjdFnzr3K84do8fbztmM93cgeKiGV7JzoDikBhyU-4bl1AXEbVB_zXxlxTiVlnCxWe6zf7e8rerCn4eUo-x9PUv1di-a8qJc4_11DA8olrjcoGE1fvqYBcDl04PyznklFtb7WVtfG_S3OaTAqu7EPo0c7MVnBw3PyDlKaUE4_PqB82kLaC92ulc5AHkL8SV1"/></a>
+                </button>
+            </div>
+        </header>
+        
+        <!-- Page Content -->
+        <main class="flex-1 p-margin-mobile md:p-margin-desktop overflow-y-auto max-w-container-max mx-auto w-full">
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-stack-lg">
+                <div>
+                    <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary tracking-tight">Analytics &amp; Insights</h1>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">Overview of recruitment performance, candidate pipelines, and AI matching efficiency for the current quarter.</p>
+                </div>
+                <button class="h-12 px-6 bg-surface text-secondary border border-secondary rounded-xl font-label-md hover:bg-secondary hover:text-on-secondary transition-all shadow-sm flex items-center justify-center gap-2 whitespace-nowrap group" id="downloadBtn">
+                    <span class="material-symbols-outlined group-hover:text-on-secondary transition-colors">download</span>
+                    Download Reports
+                </button>
+            </div>
+            
+            <!-- Top Metric Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-stack-xl">
+                <!-- Card 1 -->
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 hover:shadow-[0_8px_30px_rgba(15,23,42,0.08)] transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-primary-fixed/20 rounded-lg text-primary group-hover:bg-primary-fixed transition-colors">
+                            <span class="material-symbols-outlined">description</span>
+                        </div>
+                        <span class="flex items-center text-sm font-semibold text-secondary-container bg-secondary-fixed/50 px-2 py-1 rounded-full">
+                            <span class="material-symbols-outlined text-[16px] mr-1">trending_up</span>
+                            +12%
+                        </span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mb-1">Total Resumes</p>
+                    <h3 class="font-headline-md text-headline-md text-primary" id="totalResumes">12,450</h3>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 hover:shadow-[0_8px_30px_rgba(15,23,42,0.08)] transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-secondary-fixed/40 rounded-lg text-secondary group-hover:bg-secondary-fixed transition-colors">
+                            <span class="material-symbols-outlined">thumb_up</span>
+                        </div>
+                        <span class="flex items-center text-sm font-semibold text-secondary-container bg-secondary-fixed/50 px-2 py-1 rounded-full">
+                            <span class="material-symbols-outlined text-[16px] mr-1">trending_up</span>
+                            +5%
+                        </span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mb-1">Shortlisted Candidates</p>
+                    <h3 class="font-headline-md text-headline-md text-primary" id="shortlisted">842</h3>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 hover:shadow-[0_8px_30px_rgba(15,23,42,0.08)] transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-error-container/50 rounded-lg text-error group-hover:bg-error-container transition-colors">
+                            <span class="material-symbols-outlined">block</span>
+                        </div>
+                        <span class="flex items-center text-sm font-semibold text-on-surface-variant bg-surface-variant px-2 py-1 rounded-full">
+                            <span class="material-symbols-outlined text-[16px] mr-1">trending_down</span>
+                            -2%
+                        </span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mb-1">Rejected Candidates</p>
+                    <h3 class="font-headline-md text-headline-md text-primary" id="rejected">1,230</h3>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 hover:shadow-[0_8px_30px_rgba(15,23,42,0.08)] transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-surface-variant rounded-lg text-on-surface-variant group-hover:bg-surface-container-highest transition-colors">
+                            <span class="material-symbols-outlined">pending_actions</span>
+                        </div>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mb-1">Pending Reviews</p>
+                    <h3 class="font-headline-md text-headline-md text-primary" id="pending">156</h3>
+                </div>
+            </div>
+            
+            <!-- Bento Grid Layout for Complex Data -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-stack-xl">
+                <!-- KPI Section (Spans 1 col) -->
+                <div class="lg:col-span-1 flex flex-col gap-gutter">
+                    <!-- Hiring Success Rate -->
+                    <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 ai-border-top relative overflow-hidden">
+                        <div class="absolute -right-12 -top-12 w-32 h-32 bg-secondary-fixed/30 rounded-full blur-2xl"></div>
+                        <h4 class="font-headline-sm text-headline-sm text-primary mb-2 relative z-10">Hiring Success Rate</h4>
+                        <div class="flex items-end gap-3 mb-6 relative z-10">
+                            <span class="text-5xl font-bold text-secondary-container" id="successRate">78%</span>
+                            <span class="text-sm font-medium text-on-surface-variant mb-2">overall efficiency</span>
+                        </div>
+                        <div class="w-full bg-surface-variant rounded-full h-1.5 mb-2 relative z-10">
+                            <div class="bg-secondary h-1.5 rounded-full progress-bar-glow" style="width: 78%" id="successBar"></div>
+                        </div>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant relative z-10">Based on offer acceptance vs initial shortlist.</p>
+                    </div>
+                    <!-- Avg AI Match Score -->
+                    <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 ai-border-top relative overflow-hidden">
+                        <div class="absolute -right-12 -top-12 w-32 h-32 bg-primary-fixed/30 rounded-full blur-2xl"></div>
+                        <h4 class="font-headline-sm text-headline-sm text-primary mb-2 relative z-10">Avg. AI Match Score</h4>
+                        <div class="flex items-end gap-3 mb-6 relative z-10">
+                            <span class="text-5xl font-bold text-primary-fixed-variant" id="aiScore">82%</span>
+                            <span class="text-sm font-medium text-on-surface-variant mb-2">confidence</span>
+                        </div>
+                        <div class="w-full bg-surface-variant rounded-full h-1.5 mb-2 relative z-10">
+                            <div class="bg-primary h-1.5 rounded-full progress-bar-glow" style="width: 82%" id="aiScoreBar"></div>
+                        </div>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant relative z-10">Average score across all shortlisted technical roles.</p>
+                    </div>
+                </div>
+                
+                <!-- Charts Area (Spans 2 cols) -->
+                <div class="lg:col-span-2 bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 flex flex-col">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="font-headline-sm text-headline-sm text-primary">Hiring Trends &amp; Pipeline</h4>
+                        <select class="bg-surface border border-outline-variant/50 rounded-lg px-3 py-2 text-sm font-medium text-on-surface-variant focus:border-secondary focus:ring-1 focus:ring-secondary outline-none" id="trendSelect">
+                            <option>Last 6 Months</option>
+                            <option>Year to Date</option>
+                            <option>Q3 2023</option>
+                        </select>
+                    </div>
+                    <!-- Placeholder for Line Chart Visual -->
+                    <div class="flex-1 w-full bg-surface-container-low rounded-lg border border-outline-variant/10 relative overflow-hidden min-h-[300px] flex items-end px-4 pt-8 pb-4">
+                        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+                        <div class="w-full h-full flex items-end justify-between gap-2 relative z-10">
+                            <svg class="absolute inset-0 w-full h-full preserve-3d" preserveAspectRatio="none" viewBox="0 0 100 100">
+                                <defs>
+                                    <linearGradient id="gradient-area" x1="0%" x2="0%" y1="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.2"/>
+                                        <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M0,100 L0,70 Q15,60 30,80 T60,50 T80,40 T100,20 L100,100 Z" fill="url(#gradient-area)"/>
+                                <path d="M0,70 Q15,60 30,80 T60,50 T80,40 T100,20" fill="none" stroke="#3B82F6" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                                <circle cx="30" cy="80" fill="#ffffff" r="1.5" stroke="#3B82F6" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+                                <circle cx="60" cy="50" fill="#ffffff" r="1.5" stroke="#3B82F6" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+                                <circle cx="80" cy="40" fill="#ffffff" r="1.5" stroke="#3B82F6" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+                                <circle cx="100" cy="20" fill="#ffffff" r="1.5" stroke="#3B82F6" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+                            </svg>
+                            <div class="absolute bottom-0 left-0 w-full flex justify-between px-2 text-xs text-on-surface-variant/70 -mb-6">
+                                <span>Jan</span>
+                                <span>Feb</span>
+                                <span>Mar</span>
+                                <span>Apr</span>
+                                <span>May</span>
+                                <span>Jun</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Breakdown Sections -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter pb-stack-xl">
+                <!-- Department Breakdown -->
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20">
+                    <h4 class="font-headline-sm text-headline-sm text-primary mb-6">Department Applications</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-32 font-medium text-sm text-on-surface-variant truncate">Engineering</div>
+                            <div class="flex-1 bg-surface-variant rounded-full h-2">
+                                <div class="bg-secondary h-2 rounded-full progress-bar-glow" style="width: 45%"></div>
+                            </div>
+                            <div class="w-12 text-right text-sm font-semibold">45%</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-32 font-medium text-sm text-on-surface-variant truncate">Sales</div>
+                            <div class="flex-1 bg-surface-variant rounded-full h-2">
+                                <div class="bg-secondary/80 h-2 rounded-full" style="width: 25%"></div>
+                            </div>
+                            <div class="w-12 text-right text-sm font-semibold">25%</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-32 font-medium text-sm text-on-surface-variant truncate">Product</div>
+                            <div class="flex-1 bg-surface-variant rounded-full h-2">
+                                <div class="bg-secondary/60 h-2 rounded-full" style="width: 15%"></div>
+                            </div>
+                            <div class="w-12 text-right text-sm font-semibold">15%</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-32 font-medium text-sm text-on-surface-variant truncate">Marketing</div>
+                            <div class="flex-1 bg-surface-variant rounded-full h-2">
+                                <div class="bg-secondary/40 h-2 rounded-full" style="width: 10%"></div>
+                            </div>
+                            <div class="w-12 text-right text-sm font-semibold">10%</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-32 font-medium text-sm text-on-surface-variant truncate">Design</div>
+                            <div class="flex-1 bg-surface-variant rounded-full h-2">
+                                <div class="bg-secondary/20 h-2 rounded-full" style="width: 5%"></div>
+                            </div>
+                            <div class="w-12 text-right text-sm font-semibold">5%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Top Skills Cloud -->
+                <div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 glass-panel">
+                    <h4 class="font-headline-sm text-headline-sm text-primary mb-6">Top Identified Skills</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 rounded-full bg-secondary/10 text-secondary border border-secondary/20 text-lg font-semibold shadow-sm">React</span>
+                        <span class="px-4 py-2 rounded-full bg-surface-variant text-on-surface-variant text-md font-medium border border-outline-variant/30">Python</span>
+                        <span class="px-3 py-1.5 rounded-full bg-surface-variant text-on-surface-variant text-sm font-medium border border-outline-variant/30">AWS</span>
+                        <span class="px-3 py-1.5 rounded-full bg-surface-variant text-on-surface-variant text-sm font-medium border border-outline-variant/30">SQL</span>
+                        <span class="px-4 py-2 rounded-full bg-secondary/5 text-secondary-container border border-secondary/10 text-md font-medium">UX Design</span>
+                        <span class="px-3 py-1.5 rounded-full bg-surface-variant text-on-surface-variant text-sm font-medium border border-outline-variant/30">Node.js</span>
+                        <span class="px-3 py-1.5 rounded-full bg-surface-variant text-on-surface-variant text-sm font-medium border border-outline-variant/30">Agile</span>
+                        <span class="px-2 py-1 rounded-full bg-surface-variant/50 text-on-surface-variant/70 text-xs border border-outline-variant/20">Figma</span>
+                        <span class="px-2 py-1 rounded-full bg-surface-variant/50 text-on-surface-variant/70 text-xs border border-outline-variant/20">Docker</span>
+                        <span class="px-4 py-2 rounded-full bg-primary/5 text-primary border border-primary/10 text-md font-medium">Machine Learning</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>

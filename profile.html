@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HybridHire AI - Student Profile</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="profile.css"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#565e74",
+                        "on-surface-variant": "#45464d",
+                        "primary": "#000000",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#e0e3e5",
+                        "warning-amber": "#d97706",
+                        "on-error": "#ffffff",
+                        "outline": "#76777d",
+                        "surface-bright": "#f8f9ff",
+                        "tertiary": "#000000",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "error-red": "#dc2626",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "inverse-surface": "#213145",
+                        "surface-container": "#e5eeff",
+                        "tertiary-container": "#191c1e",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-blue": "#f8f9ff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-container": "#2170e4",
+                        "outline-variant": "#c6c6cd",
+                        "surface": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-surface": "#0b1c30",
+                        "on-tertiary-container": "#818486",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "success-green": "#16a34a",
+                        "primary-fixed": "#dae2fd",
+                        "on-primary-container": "#7c839b",
+                        "surface-dim": "#cbdbf5",
+                        "primary-container": "#131b2e",
+                        "on-primary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "on-tertiary-fixed": "#191c1e",
+                        "surface-variant": "#d3e4fe",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-background": "#0b1c30",
+                        "on-secondary-container": "#fefcff",
+                        "secondary": "#0058be",
+                        "ai-blue": "#3b82f6",
+                        "on-secondary-fixed-variant": "#004395",
+                        "inverse-primary": "#bec6e0",
+                        "on-primary-fixed": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-xl": "64px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+    <!-- SideNavBar -->
+    <nav class="hidden md:flex flex-col h-screen fixed z-40 left-0 top-0 w-64 bg-surface-container-lowest shadow-sm border-r border-outline-variant">
+        <div class="p-6">
+            <h1 class="font-headline-sm text-headline-sm font-bold text-primary">HybridHire AI</h1>
+            <p class="font-label-md text-label-md text-on-surface-variant mt-1">Student Portal</p>
+        </div>
+        <div class="px-4 pb-4">
+            <button class="w-full bg-ai-blue text-white py-2 px-4 rounded-lg font-label-md text-label-md hover:bg-opacity-90 transition-colors" id="viewScoreBtn">
+                View AI Career Score
+            </button>
+        </div>
+        <ul class="flex-1 overflow-y-auto font-body-md text-body-md">
+            <li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200" href="student.html"><span class="material-symbols-outlined">dashboard</span> Dashboard</a></li>
+            <li><a class="flex items-center gap-3 px-4 py-3 text-secondary font-bold border-r-4 border-secondary bg-secondary/5 hover:bg-surface-container-high transition-colors duration-200" href="profile.html"><span class="material-symbols-outlined">person</span> Student Profile</a></li>
+            <li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200" href="resume.html"><span class="material-symbols-outlined">description</span> Resume Builder</a></li>
+            <li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200" href="interview.html"><span class="material-symbols-outlined">psychology</span> Skill Assessments</a></li>
+            <li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200" href="jobs.html"><span class="material-symbols-outlined">work_history</span> Job Matches</a></li>  
+        </ul>
+        <div class="mt-auto border-t border-outline-variant pt-2 pb-4 font-body-md text-body-md">
+            <ul>
+                <li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200" href="#"><span class="material-symbols-outlined">help</span> Help Center</a></li>
+                <li><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200" href="#" id="signOutBtn"><span class="material-symbols-outlined">logout</span> Sign Out</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- TopAppBar -->
+    <header class="hidden md:flex justify-between items-center h-16 px-gutter ml-64 w-[calc(100%-256px)] sticky top-0 bg-surface/70 backdrop-blur-md border-b border-outline-variant z-30">
+        <div class="flex items-center gap-6">
+            <span class="font-headline-sm text-headline-sm font-bold text-primary">Career Portal</span>
+            <nav class="flex gap-6 font-label-md text-label-md">
+                <a class="text-on-surface-variant hover:text-secondary transition-colors" href="applications.html">My Applications</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors" href="interview.html">Interviews</a>
+                <a class="text-on-surface-variant hover:text-secondary transition-colors" href="roadmap.html">Resources</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+            <button class="text-on-surface-variant hover:text-secondary transition-colors"><span class="material-symbols-outlined">chat</span></button>
+            <button class="border border-outline-variant text-on-surface px-4 py-1.5 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors" id="editProfileBtn">Edit Profile</button>
+        <a href="jobs.html">   <button class="bg-ai-blue text-white px-4 py-1.5 rounded-lg font-label-md text-label-md hover:bg-opacity-90 transition-colors" id="applyJobsBtn">Apply for Jobs</button></a>
+            <img alt="User profile photo" class="w-8 h-8 rounded-full object-cover ml-2" data-alt="Professional headshot of a young male student in a bright, modern corporate setting. He is wearing a crisp blue shirt, smiling slightly, conveying approachability and competence. The lighting is soft and flattering, highlighting a clean, high-tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKXJM-eREedxOf0BzpGTJPOYjTy9wkZAV6uOPQIiC-pV4cgH304CotZ_VhaYN8ZM_hL-j67IygtG2HJ-DyO2bOzHAjZNFsXY6K1prGNWeRIuSupz0aKVzt-HpClnn-qElUeDU7AQwJt6hvtsvMh9dZlldWcYthVzW7OhXyXNkK-7Y4ZSHpFJRH6PUNNB7LtkjSM3sMHpj5NiU89AfcZMzeyevWblZy-KK9Rzb_q7O3RzirNZF9gUje"/>
+        </div>
+    </header>
+    
+    <!-- Main Content Canvas -->
+    <main class="md:ml-64 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto space-y-gutter">
+        <!-- Profile Header Card -->
+        <section class="bento-card flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+            <div class="flex items-center gap-6">
+                <img alt="Alex Chen" class="w-24 h-24 rounded-full object-cover border-4 border-surface-container" data-alt="High-quality professional portrait of a young male university student, Alex Chen. He is casually yet neatly dressed in a tech-appropriate manner. The background is slightly out of focus, suggesting a modern university campus or a bright co-working space. The image exudes readiness and optimism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCquqh3tqm-nBFtByvICgNuULNT6kbYLnHni9-hl1U-lawdtDHTxoJVXAqnvvdnpJexPtTMmRCl3j3Z_HLSp6toAGVk_Ho36NXs_AAOA8UCLu59mSx_m6OcxE2yaoz_9CbBrKphHwzSod8rG0PBCmctIpsB8dNfN_I3OB6Tku1Q7reIRkFyyuu35qb1AV417ahyfQQC8RmFHCjG6fJCvlngLxQfDDL2_1K3IP6C6oiXzvwXQVfsazCx"/>
+                <div>
+                    <h2 class="font-headline-md text-headline-md text-on-surface">Alex Chen</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant mt-1">B.S. Computer Science • State University</p>
+                    <div class="flex flex-wrap gap-4 mt-2 font-body-sm text-body-sm text-on-surface-variant">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">mail</span> alex.chen@university.edu</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">phone</span> +1 (555) 000-0000</span>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full md:w-auto flex flex-col gap-4 min-w-[250px]">
+                <div>
+                    <div class="flex justify-between font-label-md text-label-md mb-1">
+                        <span class="text-on-surface-variant">Profile Completion</span>
+                        <span class="text-ai-blue" id="profilePercent">85%</span>
+                    </div>
+                    <div class="w-full bg-surface-container-highest rounded-full h-2">
+                        <div class="bg-ai-blue h-2 rounded-full" style="width: 85%" id="profileBar"></div>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button class="flex-1 bg-surface-container-low border border-outline-variant text-on-surface py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors" id="editProfileBtn2">Edit Profile</button>
+                    <button class="flex-1 bg-surface-container text-secondary py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors" id="downloadReportBtn">Download Report</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Career Snapshot (Bento Grid) -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+            <div class="bento-card ai-border">
+                <h3 class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-ai-blue">document_scanner</span> ATS Score</h3>
+                <div class="mt-4 flex items-end gap-2">
+                    <span class="font-display-lg text-display-lg text-on-surface" id="atsScore">85%</span>
+                    <span class="font-body-sm text-body-sm text-success-green mb-2">High</span>
+                </div>
+            </div>
+            <div class="bento-card ai-border">
+                <h3 class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-ai-blue">robot_2</span> AI Match Score</h3>
+                <div class="mt-4 flex items-end gap-2">
+                    <span class="font-display-lg text-display-lg text-on-surface" id="aiMatchScore">92%</span>
+                    <span class="font-body-sm text-body-sm text-success-green mb-2">Excellent</span>
+                </div>
+            </div>
+            <div class="bento-card">
+                <h3 class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-on-surface-variant">trending_up</span> Job Readiness</h3>
+                <div class="mt-4 flex items-end gap-2">
+                    <span class="font-display-lg text-display-lg text-on-surface" id="jobReadiness">78%</span>
+                    <span class="font-body-sm text-body-sm text-on-surface-variant mb-2">Good</span>
+                </div>
+            </div>
+        </section>
+    </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="profile.js"></script>
+</body>
+</html>

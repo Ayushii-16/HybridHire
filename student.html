@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HybridHire AI - Student Dashboard</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="student.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#191c1e",
+                        "surface-container": "#e5eeff",
+                        "success-green": "#16a34a",
+                        "on-primary-fixed": "#131b2e",
+                        "inverse-surface": "#213145",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#000000",
+                        "secondary-container": "#2170e4",
+                        "tertiary-container": "#191c1e",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-variant": "#d3e4fe",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#7c839b",
+                        "surface-dim": "#cbdbf5",
+                        "outline": "#76777d",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#45464d",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-container-low": "#eff4ff",
+                        "error": "#ba1a1a",
+                        "warning-amber": "#d97706",
+                        "primary": "#000000",
+                        "on-background": "#0b1c30",
+                        "error-red": "#dc2626",
+                        "surface-blue": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-primary": "#bec6e0",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "secondary": "#0058be",
+                        "primary-container": "#131b2e",
+                        "ai-blue": "#3b82f6",
+                        "outline-variant": "#c6c6cd",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-fixed": "#001a42",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-fixed-variant": "#004395",
+                        "surface-tint": "#565e74",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-container": "#818486",
+                        "background": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#fefcff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-xl": "64px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex">
+    <!-- SideNavBar -->
+    <nav class="hidden md:flex flex-col h-full pt-20 pb-8 px-4 bg-surface/70 backdrop-blur-md text-secondary fixed left-0 top-0 w-64 z-40 shadow-md">
+        <div class="mb-stack-lg px-2">
+            <h1 class="font-headline-sm text-headline-sm text-primary">HybridHire AI</h1>
+            <p class="font-label-md text-label-md text-on-surface-variant mt-2">HybridHire Student</p>
+            <p class="font-body-sm text-body-sm text-on-primary-container">AI Career Growth</p>
+        </div>
+        <div class="flex flex-col gap-1 flex-grow overflow-y-auto">
+            <!-- Active Tab: Dashboard -->
+            <a href="student.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-secondary/10 text-secondary border-r-4 border-secondary hover:bg-surface-container-low transition-all" href="student.html">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                <span class="font-label-md text-label-md">Dashboard</span>
+            </a>
+            <!-- Inactive Tabs -->
+            <a href="resume.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+                <span class="material-symbols-outlined">description</span>
+                <span class="font-label-md text-label-md">Resume Analysis</span>
+            </a>
+            <a href="jobs.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+                <span class="material-symbols-outlined">work</span>
+                <span class="font-label-md text-label-md">Job Recommendations</span>
+            </a>
+            <a href="roadmap.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+                <span class="material-symbols-outlined">map</span>
+                <span class="font-label-md text-label-md">Career Roadmap</span>
+            </a>
+            <a href="interview.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+                <span class="material-symbols-outlined">record_voice_over</span>
+                <span class="font-label-md text-label-md">Interview Preparation</span>
+            </a>
+            <a href="applications.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+                <span class="material-symbols-outlined">assignment_turned_in</span>
+                <span class="font-label-md text-label-md">Applications</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+                <span class="material-symbols-outlined">school</span>
+                <span class="font-label-md text-label-md">Skill Development</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+                <span class="material-symbols-outlined">card_membership</span>
+                <span class="font-label-md text-label-md">Certificates</span>
+            </a>
+            <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+                <span class="material-symbols-outlined">person</span>
+                <span class="font-label-md text-label-md">Profile</span>
+            </a>
+        </div>
+        <div class="mt-stack-lg px-2 flex flex-col gap-2">
+            <button class="w-full bg-ai-blue text-white py-2 rounded-lg font-label-md text-label-md hover:bg-secondary-container transition-colors shadow-sm" id="analyzeResumeBtn">Analyze Resume</button>
+        </div>
+        <div class="mt-stack-lg border-t border-surface-variant pt-stack-sm flex flex-col gap-1">
+            <a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+                <span class="material-symbols-outlined">help</span>
+                <span class="font-label-md text-label-md">Help Center</span>
+            </a>
+            <a  href="login.html" class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#" id="logoutBtn">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-label-md text-label-md">Logout</span>
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Main Content Area -->
+    <main class="flex-1 md:ml-64 relative">
+        <!-- TopNavBar -->
+        <header class="flex justify-between items-center h-16 px-margin-desktop w-full bg-surface/70 backdrop-blur-md fixed top-0 z-50 shadow-sm">
+            <div class="flex items-center">
+                <button class="md:hidden mr-4 text-on-surface-variant" id="mobileMenuBtn">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="text-on-surface-variant hover:bg-surface-container-high/50 p-2 rounded-full transition-colors active:scale-95">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button class="text-on-surface-variant hover:bg-surface-container-high/50 p-2 rounded-full transition-colors active:scale-95">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant border border-outline-variant cursor-pointer">
+                    <img alt="Student Profile Picture" class="w-full h-full object-cover" data-alt="A professional headshot of a young student in a modern, well-lit corporate environment, suitable for a professional networking or AI recruitment dashboard profile picture. High key lighting, clean background, blue accent colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrtibGPoMazJh3u_pEpzmlg8TCiA4_JSlZS44sFjJSmOYQIWBVTkyc2DIL3SpxE1v_CThKwtZK0ETuxe-Xun1xdsc-gBFAo-wJXdnvDABi1YOgVNAFoe6e7niUICu5EKFryPRntGYU7WCiZEgxu_rxjiwPi9GEfG0Mw9eubYDLcULig0v2w3ifGsX6v1p1jwOPHOo02Cu5ICygZIBGwhE3LaeRKedQW7I72PAasi8qczIki06SNV0h"/>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Dashboard Content Canvas -->
+        <div class="pt-24 pb-12 px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto">
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+                <!-- Left Column (Main Metrics & Insights) -->
+                <div class="lg:col-span-2 flex flex-col gap-stack-lg">
+                    <!-- Welcome Card -->
+                    <section class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow ai-border-top relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-64 h-full opacity-10 pointer-events-none" style="background: radial-gradient(circle, #3b82f6 0%, transparent 70%);"></div>
+                        <h2 class="font-headline-md text-headline-md text-primary mb-2 relative z-10">Welcome back, Alex!</h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6 relative z-10">Your profile is 85% complete. A fully optimized profile increases interview chances by 40%.</p>
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="flex-1">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-label-md text-label-md text-on-surface-variant">Profile Completion</span>
+                                    <span class="font-label-md text-label-md text-ai-blue font-bold" id="profilePercent">85%</span>
+                                </div>
+                                <div class="match-score-track w-full bg-surface-container-high">
+                                    <div class="match-score-fill" style="width: 85%;" id="profileBar"></div>
+                                </div>
+                            </div>
+                            <button class="bg-ai-blue text-white px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-secondary-container transition-colors shadow-sm whitespace-nowrap" id="completeProfileBtn">
+                                Complete Profile
+                            </button>
+                        </div>
+                    </section>
+                    
+                    <!-- Bento Grid for Metrics & Charts -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+                        <!-- Resume Health -->
+                        <section class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow flex flex-col items-center justify-center relative">
+                            <div class="absolute top-4 left-4 flex items-center gap-2 text-on-surface-variant">
+                                <span class="material-symbols-outlined text-sm">health_and_safety</span>
+                                <span class="font-label-md text-label-md">Resume Health</span>
+                            </div>
+                            <div class="circular-gauge mt-6 mb-4" id="atsGauge">
+                                <div class="circular-gauge-content">
+                                    <span class="font-headline-md text-headline-md font-bold text-primary block" id="atsScore">78</span>
+                                    <span class="font-label-md text-label-md text-on-surface-variant">ATS Score</span>
+                                </div>
+                            </div>
+                            <div class="w-full bg-surface-container-low rounded-lg p-4 mt-2 border border-surface-variant">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-body-sm text-body-sm text-on-surface">Global AI Match</span>
+                                    <span class="font-headline-sm text-headline-sm font-bold text-success-green" id="globalAiMatch">92%</span>
+                                </div>
+                                <p class="font-label-md text-label-md text-on-surface-variant mt-1">Highly competitive for target roles.</p>
+                            </div>
+                        </section>
+                        
+                        <!-- Skill Gap Analysis -->
+                        <section class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="font-headline-sm text-headline-sm text-primary">Skill Gap Analysis</h3>
+                                <button class="text-ai-blue hover:text-secondary-container transition-colors" id="skillInfoBtn"><span class="material-symbols-outlined">info</span></button>
+                            </div>
+                            <div class="flex flex-col gap-4">
+                                <!-- Skill 1 -->
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-body-sm text-body-sm text-on-surface">React</span>
+                                        <span class="font-label-md text-label-md text-success-green">Possessed</span>
+                                    </div>
+                                    <div class="match-score-track w-full">
+                                        <div class="match-score-fill bg-success-green shadow-none" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                <!-- Skill 2 -->
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-body-sm text-body-sm text-on-surface">Node.js</span>
+                                        <span class="font-label-md text-label-md text-warning-amber">Developing (60%)</span>
+                                    </div>
+                                    <div class="match-score-track w-full">
+                                        <div class="match-score-fill bg-warning-amber shadow-none" style="width: 60%;"></div>
+                                    </div>
+                                </div>
+                                <!-- Skill 3 -->
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-body-sm text-body-sm text-on-surface">System Design</span>
+                                        <span class="font-label-md text-label-md text-error-red">Required (Gap)</span>
+                                    </div>
+                                    <div class="match-score-track w-full">
+                                        <div class="match-score-fill bg-surface-container-high shadow-none" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <!-- Recommended Jobs (Table Layout) -->
+                    <section class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow overflow-hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-headline-sm text-headline-sm text-primary">Recommended Jobs</h3>
+                            <a class="font-label-md text-label-md text-ai-blue hover:underline" href="#" id="viewAllJobs">View All</a>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-surface-variant">
+                                        <th class="pb-3 font-label-md text-label-md text-on-surface-variant font-semibold">Role</th>
+                                        <th class="pb-3 font-label-md text-label-md text-on-surface-variant font-semibold">Company</th>
+                                        <th class="pb-3 font-label-md text-label-md text-on-surface-variant font-semibold text-right">AI Match</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-surface-variant/50 hover:bg-surface-blue transition-colors group cursor-pointer job-row">
+                                        <td class="py-4 font-body-md text-body-md text-on-surface group-hover:text-ai-blue transition-colors">Junior Frontend Engineer</td>
+                                        <td class="py-4 font-body-sm text-body-sm text-on-surface-variant">Stripe</td>
+                                        <td class="py-4 text-right">
+                                            <span class="inline-flex items-center gap-1 bg-surface-container-high text-ai-blue px-2 py-1 rounded font-label-md text-label-md">
+                                                <span class="material-symbols-outlined text-[14px]">auto_awesome</span> 94%
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-surface-variant/50 hover:bg-surface-blue transition-colors group cursor-pointer job-row">
+                                        <td class="py-4 font-body-md text-body-md text-on-surface group-hover:text-ai-blue transition-colors">React Developer</td>
+                                        <td class="py-4 font-body-sm text-body-sm text-on-surface-variant">Vercel</td>
+                                        <td class="py-4 text-right">
+                                            <span class="inline-flex items-center gap-1 bg-surface-container-high text-ai-blue px-2 py-1 rounded font-label-md text-label-md">
+                                                <span class="material-symbols-outlined text-[14px]">auto_awesome</span> 89%
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-surface-blue transition-colors group cursor-pointer job-row">
+                                        <td class="py-4 font-body-md text-body-md text-on-surface group-hover:text-ai-blue transition-colors">Software Engineer I</td>
+                                        <td class="py-4 font-body-sm text-body-sm text-on-surface-variant">Microsoft</td>
+                                        <td class="py-4 text-right">
+                                            <span class="inline-flex items-center gap-1 bg-surface-container-high text-ai-blue px-2 py-1 rounded font-label-md text-label-md">
+                                                <span class="material-symbols-outlined text-[14px]">auto_awesome</span> 85%
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    
+                    <!-- Recent Applications -->
+                    <section class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-headline-sm text-headline-sm text-primary">Recent Applications</h3>
+                            <button class="text-on-surface-variant hover:text-primary transition-colors" id="moreAppsBtn"><span class="material-symbols-outlined">more_horiz</span></button>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <!-- App 1 -->
+                            <div class="flex items-center justify-between p-3 rounded-lg border border-surface-variant hover:bg-surface-blue transition-colors cursor-pointer app-row">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary font-bold">G</div>
+                                    <div>
+                                        <p class="font-body-md text-body-md font-semibold text-on-surface">Google</p>
+                                        <p class="font-body-sm text-body-sm text-on-surface-variant">Frontend Engineer</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-secondary-fixed-dim/20 text-secondary font-label-md text-label-md border border-secondary/20">Interviewing</span>
+                            </div>
+                            <!-- App 2 -->
+                            <div class="flex items-center justify-between p-3 rounded-lg border border-surface-variant hover:bg-surface-blue transition-colors cursor-pointer app-row">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary font-bold">M</div>
+                                    <div>
+                                        <p class="font-body-md text-body-md font-semibold text-on-surface">Meta</p>
+                                        <p class="font-body-sm text-body-sm text-on-surface-variant">UI Developer</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-md text-label-md border border-outline-variant">Applied</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Right Column (Sidebar contextual tools) -->
+                <div class="flex flex-col gap-stack-lg">
+                    <!-- Career Roadmap Stepper -->
+                    <section class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow">
+                        <h3 class="font-headline-sm text-headline-sm text-primary mb-6">Career Roadmap</h3>
+                        <div class="relative border-l-2 border-surface-variant ml-3 space-y-6">
+                            <!-- Step 1 (Completed) -->
+                            <div class="relative pl-6">
+                                <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-success-green border-2 border-white flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white" style="font-size: 10px; font-weight: bold;">check</span>
+                                </div>
+                                <h4 class="font-body-md text-body-md font-semibold text-on-surface">Resume Optimized</h4>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">ATS Score reached target threshold.</p>
+                            </div>
+                            <!-- Step 2 (Active) -->
+                            <div class="relative pl-6">
+                                <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-ai-blue border-2 border-white animate-pulse"></div>
+                                <h4 class="font-body-md text-body-md font-semibold text-ai-blue">Skill Upgrading</h4>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Focusing on Kubernetes and GraphQL.</p>
+                            </div>
+                            <!-- Step 3 (Upcoming) -->
+                            <div class="relative pl-6">
+                                <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-surface-variant border-2 border-white"></div>
+                                <h4 class="font-body-md text-body-md font-semibold text-on-surface-variant">Interview Prep</h4>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Mock interviews scheduled next week.</p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- AI Career Assistant Panel -->
+                    <section class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow ai-border-top">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="material-symbols-outlined text-ai-blue">smart_toy</span>
+                            <h3 class="font-headline-sm text-headline-sm text-primary">AI Assistant</h3>
+                        </div>
+                        <div class="bg-surface-blue p-4 rounded-lg border border-surface-variant mb-4">
+                            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-2">Next Best Action</p>
+                            <p class="font-body-md text-body-md text-on-surface" id="aiSuggestion">Update your portfolio with the new React project to boost your score for Vercel by ~3%.</p>
+                        </div>
+                        <button class="w-full flex items-center justify-center gap-2 border border-ai-blue text-ai-blue py-2 rounded-lg font-label-md text-label-md hover:bg-ai-blue/5 transition-colors" id="chatAiBtn">
+                            <span class="material-symbols-outlined text-sm">chat</span> Chat with AI
+                        </button>
+                    </section>
+                    
+                    <!-- Recommended Courses -->
+                    <section class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow">
+                        <h3 class="font-headline-sm text-headline-sm text-primary mb-4">Recommended Courses</h3>
+                        <div class="flex flex-col gap-4">
+                            <!-- Course 1 -->
+                            <div class="group border border-surface-variant rounded-lg p-4 hover:border-ai-blue transition-colors cursor-pointer course-card">
+                                <div class="w-full h-24 bg-surface-container rounded-md mb-3 overflow-hidden">
+                                    <div class="bg-cover bg-center w-full h-full opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Abstract, modern corporate geometric pattern in varying shades of professional blue and grey, representing software architecture and clean code structure. High resolution, crisp lines." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDjNuEzbCc99GlWnew60tgMMKkVsPo--S0ZL3-eW1FdGoXhHH6u7slkdgIyGNEoKQsWg2mH-BCwVx5DFkZC5LWnJbQgEXsJI3zSax3D8KD6EWSXbbXshApZKDZgLv2_or9ugoMth9mtQMh5_uBL2OT-BeW9r1QMumkwIutovvPR_7fsw1o2nulp11sVfF2KL-C7Ipqwv7cbg-uh6aqHsVzQiRhUuqGZ3H3u8FwCvc-pX7Rmlv36pWFv')"></div>
+                                </div>
+                                <h4 class="font-body-md text-body-md font-semibold text-on-surface group-hover:text-ai-blue transition-colors">Advanced React Patterns</h4>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Fills your identified skill gap.</p>
+                            </div>
+                            <!-- Course 2 -->
+                            <div class="group border border-surface-variant rounded-lg p-4 hover:border-ai-blue transition-colors cursor-pointer course-card">
+                                <div class="w-full h-24 bg-surface-container rounded-md mb-3 overflow-hidden flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-on-surface-variant text-4xl group-hover:text-ai-blue transition-colors">cloud</span>
+                                </div>
+                                <h4 class="font-body-md text-body-md font-semibold text-on-surface group-hover:text-ai-blue transition-colors">AWS Cloud Practitioner</h4>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">High demand for target roles.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- External JavaScript -->
+    <script src="student.js"></script>
+</body>
+</html>

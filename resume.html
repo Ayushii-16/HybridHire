@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>HybridHire AI - Resume Analysis</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="resume.css" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#e0e3e5",
+                        "primary-container": "#131b2e",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary-fixed": "#131b2e",
+                        "on-secondary-fixed-variant": "#004395",
+                        "ai-blue": "#3b82f6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "outline-variant": "#c6c6cd",
+                        "error": "#ba1a1a",
+                        "on-background": "#0b1c30",
+                        "primary": "#000000",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-surface": "#213145",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#818486",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary": "#0058be",
+                        "warning-amber": "#d97706",
+                        "success-green": "#16a34a",
+                        "tertiary": "#000000",
+                        "surface-tint": "#565e74",
+                        "error-red": "#dc2626",
+                        "surface-container-highest": "#d3e4fe",
+                        "background": "#f8f9ff",
+                        "on-surface-variant": "#45464d",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "outline": "#76777d",
+                        "inverse-primary": "#bec6e0",
+                        "secondary-container": "#2170e4",
+                        "surface-dim": "#cbdbf5",
+                        "surface": "#f8f9ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-surface": "#0b1c30",
+                        "on-secondary-container": "#fefcff",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary-container": "#191c1e",
+                        "on-primary-container": "#7c839b",
+                        "surface-blue": "#f8f9ff",
+                        "secondary-fixed-dim": "#adc6ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "stack-xl": "64px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-md": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased h-screen overflow-hidden flex flex-col">
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md border-b border-outline-variant/30 shadow-sm h-16">
+        <div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto">
+            <div class="flex items-center gap-4">
+                <span class="font-headline-sm text-headline-sm font-bold text-primary">HybridHire AI</span>
+            </div>
+            <div class="hidden md:flex gap-8">
+                <a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low px-4 py-2 rounded-lg font-body-md text-body-md"
+                    href="student.html">Dashboard</a>
+                <a class="text-secondary font-semibold border-b-2 border-secondary pb-1 px-4 py-2 rounded-lg font-body-md text-body-md"
+                    href="candidates.html">Candidates</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low px-4 py-2 rounded-lg font-body-md text-body-md"
+                    href="applications.html">Applications</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low px-4 py-2 rounded-lg font-body-md text-body-md"
+                    href="profile.html">Settings</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button
+                    class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors active:opacity-80 transition-opacity">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+                <button
+                    class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors active:opacity-80 transition-opacity">
+                    <span class="material-symbols-outlined" data-icon="help">help</span>
+                </button>
+                <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+                    <a href="profile.html"> <img alt="Recruiter Profile" class="w-full h-full object-cover"
+                            data-alt="A small, circular profile picture of a professional recruiter in a modern office setting, bright lighting, corporate attire."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7kVIhbiIR5tOom6Sz38bpGHvu9ZnTy519srMf_ihyISwn8tUC3KKZAoQ0cE2M4PA3OcaDw8kvLjaIiqJG5Yhadl2jOEnJZyQPyCqPt4M9n_8bcidDnVwu-cgf-EWVkhfkdp4HyXLVFOjv1EdNrhNhTmA0Q7sFXgP3q1MB1anxP8vQGNTYRmat40GL58s5ORQvYlUwOBksePdgcdculIWp7l_yR5OvLUSjgwEMKtKZM2YmRZlsyvKL" /></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex flex-1 pt-16 overflow-hidden">
+        <!-- SideNavBar -->
+        <aside class="hidden md:flex flex-col bg-surface shadow-md w-64 h-[calc(100vh-64px)] shrink-0 py-stack-md z-40">
+            <div class="px-6 mb-8 mt-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
+                    <img alt="Candidate Resume" class="w-full h-full object-cover"
+                        data-alt="A thumbnail icon representing a professional resume document, crisp lines, modern digital aesthetic."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5p1xKjicyGvnNrVQvMlC87nuuCGREret70l7HbDssDcgi8GcofT5lVJRjAL4E6sJHnpfCobGurgiHhU4oeu-yL46Ny0VISoYG3Wkw-hiyPZXAH8gcoxbqcN0LTw-CgG7YdP7wMJTvtk1jOfHt_Lzt3mgzbVb_XQXZ1o8bT0ArZGz3ZLEUCFrnN3A-UTWWoOso8K17R7uZhJkKN8c_dIcD82LIorLPGUDf2y4AMhfeKk_4CpyDtyT1" />
+                </div>
+                <div>
+                    <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface text-sm truncate">Resume
+                        Analysis</h2>
+                    <p class="font-label-md text-label-md text-on-surface-variant truncate">AI-Powered Evaluation</p>
+                </div>
+            </div>
+            <nav class="flex-1 flex flex-col gap-2 px-2">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-secondary/10 text-secondary border-r-4 border-secondary font-label-md text-label-md transition-transform scale-95 active:scale-90"
+                    href="resume.html">
+                    <span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                    Overview
+                </a>
+                <a  href="interview.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-transform scale-95 active:scale-90" >
+                    <span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                    Interview Preparation
+                </a>
+                <a href="roadmap.html"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-transform scale-95 active:scale-90"
+                    href="#">
+                    <span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+                    Career Roadmap
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-transform scale-95 active:scale-90"
+                    href="#">
+                    <span class="material-symbols-outlined" data-icon="work_history">work_history</span>
+                    Experience
+                </a>
+                <a href="jobs.html"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-transform scale-95 active:scale-90"
+                    href="#">
+                    <span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                    Recommendations
+                </a>
+            </nav>
+            <div class="p-4 mt-auto">
+                <a href="student-upload.html"> <button id="analyzeResumeBtn"   class="flex-1 md:flex-none h-11 px-12 bg-[#3B82F6] text-white rounded-lg font-label-md text-label-md hover:bg-secondary transition-colors flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-[18px]">
+                            upload_file
+                        </span>
+
+                        Upload Resume
+                    </button> </a>
+            </div>
+            <div class="p-4 mt-auto">
+                <button
+                    class="w-full bg-ai-blue text-white rounded-lg py-3 font-label-md text-label-md font-bold hover:bg-secondary-container transition-colors shadow-sm"
+                    id="exportBtn">
+                    Export Report
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Canvas -->
+        <main class="flex-1 overflow-y-auto bg-surface-bright p-margin-desktop">
+            <div class="max-w-container-max mx-auto">
+                <!-- Header -->
+                <header class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="font-headline-md text-headline-md text-on-surface">AI Resume Analysis</h1>
+                        <p class="text-on-surface-variant mt-1">Reviewing profile for Senior Frontend Engineer</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <button
+                            class="px-4 py-2 border border-outline-variant text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors bg-white shadow-sm flex items-center gap-2"
+                            id="reanalyzeBtn">
+                            <span class="material-symbols-outlined text-[18px]">refresh</span>
+                            Re-analyze Resume
+                        </button>
+                        <button
+                            class="px-4 py-2 bg-ai-blue text-white rounded-lg font-label-md text-label-md hover:bg-secondary-container transition-colors shadow-sm flex items-center gap-2"
+                            id="downloadBtn">
+                            <span class="material-symbols-outlined text-[18px]">download</span>
+                            Download Improved Resume
+                        </button>
+                    </div>
+                </header>
+
+                <div class="flex flex-col lg:flex-row gap-gutter">
+                    <!-- Left Column: Resume Preview -->
+                    <div class="lg:w-2/5 flex flex-col gap-gutter">
+                        <div
+                            class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 overflow-hidden flex flex-col h-full border-t-2 border-t-ai-blue">
+                            <div
+                                class="p-4 border-b border-outline-variant/20 bg-surface-bright flex justify-between items-center">
+                                <h3 class="font-label-md text-label-md text-on-surface flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px] text-ai-blue">visibility</span>
+                                    Document Preview
+                                </h3>
+                                <div class="flex gap-2">
+                                    <button
+                                        class="p-1 hover:bg-surface-container rounded text-on-surface-variant zoom-btn"
+                                        data-zoom="in"><span
+                                            class="material-symbols-outlined text-[16px]">zoom_in</span></button>
+                                    <button
+                                        class="p-1 hover:bg-surface-container rounded text-on-surface-variant zoom-btn"
+                                        data-zoom="out"><span
+                                            class="material-symbols-outlined text-[16px]">zoom_out</span></button>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-surface-variant/20 flex-1 overflow-y-auto relative h-[600px]"
+                                id="resumePreview">
+                                <!-- Simulated Resume Document -->
+                                <div class="bg-white p-8 shadow-sm rounded border border-outline-variant/10 font-sans text-[10px] leading-relaxed relative"
+                                    id="resumeDocument">
+                                    <div class="border-b-2 border-slate-800 pb-4 mb-4 text-center">
+                                        <h1 class="text-xl font-bold text-slate-800">Alex Morgan</h1>
+                                        <p class="text-slate-600 mt-1">Senior Frontend Engineer | New York, NY</p>
+                                    </div>
+                                    <h2 class="text-xs font-bold text-slate-700 uppercase mb-2">Experience</h2>
+                                    <div class="mb-4 relative">
+                                        <!-- AI Highlight Overlay -->
+                                        <div
+                                            class="absolute -inset-1 bg-ai-blue/10 border border-ai-blue/30 rounded z-0 pointer-events-none">
+                                        </div>
+                                        <div class="relative z-10">
+                                            <div class="flex justify-between mb-1">
+                                                <strong class="text-slate-800">Lead UI Developer</strong>
+                                                <span class="text-slate-500">2021 - Present</span>
+                                            </div>
+                                            <p class="italic text-slate-600 mb-2">TechCorp Solutions</p>
+                                            <ul class="list-disc pl-4 space-y-1 text-slate-700">
+                                                <li>Architected and migrated legacy monolith to React micro-frontends,
+                                                    reducing load times by 40%.</li>
+                                                <li><span
+                                                        class="bg-warning-amber/20 underline decoration-warning-amber/50 decoration-wavy"
+                                                        title="Quantify this impact">Led a team of 5 junior developers
+                                                        through agile sprints.</span></li>
+                                                <li>Implemented robust CI/CD pipelines using GitHub Actions.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="flex justify-between mb-1">
+                                            <strong class="text-slate-800">Frontend Developer</strong>
+                                            <span class="text-slate-500">2018 - 2021</span>
+                                        </div>
+                                        <p class="italic text-slate-600 mb-2">Web Innovators Inc.</p>
+                                        <ul class="list-disc pl-4 space-y-1 text-slate-700">
+                                            <li>Developed responsive web applications using Vue.js and Tailwind CSS.
+                                            </li>
+                                            <li>Collaborated with design team to ensure pixel-perfect implementation.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h2 class="text-xs font-bold text-slate-700 uppercase mb-2 mt-6">Education</h2>
+                                    <div class="flex justify-between mb-1">
+                                        <strong class="text-slate-800">B.S. Computer Science</strong>
+                                        <span class="text-slate-500">2014 - 2018</span>
+                                    </div>
+                                    <p class="text-slate-600">State University</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Analysis & Metrics -->
+                    <div class="lg:w-3/5 flex flex-col gap-gutter">
+                        <!-- Scoring Row (Bento Grid) -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                            <!-- ATS Score -->
+                            <div
+                                class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 flex flex-col items-center justify-center text-center">
+                                <h4
+                                    class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-wider">
+                                    ATS Score</h4>
+                                <div class="relative w-24 h-24">
+                                    <svg class="w-full h-full" viewBox="0 0 100 100">
+                                        <circle class="text-surface-container stroke-current" cx="50" cy="50"
+                                            fill="transparent" r="40" stroke-width="8"></circle>
+                                        <circle class="text-success-green progress-ring__circle stroke-current" cx="50"
+                                            cy="50" fill="transparent" r="40" stroke-dasharray="251.2"
+                                            stroke-dashoffset="37.68" stroke-linecap="round" stroke-width="8"></circle>
+                                    </svg>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <span class="font-headline-sm text-headline-sm font-bold text-on-surface"
+                                            id="atsScore">85%</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-on-surface-variant mt-3 font-medium">Good Parsability</p>
+                            </div>
+                            <!-- AI Match Score -->
+                            <div
+                                class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 border-t-2 border-t-ai-blue flex flex-col items-center justify-center text-center relative overflow-hidden">
+                                <div class="absolute top-0 right-0 w-16 h-16 bg-ai-blue/5 rounded-bl-full -z-10"></div>
+                                <h4
+                                    class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-wider flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px] text-ai-blue">auto_awesome</span>
+                                    AI Match Score
+                                </h4>
+                                <div class="font-display-lg text-display-lg text-ai-blue mb-2" id="aiMatchScore">92<span
+                                        class="text-headline-sm">%</span></div>
+                                <div
+                                    class="w-full h-1.5 bg-surface-container rounded-full mt-2 overflow-hidden shadow-inner">
+                                    <div class="h-full bg-ai-blue rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                                        style="width: 92%" id="aiMatchBar"></div>
+                                </div>
+                                <p class="text-xs text-on-surface-variant mt-3 font-medium">Highly Relevant</p>
+                            </div>
+                            <!-- Industry Readiness -->
+                            <div
+                                class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 flex flex-col items-center justify-center text-center">
+                                <h4
+                                    class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-wider">
+                                    Industry Readiness</h4>
+                                <div class="relative w-24 h-24">
+                                    <svg class="w-full h-full" viewBox="0 0 100 100">
+                                        <circle class="text-surface-container stroke-current" cx="50" cy="50"
+                                            fill="transparent" r="40" stroke-width="8"></circle>
+                                        <circle class="text-secondary progress-ring__circle stroke-current" cx="50"
+                                            cy="50" fill="transparent" r="40" stroke-dasharray="251.2"
+                                            stroke-dashoffset="30.144" stroke-linecap="round" stroke-width="8"></circle>
+                                    </svg>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <span class="font-headline-sm text-headline-sm font-bold text-on-surface"
+                                            id="industryReadiness">88%</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-on-surface-variant mt-3 font-medium">Senior Level</p>
+                            </div>
+                        </div>
+
+                        <!-- Missing Keywords & Skill Gap -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+                            <!-- Missing Keywords -->
+                            <div
+                                class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20">
+                                <h3
+                                    class="font-label-md text-label-md text-on-surface font-bold mb-4 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[20px] text-warning-amber">key</span>
+                                    Missing Keywords
+                                </h3>
+                                <p class="text-sm text-on-surface-variant mb-4">Add these to improve ATS ranking for
+                                    this role:</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="px-3 py-1 bg-warning-amber/10 text-warning-amber text-xs font-semibold rounded-full border border-warning-amber/20 keyword-tag">+
+                                        Kubernetes</span>
+                                    <span
+                                        class="px-3 py-1 bg-warning-amber/10 text-warning-amber text-xs font-semibold rounded-full border border-warning-amber/20 keyword-tag">+
+                                        GraphQL</span>
+                                    <span
+                                        class="px-3 py-1 bg-surface-container text-on-surface-variant text-xs font-semibold rounded-full keyword-tag">+
+                                        Webpack</span>
+                                    <span
+                                        class="px-3 py-1 bg-surface-container text-on-surface-variant text-xs font-semibold rounded-full keyword-tag">+
+                                        System Design</span>
+                                </div>
+                            </div>
+                            <!-- AI Suggestions -->
+                            <div
+                                class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 border-t-2 border-t-ai-blue">
+                                <h3
+                                    class="font-label-md text-label-md text-on-surface font-bold mb-4 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[20px] text-ai-blue">lightbulb</span>
+                                    AI Suggestions
+                                </h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start gap-3 suggestion-item">
+                                        <span
+                                            class="material-symbols-outlined text-[18px] text-ai-blue mt-0.5">check_circle</span>
+                                        <span class="text-sm text-on-surface">Quantify achievements in your latest role
+                                            (e.g., "Led team of 5").</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 suggestion-item">
+                                        <span
+                                            class="material-symbols-outlined text-[18px] text-ai-blue mt-0.5">check_circle</span>
+                                        <span class="text-sm text-on-surface">Move Education section to bottom for
+                                            senior roles.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- External JavaScript -->
+    <script src="resume.js">
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+ <!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Login - HybridHire AI</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="login.css"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#004395",
+                        "surface-bright": "#f8f9ff",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-container": "#191c1e",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#2170e4",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "primary": "#000000",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface": "#f8f9ff",
+                        "tertiary-fixed": "#e0e3e5",
+                        "surface-container-low": "#eff4ff",
+                        "primary-fixed": "#dae2fd",
+                        "warning-amber": "#d97706",
+                        "secondary": "#0058be",
+                        "on-surface-variant": "#45464d",
+                        "inverse-surface": "#213145",
+                        "on-primary-fixed": "#131b2e",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "ai-blue": "#3b82f6",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-tint": "#565e74",
+                        "error-red": "#dc2626",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed": "#191c1e",
+                        "primary-container": "#131b2e",
+                        "surface-dim": "#cbdbf5",
+                        "on-background": "#0b1c30",
+                        "inverse-primary": "#bec6e0",
+                        "background": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eaf1ff",
+                        "outline-variant": "#c6c6cd",
+                        "on-tertiary-container": "#818486",
+                        "surface-blue": "#f8f9ff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "success-green": "#16a34a",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#7c839b",
+                        "on-surface": "#0b1c30",
+                        "on-secondary-container": "#fefcff",
+                        "tertiary": "#000000",
+                        "outline": "#76777d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "stack-xl": "64px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex items-center justify-center p-margin-mobile md:p-margin-desktop relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-surface-variant rounded-full blur-[100px] opacity-60 pointer-events-none"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary-fixed rounded-full blur-[100px] opacity-60 pointer-events-none"></div>
+    
+    <main class="w-full max-w-[480px] z-10 relative">
+        <div class="glass-panel rounded-xl overflow-hidden ai-border-top flex flex-col items-center p-stack-lg md:p-stack-xl relative">
+            <!-- Brand Logo -->
+            <div class="mb-stack-lg text-center">
+                <div class="flex items-center justify-center gap-2 mb-stack-sm text-ai-blue">
+                    <span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">
+                        hub
+                    </span>
+                    <h1 class="font-headline-md text-headline-md text-primary tracking-tight">HybridHire <span class="text-ai-blue font-bold">AI</span></h1>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant">Sign in to access your intelligent dashboard.</p>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="w-full flex flex-col gap-stack-md">
+                <!-- Role Selection -->
+                <div aria-label="Login role" class="flex bg-surface-container-low p-1 rounded-lg mb-stack-sm" role="group">
+                    <button class="flex-1 py-2 px-4 rounded-lg font-label-md text-label-md text-on-surface bg-surface-container-lowest shadow-sm transition-all duration-200" id="btn-recruiter" type="button">
+                        Recruiter
+                    </button>
+                    <button class="flex-1 py-2 px-4 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-200" id="btn-student" type="button">
+                        Student
+                    </button>
+                </div>
+                
+                <!-- Email Input -->
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-md text-label-md text-on-surface" for="email">Email Address</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant opacity-70">
+                            mail
+                        </span>
+                        <input class="w-full h-[48px] pl-10 pr-4 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 input-ring transition-shadow duration-200" id="email" name="email" placeholder="name@company.com" required="" type="email"/>
+                    </div>
+                </div>
+                
+                <!-- Password Input -->
+                <div class="flex flex-col gap-1">
+                    <div class="flex justify-between items-center">
+                        <label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+                        <a class="font-label-md text-label-md text-ai-blue hover:text-secondary transition-colors duration-200" href="#">Forgot Password?</a>
+                    </div>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant opacity-70">
+                            lock
+                        </span>
+                        <input class="w-full h-[48px] pl-10 pr-10 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 input-ring transition-shadow duration-200" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+                        <button aria-label="Toggle password visibility" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" type="button" id="togglePassword">
+                            <span class="material-symbols-outlined" id="passwordIcon">visibility_off</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Action Button -->
+                <button class="w-full h-[48px] mt-stack-sm bg-ai-blue hover:bg-secondary text-on-primary font-label-md text-label-md rounded-lg shadow-sm flex items-center justify-center gap-2 transition-colors duration-200 group" type="submit">
+                    Sign In
+                    <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform duration-200">arrow_forward</span>
+                </button>
+            </form>
+            
+            <div class="mt-stack-lg text-center w-full pt-stack-md border-t border-outline-variant/30">
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Don't have an account? <a  href="register.html" class="text-ai-blue font-semibold hover:underline" href="#">Request Access</a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="mt-stack-lg text-center font-label-md text-label-md text-on-surface-variant opacity-70">
+            © 2024 HybridHire AI. Secure Login.
+        </div>
+    </main>
+    
+    <!-- External JavaScript -->
+    <script src="login.js"></script>
+</body>
+</html> 

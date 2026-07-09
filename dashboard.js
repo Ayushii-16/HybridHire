@@ -1,0 +1,269 @@
+// =============================================
+// HYBRIDHIRE AI - Dashboard
+// =============================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // ==========================
+    // Role Check
+    // ==========================
+    const role = localStorage.getItem("userRole");
+
+    if (!role) {
+        window.location.replace("login.html");
+        return;
+    }
+
+    if (role !== "recruiter") {
+        window.location.replace("student.html");
+        return;
+    }
+
+    console.log("Recruiter Dashboard Loaded");
+
+    // ==========================
+    // Dynamic Dashboard Numbers
+    // ==========================
+
+    const dashboardData = {
+        totalCandidates: 12450,
+        activeJobs: 45,
+        resumesToday: 842,
+        aiMatchScore: 87
+    };
+
+    document.getElementById("totalCandidates").textContent =
+        dashboardData.totalCandidates.toLocaleString();
+
+    document.getElementById("activeJobs").textContent =
+        dashboardData.activeJobs;
+
+    document.getElementById("resumesToday").textContent =
+        dashboardData.resumesToday;
+
+    document.getElementById("aiMatchScore").textContent =
+        dashboardData.aiMatchScore + "%";
+
+    const scoreBar = document.getElementById("aiScoreBar");
+    if(scoreBar){
+        scoreBar.style.width = dashboardData.aiMatchScore + "%";
+    }
+
+    // ==========================
+    // Search
+    // ==========================
+
+    const searchInput = document.getElementById("searchInput");
+
+    if(searchInput){
+
+        searchInput.addEventListener("keyup", function(){
+
+            const value = this.value.toLowerCase();
+
+            const rows = document.querySelectorAll("#candidateTableBody tr");
+
+            rows.forEach(row=>{
+
+                const text = row.innerText.toLowerCase();
+
+                row.style.display =
+                    text.includes(value) ? "" : "none";
+
+            });
+
+        });
+
+    }
+
+    // ==========================
+    // Select All
+    // ==========================
+
+    const selectAll = document.getElementById("selectAll");
+
+    if(selectAll){
+
+        selectAll.addEventListener("change",function(){
+
+            document.querySelectorAll(".candidate-checkbox")
+            .forEach(cb=>{
+
+                cb.checked=this.checked;
+
+            });
+
+        });
+
+    }
+
+    document.addEventListener("change",function(e){
+
+        if(e.target.classList.contains("candidate-checkbox")){
+
+            const boxes=document.querySelectorAll(".candidate-checkbox");
+
+            const checked=document.querySelectorAll(".candidate-checkbox:checked");
+
+            if(selectAll){
+
+                selectAll.checked=(boxes.length===checked.length);
+
+            }
+
+        }
+
+    });
+
+    // ==========================
+    // View Buttons
+    // ==========================
+
+    document.querySelectorAll(".view-btn").forEach(btn=>{
+
+        btn.addEventListener("click",function(){
+
+            const row=this.closest("tr");
+
+            const name=row.querySelector(".font-medium").textContent;
+
+            alert("Viewing Profile : "+name);
+
+        });
+
+    });
+
+    // ==========================
+    // Upload Button
+    // ==========================
+
+    const upload=document.getElementById("uploadResumesBtn");
+
+    if(upload){
+
+        upload.addEventListener("click",()=>{
+
+            window.location.href="upload.html";
+
+        });
+
+    }
+
+    // ==========================
+    // Export
+    // ==========================
+
+const exportBtn = document.getElementById("exportBtn");
+
+if (exportBtn) {
+    exportBtn.addEventListener("click", () => {
+
+        const report = `
+            <div style="padding:40px;font-family:Arial;">
+                <h1 style="color:#2563eb;">HybridHire AI</h1>
+                <h2>Recruitment Dashboard Report</h2>
+                <hr>
+
+                <h3>Overview</h3>
+
+                <p><strong>Total Candidates:</strong> 12,450</p>
+                <p><strong>Active Jobs:</strong> 45</p>
+                <p><strong>Resumes Processed:</strong> 842</p>
+                <p><strong>Average AI Match:</strong> 87%</p>
+
+                <br>
+
+                <h3>Top Candidate</h3>
+
+                <table border="1" cellspacing="0" cellpadding="8" width="100%">
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>ATS</th>
+                        <th>AI Match</th>
+                    </tr>
+
+                    <tr>
+                        <td>Elena Rostova</td>
+                        <td>Senior ML Engineer</td>
+                        <td>92</td>
+                        <td>98%</td>
+                    </tr>
+
+                    <tr>
+                        <td>Marcus Chen</td>
+                        <td>Product Manager</td>
+                        <td>85</td>
+                        <td>76%</td>
+                    </tr>
+
+                </table>
+
+                <br>
+
+                <p>Generated by HybridHire AI</p>
+
+            </div>
+        `;
+
+        html2pdf().from(report).save("HybridHire_Report.pdf");
+
+    });
+}
+    // ==========================
+    // Logout
+    // ==========================
+
+    const logout=document.getElementById("logoutBtn");
+
+    if(logout){
+
+        logout.addEventListener("click",function(e){
+
+            e.preventDefault();
+
+            if(confirm("Logout?")){
+
+                localStorage.clear();
+
+                window.location.replace("login.html");
+
+            }
+
+        });
+
+    }
+
+});
+
+const ctx = document.getElementById("screeningChart");
+
+if (ctx) {
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            datasets: [{
+                label: "Resumes Screened",
+                data: [15, 28, 22, 35, 42, 38, 55],
+                borderColor: "#3B82F6",
+                backgroundColor: "rgba(59,130,246,0.15)",
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
