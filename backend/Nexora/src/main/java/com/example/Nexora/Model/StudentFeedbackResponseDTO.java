@@ -3,13 +3,14 @@ package com.example.Nexora.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentFeedbackResponseDTO {
+public class StudentFeedbackResponseDTO{
 
     private double atsScore;
     private double semanticScore;
