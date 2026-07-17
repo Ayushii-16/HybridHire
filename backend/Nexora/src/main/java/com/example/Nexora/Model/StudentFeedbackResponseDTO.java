@@ -17,4 +17,43 @@ public class StudentFeedbackResponseDTO {
     private List<String> vocabularySuggestions;
     private List<String> actionableTips;
 
+    public double getAtsScore() {
+        return atsScore;
+    }
+
+    public void setAtsScore(double atsScore) {
+        this.atsScore = atsScore;
+    }
+
+    public double getSemanticScore() {
+        return semanticScore;
+    }
+
+    public void setSemanticScore(double semanticScore) {
+        this.semanticScore = semanticScore;
+    }
+
+    public List<String> getMissingKeywords() {
+        return missingKeywords;
+    }
+
+    public void setMissingKeywords(List<String> missingKeywords) {
+        this.missingKeywords = missingKeywords;
+    }
+
+    public List<String> getVocabularySuggestions() {
+        return vocabularySuggestions;
+    }
+
+    public void setVocabularySuggestions(List<String> vocabularySuggestions) {
+        this.vocabularySuggestions = vocabularySuggestions;
+    }
+
+    public List<String> getActionableTips() {
+        return actionableTips;
+    }
+
+    public void setActionableTips(List<String> actionableTips) {
+        this.actionableTips = actionableTips;
+    }
 }
