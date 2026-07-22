@@ -17,10 +17,23 @@ public class EndUser {
     @Column(unique = true,nullable = false)
     private String email;
     @Column(nullable = false)
+    private String name;
+    @Column(nullable = false)
     private String password;
     @Column(nullable = false)
     private String role;
 
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getUserId() {
         return userId;
