@@ -1,129 +1,140 @@
 // =============================================
-// HYBRIDHIRE AI - Login Page Functionality (Backend Connected)
+// HYBRIDHIRE AI - Login JS (Fully Fixed)
 // =============================================
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
 
-    // Check if already logged in (Auto-redirect)
-    const storedRole = localStorage.getItem('userRole');
-    const storedToken = localStorage.getItem('jwtToken');
-    if (storedRole && storedToken) {
-        if (storedRole === 'recruiter') {
-            window.location.href = 'dashboard.html';
-            return;
-        } else if (storedRole === 'student' || storedRole === 'candidate') {
-            window.location.href = 'student.html';
-            return;
-        }
-    }
-
-    // ----- ROLE TOGGLE -----
+    // ----- 1. DOM ELEMENTS -----
     const btnRecruiter = document.getElementById('btn-recruiter');
     const btnStudent = document.getElementById('btn-student');
-
-    function setActive(activeBtn, inactiveBtn) {
-        activeBtn.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-on-surface');
-        activeBtn.classList.remove('text-on-surface-variant');
-        inactiveBtn.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-on-surface');
-        inactiveBtn.classList.add('text-on-surface-variant');
-    }
-
-    if (btnRecruiter && btnStudent) {
-        btnRecruiter.addEventListener('click', function() {
-            setActive(btnRecruiter, btnStudent);
-        });
-        btnStudent.addEventListener('click', function() {
-            setActive(btnStudent, btnRecruiter);
-        });
-    }
-
-    // ----- PASSWORD VISIBILITY TOGGLE -----
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
     const passwordIcon = document.getElementById('passwordIcon');
+    const form = document.querySelector('form');
 
-    if (togglePassword && passwordInput && passwordIcon) {
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            passwordIcon.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+    // Default selected role (Matching HTML default where Recruiter is active)
+    let selectedRole = 'recruiter';
+
+    // Tailwind CSS classes for Active/Inactive states
+    const activeClasses = ['bg-surface-container-lowest', 'shadow-sm', 'text-on-surface'];
+    const inactiveClasses = ['text-on-surface-variant'];
+
+    // ----- 2. ROLE TOGGLE FUNCTION -----
+    function switchRole(roleToSelect) {
+        selectedRole = roleToSelect;
+
+        if (roleToSelect === 'student') {
+            // Student Active Karein
+            btnStudent.classList.add(...activeClasses);
+            btnStudent.classList.remove(...inactiveClasses);
+
+            // Recruiter Inactive Karein
+            btnRecruiter.classList.remove(...activeClasses);
+            btnRecruiter.classList.add(...inactiveClasses);
+        } else {
+            // Recruiter Active Karein
+            btnRecruiter.classList.add(...activeClasses);
+            btnRecruiter.classList.remove(...inactiveClasses);
+
+            // Student Inactive Karein
+            btnStudent.classList.remove(...activeClasses);
+            btnStudent.classList.add(...inactiveClasses);
+        }
+
+        console.log("Selected Role set to:", selectedRole);
+    }
+
+    if (btnRecruiter && btnStudent) {
+        btnRecruiter.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchRole('recruiter');
+        });
+
+        btnStudent.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchRole('student');
         });
     }
 
-    // ----- FORM SUBMISSION (Connected to Backend) -----
-    const form = document.querySelector('form');
-    const API_BASE_URL = 'http://localhost:8080';
+    // ----- 3. PASSWORD VISIBILITY TOGGLE -----
+    if (togglePassword && passwordInput && passwordIcon) {
+        togglePassword.addEventListener('click', () => {
+            const isPassword = passwordInput.getAttribute('type') === 'password';
+            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+            passwordIcon.textContent = isPassword ? 'visibility' : 'visibility_off';
+        });
+    }
 
+    // ----- 4. FORM SUBMISSION & BACKEND LOGIN -----
     if (form) {
-        form.addEventListener('submit', async function(e) {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const email = document.getElementById('email')?.value.trim() || '';
-            const password = document.getElementById('password')?.value.trim() || '';
+            const email = document.getElementById('email')?.value.trim();
+            const password = document.getElementById('password')?.value.trim();
 
-            let errors = [];
-
-            if (!email) errors.push('Email is required');
-            else if (!isValidEmail(email)) errors.push('Please enter a valid email address');
-            if (!password) errors.push('Password is required');
-
-            if (errors.length > 0) {
-                alert('Please fix the following errors:\n\n• ' + errors.join('\n• '));
+            if (!email || !password) {
+                alert("Please enter both email and password.");
                 return;
             }
 
-            // Get selected role from toggle class status
-            const isRecruiterActive = document.getElementById('btn-recruiter')?.classList.contains('bg-surface-container-lowest');
-            const role = isRecruiterActive ? 'recruiter' : 'student';
-
-            // Payload for Backend
-            const loginPayload = {
-                email: email,
-                password: password
-            };
+            // Old local session clear karein
+            localStorage.clear();
 
             try {
-                // Call Spring Boot Login API
-                const response = await fetch(`${API_BASE_URL}/login`, {
+                // Spring Boot Backend API Call
+                const response = await fetch('http://localhost:8080/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(loginPayload)
+                    body: JSON.stringify({ email: email, password: password })
                 });
 
                 if (response.ok) {
-                    // Successful login returns JWT Token as plain text
-                    const token = await response.text();
+                    let token = "";
+                    const contentType = response.headers.get("content-type");
 
-                    // Save Token & Details in localStorage
+                    // Response JSON hai ya Plain Text handling
+                    if (contentType && contentType.includes("application/json")) {
+                        const data = await response.json();
+                        token = data.token || data.jwtToken || data.jwt || data.accessToken || data;
+                    } else {
+                        token = await response.text();
+                    }
+
+                    // Cleaning raw string quotes
+                    token = String(token).replace(/^"(.*)"$/, '$1').trim();
+
+                    if (!token) {
+                        alert("❌ Token missing in backend response.");
+                        return;
+                    }
+
+                    // LocalStorage mein data Save karein
                     localStorage.setItem('jwtToken', token);
-                    localStorage.setItem('userRole', role);
+                    localStorage.setItem('userRole', selectedRole);
                     localStorage.setItem('userEmail', email);
 
-                    console.log('✅ Login Successful! JWT Token saved.');
+                    console.log("✅ Token successfully saved in localStorage!");
 
-                    // Redirect based on role
-                    if (role === 'recruiter') {
-                        window.location.href = 'dashboard.html';
-                    } else {
+                    // Role ke basis par Redirection
+                    if (selectedRole === 'candidate') {
                         window.location.href = 'student.html';
+                    } else {
+                        window.location.href = 'dashboard.html';
                     }
+
                 } else if (response.status === 401 || response.status === 403) {
-                    // Handle wrong password or email
-                    alert('❌ Invalid Email or Password. Please try again.');
+                    alert("❌ Invalid Email or Password. Please try again.");
                 } else {
-                    alert('❌ Login failed. Something went wrong.');
+                    alert("❌ Login failed! Server Status: " + response.status);
                 }
+
             } catch (error) {
-                console.error('API Error:', error);
-                alert('⚠️ Server error! Make sure your Spring Boot backend is running on port 8080.');
+                console.error("Login Error:", error);
+                alert("⚠️ Server connection error! Make sure Spring Boot is running on port 8080.");
             }
         });
     }
 
-    // ----- HELPER FUNCTION: Email Regex Validation -----
-    function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    console.log('✅ HybridHire AI Login page loaded successfully!');
+    console.log("✅ Login JS Loaded & Bound to HTML!");
 });

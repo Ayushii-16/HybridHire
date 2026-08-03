@@ -4,7 +4,6 @@ import com.example.Nexora.Model.StudentFeedbackResponseDTO;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +20,8 @@ public class FusionRanker {
 
     private final ChatClient chatClient;
 
-    public FusionRanker(OllamaChatModel chatModel){
-        this.chatClient = ChatClient.create(chatModel);
+    public FusionRanker(ChatClient.Builder chatModel){
+        this.chatClient = chatModel.build();
     }
 
 

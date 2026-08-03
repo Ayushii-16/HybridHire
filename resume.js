@@ -1,121 +1,163 @@
 // =============================================
-// HYBRIDHIRE AI - Resume Analysis
+// HYBRIDHIRE AI - Resume Analysis (Dynamic)
 // =============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // ----- EXPORT REPORT -----
 
-const exportBtn = document.getElementById("exportBtn");
+    // ==========================================
+    // 1. FETCH & RENDER DYNAMIC DATA
+    // ==========================================
 
-if (exportBtn) {
-    exportBtn.addEventListener("click", function () {
+    // Ye data upload page se localStorage me aayega.
+    // Agar nahi hai, toh hum fallback mock data use karenge testing ke liye.
+    const storedData = localStorage.getItem('resumeAnalysisResult');
 
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+    let analysisData = storedData ? JSON.parse(storedData) : {
+        candidateName: "Alex Morgan", // Replace with dynamic name later
+        atsScore: 85,
+        aiMatchScore: 92,
+        industryReadiness: 88,
+        missingKeywords: ["Kubernetes", "GraphQL", "Webpack", "System Design"],
+        suggestions: [
+            "Quantify achievements in your latest role (e.g., 'Led team of 5').",
+            "Move Education section to bottom for senior roles.",
+            "Add a brief summary highlighting your micro-frontends experience."
+        ],
+        strengths: ["Strong React & Vue.js knowledge", "Good CI/CD implementation"]
+    };
 
-        doc.setFontSize(18);
-        doc.text("HybridHire AI Resume Analysis Report", 20, 20);
+    // Render Data to UI
+    function updateUI(data) {
+        // Update Scores
+        const atsScoreEl = document.getElementById('atsScore');
+        const aiMatchScoreEl = document.getElementById('aiMatchScore');
+        const industryReadinessEl = document.getElementById('industryReadiness');
 
-        doc.setFontSize(12);
-        doc.text("Candidate: John Doe", 20, 40);
-        doc.text("ATS Score: 87%", 20, 50);
-        doc.text("Resume Score: 8.5/10", 20, 60);
+        if(atsScoreEl) atsScoreEl.innerText = data.atsScore + '%';
+        if(aiMatchScoreEl) aiMatchScoreEl.innerHTML = data.aiMatchScore + '<span class="text-headline-sm">%</span>';
+        if(industryReadinessEl) industryReadinessEl.innerText = data.industryReadiness + '%';
 
-        doc.text("Strengths:", 20, 80);
-        doc.text("- Strong Java & Spring Boot Skills", 30, 90);
-        doc.text("- Good Project Experience", 30, 100);
+        // Update Missing Keywords (Finding the container via DOM traversal or class)
+        // Note: HTML me id="missingKeywordsContainer" add karna better hoga, abhi querySelector use kar rahe hain
+        const keywordsContainer = document.querySelector('.flex.flex-wrap.gap-2');
+        if (keywordsContainer && data.missingKeywords) {
+            keywordsContainer.innerHTML = ''; // Clear old static tags
+            data.missingKeywords.forEach(keyword => {
+                const span = document.createElement('span');
+                span.className = 'px-3 py-1 bg-warning-amber/10 text-warning-amber text-xs font-semibold rounded-full border border-warning-amber/20 keyword-tag cursor-pointer';
+                span.innerHTML = '+ ' + keyword;
+                keywordsContainer.appendChild(span);
+            });
+        }
 
-        doc.text("Suggestions:", 20, 120);
-        doc.text("- Add measurable achievements", 30, 130);
-        doc.text("- Improve ATS keywords", 30, 140);
+        // Update Suggestions
+        const suggestionsContainer = document.querySelector('ul.space-y-3');
+        if (suggestionsContainer && data.suggestions) {
+            suggestionsContainer.innerHTML = ''; // Clear old static suggestions
+            data.suggestions.forEach(suggestion => {
+                const li = document.createElement('li');
+                li.className = 'flex items-start gap-3 suggestion-item cursor-pointer';
+                li.innerHTML = `
+                    <span class="material-symbols-outlined text-[18px] text-ai-blue mt-0.5">check_circle</span>
+                    <span class="text-sm text-on-surface">${suggestion}</span>
+                `;
+                suggestionsContainer.appendChild(li);
+            });
+        }
+    }
 
-        doc.save("Resume_Analysis_Report.pdf");
-    });
-}
-    
+    // Call the function to update UI on page load
+    updateUI(analysisData);
+
+
+    // ==========================================
+    // 2. EXPORT REPORT (DYNAMIC)
+    // ==========================================
+    const exportBtn = document.getElementById("exportBtn");
+    if (exportBtn) {
+        exportBtn.addEventListener("click", function () {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(18);
+            doc.text("HybridHire AI Resume Analysis Report", 20, 20);
+
+            doc.setFontSize(12);
+            doc.text(`Candidate: ${analysisData.candidateName}`, 20, 40);
+            doc.text(`ATS Score: ${analysisData.atsScore}%`, 20, 50);
+            doc.text(`AI Match Score: ${analysisData.aiMatchScore}%`, 20, 60);
+            doc.text(`Industry Readiness: ${analysisData.industryReadiness}%`, 20, 70);
+
+            doc.text("Strengths:", 20, 90);
+            let yPos = 100;
+            analysisData.strengths.forEach(strength => {
+                doc.text(`- ${strength}`, 30, yPos);
+                yPos += 10;
+            });
+
+            yPos += 10;
+            doc.text("Suggestions to Improve:", 20, yPos);
+            yPos += 10;
+            analysisData.suggestions.forEach(suggestion => {
+                // Split long text for PDF
+                const splitText = doc.splitTextToSize(`- ${suggestion}`, 160);
+                doc.text(splitText, 30, yPos);
+                yPos += (10 * splitText.length);
+            });
+
+            doc.save(`${analysisData.candidateName}_Analysis_Report.pdf`);
+        });
+    }
+
+    // ==========================================
+    // 3. EVENT LISTENERS & UI INTERACTIONS
+    // ==========================================
+
     // ----- RE-ANALYZE -----
     const reanalyzeBtn = document.getElementById('reanalyzeBtn');
     if (reanalyzeBtn) {
         reanalyzeBtn.addEventListener('click', function() {
-            alert('🔄 Re-analyzing resume...\n\nThis may take a few moments.');
+            alert('🔄 Re-analyzing resume with latest AI models...\n\nThis may take a few moments.');
         });
     }
-    
+
     // ----- DOWNLOAD IMPROVED RESUME -----
-    // ----- DOWNLOAD IMPROVED RESUME -----
-const downloadBtn = document.getElementById("downloadBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    if (downloadBtn) {
+        downloadBtn.addEventListener("click", function () {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
 
-if (downloadBtn) {
-    downloadBtn.addEventListener("click", function () {
+            doc.setFontSize(20);
+            doc.text("Improved Resume (AI Optimized)", 20, 20);
+            doc.setFontSize(16);
+            doc.text(analysisData.candidateName, 20, 35);
 
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+            doc.setFontSize(11);
+            doc.text("Contact information placeholder", 20, 45);
 
-        // Title
-        doc.setFontSize(20);
-        doc.text("Improved Resume", 20, 20);
+            doc.setFontSize(13);
+            doc.text("AI Recommended Skills:", 20, 65);
+            doc.setFontSize(11);
 
-        // Name
-        doc.setFontSize(16);
-        doc.text("John Doe", 20, 35);
+            // Combine old skills with missing keywords
+            let y = 75;
+            analysisData.missingKeywords.forEach(skill => {
+                doc.text(`• ${skill} (Added by AI)`, 30, y);
+                y += 8;
+            });
 
-        // Contact
-        doc.setFontSize(11);
-        doc.text("Email: john.doe@email.com", 20, 45);
-        doc.text("Phone: +91-9876543210", 20, 52);
+            doc.setFontSize(10);
+            doc.text("Generated by HybridHire AI - ATS Optimized Resume", 20, 285);
+            doc.save("Improved_Resume.pdf");
+        });
+    }
 
-        // Summary
-        doc.setFontSize(13);
-        doc.text("Professional Summary", 20, 68);
-
-        doc.setFontSize(11);
-        doc.text(
-            "Java Backend Developer with Spring Boot, REST API,",
-            20,
-            78
-        );
-        doc.text(
-            "SQL and problem-solving skills. AI optimized for ATS.",
-            20,
-            85
-        );
-
-        // Skills
-        doc.setFontSize(13);
-        doc.text("Skills", 20, 100);
-
-        doc.setFontSize(11);
-        doc.text("• Java", 30, 110);
-        doc.text("• Spring Boot", 30, 118);
-        doc.text("• REST API", 30, 126);
-        doc.text("• SQL", 30, 134);
-        doc.text("• Git & GitHub", 30, 142);
-
-        // Education
-        doc.setFontSize(13);
-        doc.text("Education", 20, 160);
-
-        doc.setFontSize(11);
-        doc.text("B.Tech - Computer Science", 30, 170);
-
-        // Footer
-        doc.setFontSize(10);
-        doc.text(
-            "Generated by HybridHire AI - ATS Optimized Resume",
-            20,
-            285
-        );
-
-        doc.save("Improved_Resume.pdf");
-    });
-}
-    
     // ----- ZOOM BUTTONS -----
     const zoomBtns = document.querySelectorAll('.zoom-btn');
     const resumeDocument = document.getElementById('resumeDocument');
     let zoomLevel = 1;
-    
+
     zoomBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
             const action = this.dataset.zoom;
@@ -130,47 +172,27 @@ if (downloadBtn) {
             }
         });
     });
-    
-    // ----- KEYWORD TAGS -----
-    const keywordTags = document.querySelectorAll('.keyword-tag');
-    keywordTags.forEach(function(tag) {
-        tag.addEventListener('click', function() {
-            const keyword = this.textContent.trim().replace('+ ', '');
-            alert('🔍 Adding keyword: ' + keyword);
-        });
-    });
-    
-    // ----- SUGGESTION ITEMS -----
-    const suggestionItems = document.querySelectorAll('.suggestion-item');
-    suggestionItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-            const text = this.querySelector('.text-sm')?.textContent || 'Suggestion';
+
+    // ----- KEYWORD TAGS CLICK (Event Delegation used for dynamically created elements) -----
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('keyword-tag')) {
+            const keyword = e.target.textContent.trim().replace('+ ', '');
+            alert('🔍 Adding keyword to your profile: ' + keyword);
+        }
+
+        if (e.target && e.target.closest('.suggestion-item')) {
+            const text = e.target.closest('.suggestion-item').querySelector('.text-sm')?.textContent || 'Suggestion';
             alert('💡 Applying suggestion:\n\n' + text);
+        }
+    });
+
+    // Analyze Resume Button (Navigation)
+    const analyzeResumeBtn = document.getElementById("analyzeResumeBtn");
+    if(analyzeResumeBtn){
+        analyzeResumeBtn.addEventListener("click", function(){
+            window.location.href = "student-upload.html";
         });
-    });
-    
-    // ----- SIDEBAR NAV ITEMS -----
-//     const sidebarLinks = document.querySelectorAll('aside nav a');
-//     sidebarLinks.forEach(function(link) {
-//         link.addEventListener('click', function(e) {
-//             e.preventDefault();
-//             const label = this.querySelector('.font-label-md')?.textContent || 'Link';
-//             alert('📋 Navigating to: ' + label);
-//         });
-//     });
-    
-//     console.log('✅ HybridHire AI Resume Analysis loaded successfully!');
-// });
-
-// Analyze Resume Button
-const analyzeResumeBtn = document.getElementById("analyzeResumeBtn");
-
-if(analyzeResumeBtn){
-    analyzeResumeBtn.addEventListener("click", function(){
-        window.location.href = "student-upload.html";
-    });
-}  
+    }
 });
-
 
 

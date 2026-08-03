@@ -1,126 +1,105 @@
 // ============================================
-// HybridHire AI - Student Upload Resume
+// HybridHire AI - Student Upload Resume (Fixed)
 // student-upload.js
 // ============================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const uploadArea = document.getElementById("uploadArea");
-    const fileInput = document.getElementById("resumeFile");
-    const browseBtn = document.getElementById("browseBtn");
+    // ----- 1. CHECK ROLE & TOKEN (Security Check) -----
+    const role = localStorage.getItem('userRole');
+    const token = localStorage.getItem('jwtToken');
 
-    const fileName = document.getElementById("fileName");
+    if (!token || role !== 'student') {
+        window.location.href = 'login.html';
+        return;
+    } else if (role === 'recruiter') {
+        window.location.href = 'dashboard.html';
+        return;
+    }
+
+    // ----- 2. DOM ELEMENTS (Matching student-upload.html IDs) -----
+    const fileInput = document.getElementById("resumeInput");
+    const fileList = document.getElementById("fileList");
+    const fileCount = document.getElementById("fileCount");
+    const totalFiles = document.getElementById("totalFiles");
+    const readyFiles = document.getElementById("readyFiles");
+    const rejectedFiles = document.getElementById("rejectedFiles");
     const uploadBtn = document.getElementById("uploadBtn");
-
-    const progressBox = document.getElementById("progressBox");
-    const progressBar = document.getElementById("progressBar");
-    const progressText = document.getElementById("progressText");
-
-    const statusBox = document.getElementById("statusBox");
 
     let selectedFile = null;
 
-    // Browse Button
-    browseBtn.addEventListener("click", () => {
-        fileInput.click();
-    });
-
-    // File Selection
-    fileInput.addEventListener("change", () => {
-        if (fileInput.files.length > 0) {
-            selectedFile = fileInput.files[0];
-            showFile(selectedFile);
-        }
-    });
-
-    // Drag Events
-    uploadArea.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        uploadArea.classList.add("dragging");
-    });
-
-    uploadArea.addEventListener("dragleave", () => {
-        uploadArea.classList.remove("dragging");
-    });
-
-    uploadArea.addEventListener("drop", (e) => {
-        e.preventDefault();
-
-        uploadArea.classList.remove("dragging");
-
-        if (e.dataTransfer.files.length > 0) {
-            selectedFile = e.dataTransfer.files[0];
-            fileInput.files = e.dataTransfer.files;
-            showFile(selectedFile);
-        }
-    });
-
-    // Upload
-    uploadBtn.addEventListener("click", () => {
-
-        if (!selectedFile) {
-            alert("Please select a resume first.");
-            return;
-        }
-
-        progressBox.style.display = "block";
-        statusBox.style.display = "none";
-
-        let progress = 0;
-
-        const timer = setInterval(() => {
-
-            progress += 5;
-
-            progressBar.style.width = progress + "%";
-            progressText.innerHTML = progress + "%";
-
-            if (progress >= 100) {
-
-                clearInterval(timer);
-
-                progressText.innerHTML = "Completed";
-
-                statusBox.style.display = "block";
-
-                statusBox.innerHTML = `
-                    <h3>✅ Resume Uploaded Successfully</h3>
-
-                    <p><strong>${selectedFile.name}</strong></p>
-
-                    <br>
-
-                    <p>ATS Score : <strong>91%</strong></p>
-
-                    <p>Skills Detected :</p>
-
-                    <ul>
-                        <li>✔ Java</li>
-                        <li>✔ Spring Boot</li>
-                        <li>✔ MySQL</li>
-                        <li>✔ React</li>
-                        <li>✔ Git</li>
-                    </ul>
-
-                    <br>
-
-                    <button onclick="location.reload()">
-                        Upload Another Resume
-                    </button>
-                `;
+    // ----- 3. FILE SELECTION -----
+    if (fileInput) {
+        fileInput.addEventListener("change", (e) => {
+            if (e.target.files.length > 0) {
+                selectedFile = e.target.files[0];
+                showFile(selectedFile);
             }
-
-        }, 120);
-
-    });
-
-    function showFile(file) {
-
-        fileName.innerHTML = `
-            📄 ${file.name}
-            <br>
-            <small>${(file.size/1024).toFixed(1)} KB</small>
-        `;
+        });
     }
 
+    function showFile(file) {
+        if (!fileList) return;
+
+        fileList.innerHTML = `
+            <div class="file-item flex justify-between items-center p-4 rounded-lg border bg-white">
+                <div>
+                    <div class="font-medium text-gray-800">${file.name}</div>
+                    <div class="text-sm text-gray-500">${(file.size / 1024).toFixed(1)} KB</div>
+                </div>
+                <span class="text-green-600 font-semibold text-sm">Ready</span>
+            </div>
+        `;
+
+        if (fileCount) fileCount.innerText = "1 Files";
+        if (totalFiles) totalFiles.innerText = "1";
+        if (readyFiles) readyFiles.innerText = "1";
+        if (rejectedFiles) rejectedFiles.innerText = "0";
+    }
+
+    // ----- 4. UPLOAD TO BACKEND (/form API) -----
+    if (uploadBtn) {
+        uploadBtn.addEventListener("click", async () => {
+            if (!selectedFile) {
+                alert("Please select a resume first.");
+                return;
+            }
+
+            uploadBtn.innerHTML = "Uploading... ⏳";
+            uploadBtn.disabled = true;
+
+            const formData = new FormData();
+            // "file" wahi naam hona chahiye jo Spring Boot controller mein @RequestParam("file") hai
+            formData.append("file", selectedFile);
+
+            try {
+                const response = await fetch('http://localhost:8080/form', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert('✅ Resume Uploaded & Parsed Successfully!');
+                    window.location.href = 'resume.html';
+                } else if (response.status === 401 || response.status === 403) {
+                    alert('❌ Session expired! Please login again.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert('❌ Failed to upload resume. Server returned status: ' + response.status);
+                }
+
+            } catch (error) {
+                console.error("API Error:", error);
+                alert('⚠️ Server error! Make sure your Spring Boot backend is running on port 8080.');
+            } finally {
+                uploadBtn.innerHTML = "Upload & Analyze";
+                uploadBtn.disabled = false;
+            }
+        });
+    }
+
+    console.log('✅ Student Upload JS loaded successfully!');
 });

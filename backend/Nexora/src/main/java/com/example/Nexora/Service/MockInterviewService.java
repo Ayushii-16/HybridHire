@@ -6,7 +6,6 @@ import com.example.Nexora.Model.StudentAnalysisRequestDTO;
 import com.example.Nexora.Model.StudentAnswerDTO;
 import com.example.Nexora.Repository.InterviewRepository;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -27,8 +26,8 @@ public class MockInterviewService {
 
     private ChatClient chatClient;
 
-    public MockInterviewService(OllamaChatModel chatModel){
-        this.chatClient = ChatClient.builder(chatModel).build();
+    public MockInterviewService(ChatClient.Builder chatModel){
+        this.chatClient = chatModel.build();
     }
 
     public MockInterviewResponseDTO generateQuestions(StudentAnalysisRequestDTO request){
@@ -80,8 +79,7 @@ public class MockInterviewService {
                 request.getStudentAnswers()
         );
 
-        String feedback = chatClient.prompt()
-                .user(prompt)
+        String feedback = chatClient.prompt(prompt)
                 .call()
                 .content();
 
