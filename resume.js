@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 1. FETCH & RENDER DYNAMIC DATA
     // ==========================================
 
-    // Ye data upload page se localStorage me aayega.
-    // Agar nahi hai, toh hum fallback mock data use karenge testing ke liye.
     const storedData = localStorage.getItem('resumeAnalysisResult');
 
     let analysisData = storedData ? JSON.parse(storedData) : {
@@ -68,6 +66,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Call the function to update UI on page load
     updateUI(analysisData);
+
+    const fileData = sessionStorage.getItem('resumeFileData');
+        const resumeDocEl = document.getElementById('resumeDocument');
+        if (fileData && resumeDocEl) {
+            resumeDocEl.style.padding = '0';
+            resumeDocEl.innerHTML = `<iframe src="${fileData}#toolbar=0" style="width:100%; height:580px; border:none; display:block;"></iframe>`;
+        }
 
 
     // ==========================================

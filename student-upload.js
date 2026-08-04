@@ -69,7 +69,12 @@ document.addEventListener("DOMContentLoaded", () => {
             uploadBtn.disabled = true;
 
             const formData = new FormData();
-            // "file" wahi naam hona chahiye jo Spring Boot controller mein @RequestParam("file") hai
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                sessionStorage.setItem('resumeFileData', e.target.result);
+                sessionStorage.setItem('resumeFileName', selectedFile.name);
+            };
+            reader.readAsDataURL(selectedFile);
             formData.append("file", selectedFile);
 
             try {
@@ -82,6 +87,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 if (response.ok) {
+                    const data = await response.json();
+
+                    const analysisData = {
+                        candidateName: localStorage.getItem('userName') || "Candidate",
+                        atsScore: Math.round(data.atsScore),
+                        aiMatchScore: Math.round(data.semanticScore),
+                        industryReadiness: Math.round((data.atsScore + data.semanticScore) / 2),
+                        missingKeywords: data.missingKeywords || [],
+                        suggestions: [...(data.vocabularySuggestions || []), ...(data.actionableTips || [])],
+                        strengths: []
+                    };
+
+                    localStorage.setItem('resumeAnalysisResult', JSON.stringify(analysisData));
+
                     alert('✅ Resume Uploaded & Parsed Successfully!');
                     window.location.href = 'resume.html';
                 } else if (response.status === 401 || response.status === 403) {

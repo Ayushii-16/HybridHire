@@ -59,7 +59,8 @@ public class MockInterviewService {
         session.setJobDescription(request.getJobDescription());
         session.setAiResponse(result.toString());
 
-        interviewRepository.save(session);
+        InterviewSession savedSession = interviewRepository.save(session);
+        result.setSessionId(savedSession.getId());
 
         return result;
 
