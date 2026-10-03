@@ -90,10 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("file", selectedFile);
 
             try {
+            console.log("TOKEN:", token);
+            console.log("ROLE:", localStorage.getItem('userRole'));
                 const response = await fetch('http://localhost:8080/form', {
                     method: 'POST',
                     headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+                       'Authorization': 'Bearer ' + token
                     },
                     body: formData
                 });

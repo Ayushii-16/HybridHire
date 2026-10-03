@@ -175,7 +175,22 @@ async function loadDashboardData() {
         // UPDATE SKILLS
         // -------------------------------------
 
-        updateSkills(data.skills);
+        const storedData = localStorage.getItem("resumeAnalysisResult");
+        const analysis = storedData ? JSON.parse(storedData) : null;
+
+        if (analysis?.missingKeywords?.length) {
+
+            const skillGapData = analysis.missingKeywords.map(keyword => ({
+                name: keyword,
+                percentage: 0,
+                status: "Missing"
+            }));
+
+            updateSkills(skillGapData);
+
+        } else {
+            updateSkills(data.skills);
+        }
 
 
     } catch (error) {
@@ -239,26 +254,27 @@ function updateProfile(data) {
 
 function updateResume(data) {
 
+    const storedData = localStorage.getItem("resumeAnalysisResult");
+    const analysis = storedData ? JSON.parse(storedData) : null;
+
     const atsScore =
-        data.atsScore ?? 0;
+        analysis?.atsScore ?? data.atsScore ?? 0;
 
     const aiMatch =
-        data.globalAiMatch ?? 0;
+        analysis?.aiMatchScore ?? data.globalAiMatch ?? 0;
 
     const atsScoreElement =
         document.getElementById("atsScore");
 
     if (atsScoreElement) {
-        atsScoreElement.textContent =
-            atsScore;
+        atsScoreElement.textContent = atsScore;
     }
 
     const aiMatchElement =
         document.getElementById("globalAiMatch");
 
     if (aiMatchElement) {
-        aiMatchElement.textContent =
-            `${aiMatch}%`;
+        aiMatchElement.textContent = `${aiMatch}%`;
     }
 
     const matchMessage =
@@ -267,28 +283,26 @@ function updateResume(data) {
     if (matchMessage) {
 
         if (aiMatch >= 80) {
-
             matchMessage.textContent =
                 "Your resume has a strong match for target roles.";
 
         } else if (aiMatch >= 60) {
-
             matchMessage.textContent =
                 "Your resume has a moderate match. Some improvements are recommended.";
 
         } else {
-
             matchMessage.textContent =
                 "Your resume needs improvement for better role matching.";
         }
     }
 
-const atsGauge = document.getElementById("atsGauge");
+    const atsGauge =
+        document.getElementById("atsGauge");
 
-if (atsGauge) {
-    atsGauge.style.background =
-        `conic-gradient(#3b82f6 ${atsScore}%, #dbe7fb 0%)`;
-}
+    if (atsGauge) {
+        atsGauge.style.background =
+            `conic-gradient(#3b82f6 ${atsScore}%, #dbe7fb 0%)`;
+    }
 }
 
 
