@@ -19,10 +19,8 @@ The platform helps recruiters analyze resumes, evaluate candidates, and make bet
 ### 👨‍🎓 Student Module
 - Resume upload and analysis
 - Resume improvement suggestions
-- Career guidance based on skills and profile
-- Skill development recommendations
-- Certificate and application tracking
-- - AI-driven job-role matching
+- Interview preparation
+
 
 ---
 
@@ -34,7 +32,7 @@ The platform helps recruiters analyze resumes, evaluate candidates, and make bet
 - JavaScript
 - Tailwind CSS
 
-### Backend (Upcoming)
+### Backend
 - Spring Boot
 - REST APIs
 - Database Integration
@@ -53,10 +51,6 @@ The goal of HybridHire AI is to bridge the gap between recruiters and candidates
 
 ## 🚀 Future Enhancements
 
-- Spring Boot backend integration
-- AI-based resume parsing
-- Database support
-- User authentication system
 - Real-time job recommendations
 - Advanced candidate analytics
 
@@ -70,4 +64,4 @@ The goal of HybridHire AI is to bridge the gap between recruiters and candidates
 
 ## 📌 Status
 
-Frontend prototype completed. Backend integration and AI services are planned for future development.
+Frontend and Backend prototype completed.

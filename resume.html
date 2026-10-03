@@ -6,13 +6,10 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>HybridHire AI - Resume Analysis</title>
 
-    <!-- External CSS -->
     <link rel="stylesheet" href="resume.css" />
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
@@ -21,7 +18,6 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
 
-    <!-- Tailwind Config -->
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -124,32 +120,15 @@
 </head>
 
 <body class="bg-surface text-on-surface font-body-md text-body-md antialiased h-screen overflow-hidden flex flex-col">
-    <!-- TopNavBar -->
     <nav
         class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md border-b border-outline-variant/30 shadow-sm h-16">
         <div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto">
             <div class="flex items-center gap-4">
                 <span class="font-headline-sm text-headline-sm font-bold text-primary">HybridHire AI</span>
             </div>
-            <div class="hidden md:flex gap-8">
-                <a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low px-4 py-2 rounded-lg font-body-md text-body-md"
-                    href="student.html">Dashboard</a>
-                <a class="text-secondary font-semibold border-b-2 border-secondary pb-1 px-4 py-2 rounded-lg font-body-md text-body-md"
-                    href="candidates.html">Candidates</a>
-                <a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low px-4 py-2 rounded-lg font-body-md text-body-md"
-                    href="applications.html">Applications</a>
-                <a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low px-4 py-2 rounded-lg font-body-md text-body-md"
-                    href="profile.html">Settings</a>
-            </div>
+
             <div class="flex items-center gap-4">
-                <button
-                    class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors active:opacity-80 transition-opacity">
-                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-                </button>
-                <button
-                    class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors active:opacity-80 transition-opacity">
-                    <span class="material-symbols-outlined" data-icon="help">help</span>
-                </button>
+
                 <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
                     <a href="profile.html"> <img alt="Recruiter Profile" class="w-full h-full object-cover"
                             data-alt="A small, circular profile picture of a professional recruiter in a modern office setting, bright lighting, corporate attire."
@@ -160,7 +139,6 @@
     </nav>
 
     <div class="flex flex-1 pt-16 overflow-hidden">
-        <!-- SideNavBar -->
         <aside class="hidden md:flex flex-col bg-surface shadow-md w-64 h-[calc(100vh-64px)] shrink-0 py-stack-md z-40">
             <div class="px-6 mb-8 mt-4 flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
@@ -184,23 +162,6 @@
                     <span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
                     Interview Preparation
                 </a>
-                <a href="roadmap.html"
-                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-transform scale-95 active:scale-90"
-                    href="#">
-                    <span class="material-symbols-outlined" data-icon="psychology">psychology</span>
-                    Career Roadmap
-                </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-transform scale-95 active:scale-90"
-                    href="#">
-                    <span class="material-symbols-outlined" data-icon="work_history">work_history</span>
-                    Experience
-                </a>
-                <a href="jobs.html"
-                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container font-label-md text-label-md transition-transform scale-95 active:scale-90"
-                    href="#">
-                    <span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
-                    Recommendations
-                </a>
             </nav>
             <div class="p-4 mt-auto">
                 <a href="student-upload.html"> <button id="analyzeResumeBtn"   class="flex-1 md:flex-none h-11 px-12 bg-[#3B82F6] text-white rounded-lg font-label-md text-label-md hover:bg-secondary transition-colors flex items-center justify-center gap-1">
@@ -220,22 +181,15 @@
             </div>
         </aside>
 
-        <!-- Main Content Canvas -->
         <main class="flex-1 overflow-y-auto bg-surface-bright p-margin-desktop">
             <div class="max-w-container-max mx-auto">
-                <!-- Header -->
+
                 <header class="flex justify-between items-center mb-8">
                     <div>
                         <h1 class="font-headline-md text-headline-md text-on-surface">AI Resume Analysis</h1>
-                        <p class="text-on-surface-variant mt-1">Reviewing profile for Senior Frontend Engineer</p>
+                        <p class="text-on-surface-variant mt-1">Reviewing profile for <span id="profileName">Candidate</span></p>
                     </div>
                     <div class="flex gap-4">
-                        <button
-                            class="px-4 py-2 border border-outline-variant text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors bg-white shadow-sm flex items-center gap-2"
-                            id="reanalyzeBtn">
-                            <span class="material-symbols-outlined text-[18px]">refresh</span>
-                            Re-analyze Resume
-                        </button>
                         <button
                             class="px-4 py-2 bg-ai-blue text-white rounded-lg font-label-md text-label-md hover:bg-secondary-container transition-colors shadow-sm flex items-center gap-2"
                             id="downloadBtn">
@@ -246,7 +200,7 @@
                 </header>
 
                 <div class="flex flex-col lg:flex-row gap-gutter">
-                    <!-- Left Column: Resume Preview -->
+
                     <div class="lg:w-2/5 flex flex-col gap-gutter">
                         <div
                             class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 overflow-hidden flex flex-col h-full border-t-2 border-t-ai-blue">
@@ -277,32 +231,30 @@
                         </div>
                     </div>
 
-                    <!-- Right Column: Analysis & Metrics -->
                     <div class="lg:w-3/5 flex flex-col gap-gutter">
-                        <!-- Scoring Row (Bento Grid) -->
+
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-                            <!-- ATS Score -->
+
                             <div
                                 class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 flex flex-col items-center justify-center text-center">
                                 <h4
-                                    class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-wider">
-                                    ATS Score</h4>
+                                        class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-wider">
                                 <div class="relative w-24 h-24">
                                     <svg class="w-full h-full" viewBox="0 0 100 100">
                                         <circle class="text-surface-container stroke-current" cx="50" cy="50"
                                             fill="transparent" r="40" stroke-width="8"></circle>
                                         <circle class="text-success-green progress-ring__circle stroke-current" cx="50"
-                                            cy="50" fill="transparent" r="40" stroke-dasharray="251.2"
-                                            stroke-dashoffset="37.68" stroke-linecap="round" stroke-width="8"></circle>
+                                                cy="50" fill="transparent" r="40" stroke-dasharray="251.2"
+                                                stroke-dashoffset="251.2" stroke-linecap="round" stroke-width="8"></circle>
                                     </svg>
                                     <div class="absolute inset-0 flex items-center justify-center">
                                         <span class="font-headline-sm text-headline-sm font-bold text-on-surface"
-                                            id="atsScore">85%</span>
+                                            id="atsScore">0%</span>
                                     </div>
                                 </div>
-                                <p class="text-xs text-on-surface-variant mt-3 font-medium">Good Parsability</p>
+                                    <p class="text-xs text-on-surface-variant mt-3 font-medium">Good Parsability</p></h4>
                             </div>
-                            <!-- AI Match Score -->
+
                             <div
                                 class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 border-t-2 border-t-ai-blue flex flex-col items-center justify-center text-center relative overflow-hidden">
                                 <div class="absolute top-0 right-0 w-16 h-16 bg-ai-blue/5 rounded-bl-full -z-10"></div>
@@ -311,7 +263,7 @@
                                     <span class="material-symbols-outlined text-[16px] text-ai-blue">auto_awesome</span>
                                     AI Match Score
                                 </h4>
-                                <div class="font-display-lg text-display-lg text-ai-blue mb-2" id="aiMatchScore">92<span
+                                <div class="font-display-lg text-display-lg text-ai-blue mb-2" id="aiMatchScore">0<span
                                         class="text-headline-sm">%</span></div>
                                 <div
                                     class="w-full h-1.5 bg-surface-container rounded-full mt-2 overflow-hidden shadow-inner">
@@ -320,7 +272,6 @@
                                 </div>
                                 <p class="text-xs text-on-surface-variant mt-3 font-medium">Highly Relevant</p>
                             </div>
-                            <!-- Industry Readiness -->
                             <div
                                 class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 flex flex-col items-center justify-center text-center">
                                 <h4
@@ -336,16 +287,15 @@
                                     </svg>
                                     <div class="absolute inset-0 flex items-center justify-center">
                                         <span class="font-headline-sm text-headline-sm font-bold text-on-surface"
-                                            id="industryReadiness">88%</span>
+                                            id="industryReadiness">0%</span>
                                     </div>
                                 </div>
                                 <p class="text-xs text-on-surface-variant mt-3 font-medium">Senior Level</p>
                             </div>
                         </div>
 
-                        <!-- Missing Keywords & Skill Gap -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-                            <!-- Missing Keywords -->
+
                             <div
                                 class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20">
                                 <h3
@@ -355,22 +305,7 @@
                                 </h3>
                                 <p class="text-sm text-on-surface-variant mb-4">Add these to improve ATS ranking for
                                     this role:</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span
-                                        class="px-3 py-1 bg-warning-amber/10 text-warning-amber text-xs font-semibold rounded-full border border-warning-amber/20 keyword-tag">+
-                                        Kubernetes</span>
-                                    <span
-                                        class="px-3 py-1 bg-warning-amber/10 text-warning-amber text-xs font-semibold rounded-full border border-warning-amber/20 keyword-tag">+
-                                        GraphQL</span>
-                                    <span
-                                        class="px-3 py-1 bg-surface-container text-on-surface-variant text-xs font-semibold rounded-full keyword-tag">+
-                                        Webpack</span>
-                                    <span
-                                        class="px-3 py-1 bg-surface-container text-on-surface-variant text-xs font-semibold rounded-full keyword-tag">+
-                                        System Design</span>
-                                </div>
                             </div>
-                            <!-- AI Suggestions -->
                             <div
                                 class="bg-surface-container-lowest rounded-xl p-6 shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/20 border-t-2 border-t-ai-blue">
                                 <h3
@@ -379,18 +314,7 @@
                                     AI Suggestions
                                 </h3>
                                 <ul class="space-y-3">
-                                    <li class="flex items-start gap-3 suggestion-item">
-                                        <span
-                                            class="material-symbols-outlined text-[18px] text-ai-blue mt-0.5">check_circle</span>
-                                        <span class="text-sm text-on-surface">Quantify achievements in your latest role
-                                            (e.g., "Led team of 5").</span>
-                                    </li>
-                                    <li class="flex items-start gap-3 suggestion-item">
-                                        <span
-                                            class="material-symbols-outlined text-[18px] text-ai-blue mt-0.5">check_circle</span>
-                                        <span class="text-sm text-on-surface">Move Education section to bottom for
-                                            senior roles.</span>
-                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -400,7 +324,6 @@
         </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- External JavaScript -->
     <script src="resume.js">
 
     </script>

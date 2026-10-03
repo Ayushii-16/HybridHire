@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    // ----- 1. REDIRECT IF ALREADY LOGGED IN -----
+
     const storedRole = (localStorage.getItem('userRole') || '').toLowerCase();
     const storedToken = localStorage.getItem('jwtToken');
 
@@ -21,11 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // ----- 2. DYNAMIC ROLE SELECTION & TOGGLE -----
     const roleButtons = document.querySelectorAll('.role-btn');
 
-    // Default Role: Detect from the button that currently has active classes or fallback to 'candidate'
     let selectedRole = 'candidate';
 
     if (roleButtons.length > 0) {
-        // Initial setup based on HTML DOM
+
         roleButtons.forEach(btn => {
             if (btn.classList.contains('active') || btn.classList.contains('text-primary')) {
                 const attrRole = btn.getAttribute('data-role');
@@ -33,19 +32,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             btn.addEventListener('click', function(e) {
-                e.preventDefault(); // Stop unwanted form submit
+                e.preventDefault();
 
-                // Active UI class reset
+
                 roleButtons.forEach(b => {
                     b.classList.remove('active', 'text-primary', 'bg-surface-container-lowest', 'shadow-sm', 'border', 'border-outline-variant/10');
                     b.classList.add('text-on-surface-variant');
                 });
 
-                // Apply Active UI classes to clicked button
+
                 this.classList.remove('text-on-surface-variant');
                 this.classList.add('active', 'text-primary', 'bg-surface-container-lowest', 'shadow-sm', 'border', 'border-outline-variant/10');
 
-                // Update Role State
+
                 const dataRole = this.getAttribute('data-role');
                 if (dataRole) {
                     selectedRole = dataRole.toLowerCase();
@@ -89,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('password')?.value.trim() || '';
             const terms = document.getElementById('terms')?.checked || false;
 
-            // Normalize Role for Backend Consistency ('candidate' -> 'student')
+
             const finalRoleForBackend = (selectedRole === 'candidate') ? 'student' : selectedRole;
 
-            // Form Validations
+
             let errors = [];
             if (!name) errors.push('Full Name is required');
             if (!email) errors.push('Work Email is required');
@@ -116,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("🚀 Submitting Registration Payload:", userPayload);
 
             try {
-                // Step A: Register User
+
                 const registerResponse = await fetch(`${API_BASE_URL}/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -124,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 if (registerResponse.ok) {
-                    // Step B: Auto-Login to receive JWT Token
+
                     const loginPayload = { email: email, password: password };
                     const loginResponse = await fetch(`${API_BASE_URL}/login`, {
                         method: 'POST',
@@ -135,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (loginResponse.ok) {
                         const token = await loginResponse.text();
 
-                        // Save details into localStorage
+
                         localStorage.setItem('jwtToken', token);
                         localStorage.setItem('userRole', finalRoleForBackend);
                         localStorage.setItem('userName', name);
@@ -143,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         alert(`✅ Account created successfully!\n\nWelcome, ${name}!`);
 
-                        // Route based on role
+
                         if (finalRoleForBackend === 'recruiter') {
                             window.location.href = 'dashboard.html';
                         } else {
@@ -164,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Helper: Email Regex Check
+
     function isValidEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }

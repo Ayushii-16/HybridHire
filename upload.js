@@ -4,15 +4,15 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- DOM Elements ---
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const browseBtn = document.getElementById('browseBtn');
     const analyzeBtn = document.getElementById('analyzeBtn');
     const fileStatusList = document.getElementById('fileStatusList');
     const searchInput = document.getElementById("searchInput");
+    const recentUploadsList = document.getElementById("recentUploadsList");
+    const viewHistoryBtn = document.getElementById("viewHistoryBtn");
 
-    // Stats & Progress Elements
     const fileCountEl = document.getElementById('fileCount');
     const successCountEl = document.getElementById('successCount');
     const failedCountEl = document.getElementById('failedCount');
@@ -31,9 +31,104 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = 'login.html';
         return;
     }
+ async function loadRecentUploads() {
+     if (!recentUploadsList) return;
 
-    // Hide progress section initially
-    if (progressSection) progressSection.classList.add('hidden');
+     try {
+         const response = await fetch(
+             "http://localhost:8080/api/recruiter/candidates",
+             {
+                 headers: {
+                     "Authorization": "Bearer " + token
+                 }
+             }
+         );
+
+         if (!response.ok) {
+             throw new Error("Failed to load upload history");
+         }
+
+         const candidates = await response.json();
+
+         const recentUploads = [...candidates]
+             .sort((a, b) =>
+                 new Date(b.uploadDate) - new Date(a.uploadDate)
+             )
+             .slice(0, 5);
+
+         if (recentUploads.length === 0) {
+             recentUploadsList.innerHTML = `
+                 <p class="text-sm text-on-surface-variant text-center py-6">
+                     No uploads yet.
+                 </p>
+             `;
+             return;
+         }
+
+         recentUploadsList.innerHTML = recentUploads.map(candidate => {
+
+             const date = candidate.uploadDate
+                 ? new Date(candidate.uploadDate).toLocaleDateString(
+                     "en-IN",
+                     {
+                         day: "2-digit",
+                         month: "short",
+                         year: "numeric"
+                     }
+                 )
+                 : "Unknown date";
+
+             const score = Math.round(candidate.semanticScore || 0);
+
+             return `
+                 <div class="flex items-center justify-between gap-3 p-3 rounded-lg bg-surface-container-low">
+                     <div class="flex items-center gap-3 min-w-0">
+                         <div class="w-9 h-9 rounded-lg bg-error-container/30 text-error flex items-center justify-center shrink-0">
+                             <span class="material-symbols-outlined text-[20px]">
+                                 description
+                             </span>
+                         </div>
+
+                         <div class="min-w-0">
+                             <p class="font-label-md text-label-md text-on-surface truncate">
+                                 ${candidate.fileName || "Unknown"}
+                             </p>
+
+                             <p class="font-body-sm text-body-sm text-on-surface-variant">
+                                 ${date}
+                             </p>
+                         </div>
+                     </div>
+
+                     <div class="text-right shrink-0">
+                         <p class="font-semibold text-secondary">
+                             ${score}%
+                         </p>
+                         <p class="text-[10px] text-on-surface-variant">
+                             AI Match
+                         </p>
+                     </div>
+                 </div>
+             `;
+         }).join("");
+
+     } catch (error) {
+         console.error("Upload history error:", error);
+
+         recentUploadsList.innerHTML = `
+             <p class="text-sm text-red-500 text-center py-6">
+                 Failed to load upload history.
+             </p>
+         `;
+     }
+ }
+ loadRecentUploads();
+ if (viewHistoryBtn) {
+     viewHistoryBtn.addEventListener("click", () => {
+         window.location.href = "candidates.html";
+     });
+ }
+
 
     // ----- 2. FILE SELECTION & DRAG-DROP -----
     if (browseBtn) {
@@ -76,17 +171,14 @@ document.addEventListener('DOMContentLoaded', function () {
         files.forEach(file => {
             const extension = file.name.split('.').pop().toLowerCase();
 
-            // Check for duplicates
             if (selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
                 console.warn(`File "${file.name}" is already in the list.`);
                 return;
             }
-            // Check file type
             if (!allowedExtensions.includes(extension)) {
                 alert(`⚠️ Skipped: "${file.name}" is not supported. Please upload PDF, DOCX, or TXT.`);
                 return;
             }
-            // Check file size
             if (file.size > maxSizeBytes) {
                 alert(`⚠️ Skipped: "${file.name}" exceeds the 5MB size limit.`);
                 return;
@@ -138,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `}).join('');
 
-        // Attach remove button logic
         document.querySelectorAll('.remove-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const idx = parseInt(e.currentTarget.getAttribute('data-index'));
@@ -155,24 +246,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('⚠️ Please select or drop at least one resume before analyzing.');
                 return;
             }
-
-            // Lock UI during upload
             analyzeBtn.disabled = true;
             analyzeBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
-            // Remove all 'delete' buttons to prevent changes during upload
             document.querySelectorAll('.remove-btn').forEach(btn => btn.style.display = 'none');
 
-            // Show Progress Bar
             if (progressSection) progressSection.classList.remove('hidden');
             if (progressBar) progressBar.style.width = '40%';
             if (progressPercent) progressPercent.textContent = 'Uploading to Server...';
 
-            // Prepare Data
             const formData = new FormData();
-            selectedFiles.forEach(file => formData.append('file', file)); // Binds to Spring Boot 'MyForm' file list
-
-            // Update Status Badges to Processing
+            selectedFiles.forEach(file => formData.append('file', file));
             selectedFiles.forEach((_, idx) => {
                 const badge = document.getElementById(`status-${idx}`);
                 if (badge) {
@@ -182,17 +266,25 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             try {
-                // Send to Spring Boot Backend
-                const response = await fetch('http://localhost:8080/form', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}` // JWT Auth
-                    },
-                    body: formData
-                });
+               const jobDescription = document.getElementById('jobDescriptionInput')?.value.trim();
+                               if (!jobDescription) {
+                                   alert('⚠️ Please enter a job description before analyzing.');
+                                   analyzeBtn.disabled = false;
+                                   analyzeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                                   document.querySelectorAll('.remove-btn').forEach(btn => btn.style.display = '');
+                                   if (progressSection) progressSection.classList.add('hidden');
+                                   return;
+                               }
+
+                               const response = await fetch(`http://localhost:8080/api/recruiter/bulk-upload?jobDescription=${encodeURIComponent(jobDescription)}`, {
+                                   method: 'POST',
+                                   headers: {
+                                       'Authorization': `Bearer ${token}`
+                                   },
+                                   body: formData
+                               });
 
                 if (response.ok) {
-                    // Success Scenario
                     selectedFiles.forEach((_, idx) => {
                         const badge = document.getElementById(`status-${idx}`);
                         if (badge) {
@@ -209,9 +301,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     setTimeout(() => {
                         alert('🎉 Success! All resumes have been processed and saved successfully.');
-                        selectedFiles = []; // Clear array after successful upload
+
+                        selectedFiles = [];
                         renderFileList();
+
                         if (progressSection) progressSection.classList.add('hidden');
+
+                        loadRecentUploads();
                     }, 500);
 
                 } else if (response.status === 401 || response.status === 403) {
@@ -225,12 +321,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Upload Error:', error);
                 alert('❌ Upload failed! Please ensure the backend is running and your token is valid.');
 
-                // Update UI to indicate failure
                 failedCount += selectedFiles.length;
                 if (failedCountEl) failedCountEl.textContent = failedCount;
                 if (progressBar) progressBar.style.width = '0%';
                 if (progressPercent) progressPercent.textContent = 'Upload Failed';
-
+                  if (progressSection) progressSection.classList.add('hidden');
                 selectedFiles.forEach((_, idx) => {
                     const badge = document.getElementById(`status-${idx}`);
                     if (badge) {
@@ -239,7 +334,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             } finally {
-                // Unlock UI
                 analyzeBtn.disabled = false;
                 analyzeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }
@@ -253,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const resumeItems = document.querySelectorAll("#fileStatusList > div");
 
             resumeItems.forEach(item => {
-                if (item.classList.contains('text-center')) return; // Ignore the empty placeholder
+                if (item.classList.contains('text-center')) return;
 
                 const fileName = item.querySelector(".font-label-md")?.textContent.toLowerCase() || "";
                 if (fileName.includes(query)) {

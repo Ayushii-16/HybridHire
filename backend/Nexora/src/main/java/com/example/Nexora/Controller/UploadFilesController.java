@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin("*")
 @RestController
 public class UploadFilesController {
 
@@ -44,8 +44,7 @@ public class UploadFilesController {
 
             semanticSearch.saveResumes(documents);
 
-            String jobDescription = "General Software Engineer role requiring strong programming, "
-                    + "problem-solving, and system design skills.";
+            String jobDescription = form.getJobDescription();
 
             StudentFeedbackResponseDTO analysis =
                     fusionRanker.analyzeResumeForStudent(combinedText.toString(), jobDescription);

@@ -25,6 +25,52 @@ public class InterviewSession {
     @Column(columnDefinition = "TEXT")
     private String aiFeedback;
 
+    private Double technicalScore;
+    private Double codingScore;
+    private Double communicationScore;
+    private Double hrScore;
+    private Double overallScore;
+
+    public Double getTechnicalScore() {
+        return technicalScore;
+    }
+
+    public void setTechnicalScore(Double technicalScore) {
+        this.technicalScore = technicalScore;
+    }
+
+    public Double getCodingScore() {
+        return codingScore;
+    }
+
+    public void setCodingScore(Double codingScore) {
+        this.codingScore = codingScore;
+    }
+
+    public Double getCommunicationScore() {
+        return communicationScore;
+    }
+
+    public void setCommunicationScore(Double communicationScore) {
+        this.communicationScore = communicationScore;
+    }
+
+    public Double getHrScore() {
+        return hrScore;
+    }
+
+    public void setHrScore(Double hrScore) {
+        this.hrScore = hrScore;
+    }
+
+    public Double getOverallScore() {
+        return overallScore;
+    }
+
+    public void setOverallScore(Double overallScore) {
+        this.overallScore = overallScore;
+    }
+
     public String getStudentAnswers() {
         return studentAnswers;
     }

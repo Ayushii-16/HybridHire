@@ -9,8 +9,16 @@ import java.util.List;
 public class MyForm {
 
     private String name;
+    private String jobDescription;
     private List<MultipartFile> file;
 
+    public String getJobDescription() {
+        return jobDescription;
+    }
+
+    public void setJobDescription(String jobDescription) {
+        this.jobDescription = jobDescription;
+    }
 
     public String getName() {
         return name;

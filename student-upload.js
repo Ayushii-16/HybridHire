@@ -1,6 +1,5 @@
 // ============================================
-// HybridHire AI - Student Upload Resume (Fixed)
-// student-upload.js
+// HybridHire AI - Student Upload Resume
 // ============================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -25,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const readyFiles = document.getElementById("readyFiles");
     const rejectedFiles = document.getElementById("rejectedFiles");
     const uploadBtn = document.getElementById("uploadBtn");
+    const jobDescriptionInput =
+        document.getElementById("jobDescription");
 
     let selectedFile = null;
 
@@ -69,6 +70,17 @@ document.addEventListener("DOMContentLoaded", () => {
             uploadBtn.disabled = true;
 
             const formData = new FormData();
+            const jobDescription =
+                jobDescriptionInput?.value.trim() || "";
+
+                if (!jobDescription) {
+                    alert("Please enter a Job Description first.");
+                    uploadBtn.disabled = false;
+                    uploadBtn.innerHTML = "Upload & Analyze";
+                    return;
+                }
+
+            formData.append("jobDescription", jobDescription);
             const reader = new FileReader();
             reader.onload = function(e) {
                 sessionStorage.setItem('resumeFileData', e.target.result);
@@ -100,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     };
 
                     localStorage.setItem('resumeAnalysisResult', JSON.stringify(analysisData));
+                    localStorage.setItem('resumeJobDescription', jobDescription);
 
                     alert('✅ Resume Uploaded & Parsed Successfully!');
                     window.location.href = 'resume.html';

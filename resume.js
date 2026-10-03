@@ -8,36 +8,67 @@ document.addEventListener('DOMContentLoaded', function() {
     // 1. FETCH & RENDER DYNAMIC DATA
     // ==========================================
 
-    const storedData = localStorage.getItem('resumeAnalysisResult');
+const storedData = localStorage.getItem('resumeAnalysisResult');
 
-    let analysisData = storedData ? JSON.parse(storedData) : {
-        candidateName: "Alex Morgan", // Replace with dynamic name later
-        atsScore: 85,
-        aiMatchScore: 92,
-        industryReadiness: 88,
-        missingKeywords: ["Kubernetes", "GraphQL", "Webpack", "System Design"],
-        suggestions: [
-            "Quantify achievements in your latest role (e.g., 'Led team of 5').",
-            "Move Education section to bottom for senior roles.",
-            "Add a brief summary highlighting your micro-frontends experience."
-        ],
-        strengths: ["Strong React & Vue.js knowledge", "Good CI/CD implementation"]
+let analysisData = storedData
+    ? JSON.parse(storedData)
+    : {
+        candidateName: "Candidate",
+        atsScore: 0,
+        aiMatchScore: 0,
+        industryReadiness: 0,
+        missingKeywords: [],
+        suggestions: [],
+        strengths: []
     };
 
-    // Render Data to UI
     function updateUI(data) {
-        // Update Scores
+         const profileName = document.getElementById('profileName');
+
+            if (profileName) {
+                profileName.innerText = data.candidateName || 'Candidate';
+            }
         const atsScoreEl = document.getElementById('atsScore');
         const aiMatchScoreEl = document.getElementById('aiMatchScore');
         const industryReadinessEl = document.getElementById('industryReadiness');
 
         if(atsScoreEl) atsScoreEl.innerText = data.atsScore + '%';
         if(aiMatchScoreEl) aiMatchScoreEl.innerHTML = data.aiMatchScore + '<span class="text-headline-sm">%</span>';
+        const aiMatchBar = document.getElementById('aiMatchBar');
+
+        if (aiMatchBar) {
+            aiMatchBar.style.width = data.aiMatchScore + '%';
+        }
         if(industryReadinessEl) industryReadinessEl.innerText = data.industryReadiness + '%';
 
-        // Update Missing Keywords (Finding the container via DOM traversal or class)
-        // Note: HTML me id="missingKeywordsContainer" add karna better hoga, abhi querySelector use kar rahe hain
-        const keywordsContainer = document.querySelector('.flex.flex-wrap.gap-2');
+      const atsCircle = document.querySelector('#atsScore')
+          ?.closest('.relative')
+          ?.querySelector('.progress-ring__circle');
+
+      if (atsCircle) {
+          const circumference = 251.2;
+
+          atsCircle.style.strokeDasharray = circumference;
+
+          atsCircle.style.strokeDashoffset =
+              circumference - (data.atsScore / 100) * circumference;
+      }
+
+        const readinessCircle = document.getElementById('industryReadiness')
+            ?.closest('.relative')
+            ?.querySelector('.progress-ring__circle');
+
+        if (readinessCircle) {
+            const circumference = 251.2;
+
+            readinessCircle.style.strokeDasharray = circumference;
+
+            readinessCircle.style.strokeDashoffset =
+                circumference - (data.industryReadiness / 100) * circumference;
+        }
+
+        const keywordsContainer =
+            document.getElementById('missingKeywordsContainer');
         if (keywordsContainer && data.missingKeywords) {
             keywordsContainer.innerHTML = ''; // Clear old static tags
             data.missingKeywords.forEach(keyword => {
@@ -48,8 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Update Suggestions
-        const suggestionsContainer = document.querySelector('ul.space-y-3');
+      const suggestionsContainer =
+          document.getElementById('suggestionsContainer');
         if (suggestionsContainer && data.suggestions) {
             suggestionsContainer.innerHTML = ''; // Clear old static suggestions
             data.suggestions.forEach(suggestion => {
@@ -64,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Call the function to update UI on page load
     updateUI(analysisData);
 
     const fileData = sessionStorage.getItem('resumeFileData');
@@ -118,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 3. EVENT LISTENERS & UI INTERACTIONS
     // ==========================================
 
-    // ----- RE-ANALYZE -----
     const reanalyzeBtn = document.getElementById('reanalyzeBtn');
     if (reanalyzeBtn) {
         reanalyzeBtn.addEventListener('click', function() {
@@ -126,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ----- DOWNLOAD IMPROVED RESUME -----
     const downloadBtn = document.getElementById("downloadBtn");
     if (downloadBtn) {
         downloadBtn.addEventListener("click", function () {
@@ -145,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.text("AI Recommended Skills:", 20, 65);
             doc.setFontSize(11);
 
-            // Combine old skills with missing keywords
             let y = 75;
             analysisData.missingKeywords.forEach(skill => {
                 doc.text(`• ${skill} (Added by AI)`, 30, y);
@@ -158,7 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ----- ZOOM BUTTONS -----
     const zoomBtns = document.querySelectorAll('.zoom-btn');
     const resumeDocument = document.getElementById('resumeDocument');
     let zoomLevel = 1;
@@ -178,7 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ----- KEYWORD TAGS CLICK (Event Delegation used for dynamically created elements) -----
     document.addEventListener('click', function(e) {
         if (e.target && e.target.classList.contains('keyword-tag')) {
             const keyword = e.target.textContent.trim().replace('+ ', '');
@@ -191,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Analyze Resume Button (Navigation)
     const analyzeResumeBtn = document.getElementById("analyzeResumeBtn");
     if(analyzeResumeBtn){
         analyzeResumeBtn.addEventListener("click", function(){

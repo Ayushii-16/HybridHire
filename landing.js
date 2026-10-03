@@ -1,10 +1,8 @@
-// =============================================
+ // =============================================
 // HYBRIDHIRE AI - Landing Page Functionality
 // =============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // ----- MOBILE MENU TOGGLE -----
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     let menuOpen = false;
     
@@ -58,15 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         current = num;
                         clearInterval(timer);
                     }
-                    // Preserve any suffix like '+'
+
                     const suffix = text.includes('+') ? '+' : '';
                     stat.textContent = current.toLocaleString() + suffix;
                 }, 40);
             }
         });
     }
-    
-    // Trigger counter animation when section is visible
+
     const statsSection = document.querySelector('.grid-cols-2.md\\:grid-cols-4');
     if (statsSection) {
         const observer = new IntersectionObserver(function(entries) {

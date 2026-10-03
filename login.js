@@ -12,10 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordIcon = document.getElementById('passwordIcon');
     const form = document.querySelector('form');
 
-    // Default selected role (Matching HTML default where Recruiter is active)
     let selectedRole = 'recruiter';
 
-    // Tailwind CSS classes for Active/Inactive states
     const activeClasses = ['bg-surface-container-lowest', 'shadow-sm', 'text-on-surface'];
     const inactiveClasses = ['text-on-surface-variant'];
 
@@ -24,19 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedRole = roleToSelect;
 
         if (roleToSelect === 'student') {
-            // Student Active Karein
             btnStudent.classList.add(...activeClasses);
             btnStudent.classList.remove(...inactiveClasses);
 
-            // Recruiter Inactive Karein
             btnRecruiter.classList.remove(...activeClasses);
             btnRecruiter.classList.add(...inactiveClasses);
         } else {
-            // Recruiter Active Karein
             btnRecruiter.classList.add(...activeClasses);
             btnRecruiter.classList.remove(...inactiveClasses);
 
-            // Student Inactive Karein
             btnStudent.classList.remove(...activeClasses);
             btnStudent.classList.add(...inactiveClasses);
         }
@@ -78,11 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Old local session clear karein
             localStorage.clear();
 
             try {
-                // Spring Boot Backend API Call
                 const response = await fetch('http://localhost:8080/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -93,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     let token = "";
                     const contentType = response.headers.get("content-type");
 
-                    // Response JSON hai ya Plain Text handling
                     if (contentType && contentType.includes("application/json")) {
                         const data = await response.json();
                         token = data.token || data.jwtToken || data.jwt || data.accessToken || data;
@@ -101,22 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         token = await response.text();
                     }
 
-                    // Cleaning raw string quotes
                     token = String(token).replace(/^"(.*)"$/, '$1').trim();
 
                     if (!token) {
                         alert("❌ Token missing in backend response.");
                         return;
                     }
-
-                    // LocalStorage mein data Save karein
                     localStorage.setItem('jwtToken', token);
                     localStorage.setItem('userRole', selectedRole);
                     localStorage.setItem('userEmail', email);
 
                     console.log("✅ Token successfully saved in localStorage!");
 
-                    // Role ke basis par Redirection
                     if (selectedRole === 'candidate') {
                         window.location.href = 'student.html';
                     } else {
